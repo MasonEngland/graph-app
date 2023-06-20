@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && node dist/index.js"
+    "build": "sudo tsc && node dist/index.js"
   },
   "keywords": [
     "graph",
