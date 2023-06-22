@@ -27,7 +27,7 @@ app.use("/graphs", graphsRouter);
 const accountModel = require("./models/Schemas");
 
 //temporary route for testing purposes
-app.get("/test", (req: Request, res:Response) => {
+app.get("/test", (req: Request, res: Response) => {
     const PASSWORD = "testword";
     const username = "Mason"
     // find document based on email
