@@ -16,7 +16,22 @@ const accountRouter = require('./routes/accounts');
 const graphsRouter = require('./routes/graphs');
 app.use("/accounts", accountRouter);
 app.use("/graphs", graphsRouter);
+// loading a document in the database
+const accountModel = require("./models/Schemas");
+//temporary route for testing purposes
 app.get("/test", (req, res) => {
+    accountModel.find({ username: "MasonEngland", password: "test123" })
+        .then((result) => {
+        if (result.length > 0) {
+            console.log(result);
+        }
+        else {
+            console.log("no result");
+        }
+    });
     res.send("this is a test");
+});
+app.get("/", (req, res) => {
+    res.send("server works");
 });
 //# sourceMappingURL=index.js.map
