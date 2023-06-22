@@ -1,14 +1,10 @@
-import {Request, Response, Router} from 'express';
+import {Request, Response, Next, Router} from 'express';
 const router = Router();
 const bcrypt = require('bcryptjs');
 const accountModel = require("../models/Schemas.js");
 
 
-/**
- * verification route for logging in
- * I will complete this once the front end 
- * begins developement
- */
+// verification route for logging in 
 router.post("/verify", (req: Request, res: Response) => {
     console.log("I got a request");
     const PASSWORD = req.body.password;
@@ -44,5 +40,31 @@ router.post("/verify", (req: Request, res: Response) => {
             res.sendStatus(500);
         })
 })
+
+// creation route for creating an account
+router.post("/create", async (req: Request, res: Response) => {
+    const data = req.body;
+    let hashedPassword: String;
+
+
+    // generate a salt to add to the beggining of the password
+    try {
+        const salt = await bcrypt.genSalt(10);
+        hashedPassword = await bcrypt.hash(data.password, salt);
+        // create and save new document to the database
+        const newAccount = new accountModel({
+            username: data.username,
+            password: hashedPassword,
+            email: data.email
+        })
+        newAccount.save();
+        // 200: okay
+        res.sendStatus(201);
+    } catch (err) {
+        console.log(err)
+        // 500: internal server error
+        res.sendStatus(500);
+    }
+});
 // export router for other modules
 module.exports = router;
