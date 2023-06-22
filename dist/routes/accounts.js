@@ -8,7 +8,6 @@ router.get("/verify", (req, res) => {
         .then((result) => {
         if (result.length < 1) {
             res.sendStatus(401);
-            return;
         }
         else {
             res.sendStatus(200);
