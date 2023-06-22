@@ -2,17 +2,48 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const router = (0, express_1.Router)();
+const bcrypt = require('bcryptjs');
 const accountModel = require("../models/Schemas.js");
-router.get("/verify", (req, res) => {
-    accountModel.find({ username: "Mason", password: "test123" })
-        .then((result) => {
-        if (result.length < 1) {
-            res.sendStatus(401);
+/**
+ * verification route for logging in
+ * I will complete this once the front end
+ * begins developement
+ */
+router.post("/verify", (req, res) => {
+    console.log("I got a request");
+    const PASSWORD = req.body.password;
+    const username = req.body.username;
+    const accountEmail = req.body.email;
+    // find document based on email
+    accountModel.find({ email: accountEmail })
+        .then((docs) => {
+        if (docs.length > 0) {
+            console.log(docs);
+            // compares the encrpyted stored password with the password given by the user
+            bcrypt.compare(PASSWORD, docs[0].password, async (err, isMatch) => {
+                if (err != null) {
+                    console.log(err);
+                    res.sendStatus(500);
+                }
+                else if (isMatch && username == docs[0].username) {
+                    console.log("is a match");
+                    res.sendStatus(200);
+                }
+                else {
+                    console.log("is NOT a match");
+                    res.sendStatus(401);
+                }
+            });
         }
         else {
-            res.sendStatus(200);
+            res.send("email not registered");
         }
+        // catch all errors
+    }).catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
     });
 });
+// export router for other modules
 module.exports = router;
 //# sourceMappingURL=accounts.js.map
