@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 //connect to the database
 const dbURI = "mongodb+srv://masonengland01:China1014China-@graph-app.gsryziu.mongodb.net/Graph-app?retryWrites=true&w=majority";
 mongoose.connect(dbURI)
-    .then((reslut) => {
+    .then((result) => {
         console.log("database loaded");
         app.listen(3000, () => console.log("listening at 3000"));
     })
