@@ -48,6 +48,12 @@ exports.verify = async(req: Request, res:Response) => {
 exports.create = async (req: Request, res:Response) => {
     // grab username, password, and email from request
     const {username, password, email} = req.body;
+    if (password === undefined ||
+        username === undefined ||
+        email === undefined) {
+        res.status(400).send("invalid request");
+        return;
+    }
     const docs = await Model.accountModel.find({email: email});
     // check if email is already registered
     if (docs.length > 0) {
