@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 const bcrypt = require('bcryptjs');
-const accountModel = require("../models/Schemas.js");
+const Model = require("../models/Schemas.js");
 
 // simple function to create a encrypted password
 async function hashPassword(password: String) {
@@ -17,8 +17,14 @@ async function hashPassword(password: String) {
 // status code sent based on credability
 exports.verify = async(req: Request, res:Response) => {
     const {username, password, email} = req.body;
+    if (password === undefined ||
+        username === undefined ||
+        email === undefined) {
+        res.status(400).send("invalid request");
+        return;
+    }
     try {
-        const docs = await accountModel.find({email: email});
+        const docs = await Model.accountModel.find({email: email});
         if (docs.length < 1) {
             res.send("email not registered");
             return;
@@ -27,7 +33,7 @@ exports.verify = async(req: Request, res:Response) => {
 
         if (isMatch && docs[0].username === username) {
             console.log("is a match");
-            res.sendStatus(200);
+            res.status(200).send(docs[0]._id);
         }
         else {
             console.log("is NOT a match");
@@ -40,9 +46,16 @@ exports.verify = async(req: Request, res:Response) => {
 }
 // create a new account and send to database
 exports.create = async (req: Request, res:Response) => {
+    // grab username, password, and email from request
     const {username, password, email} = req.body;
+    const docs = await Model.accountModel.find({email: email});
+    // check if email is already registered
+    if (docs.length > 0) {
+        res.status(401).send("email already registered");
+        return;
+    }
 
-    let newAccount = new accountModel({
+    let newAccount = new Model.accountModel({
         username: username,
         password: await hashPassword(password),
         email: email

@@ -6,5 +6,5 @@ const accountSchema = new Schema({
     email: String,
 }, { timeStamps: true });
 const accountModel = mongoose.model("Accounts", accountSchema);
-module.exports = accountModel;
+exports.accountModel = accountModel;
 //# sourceMappingURL=Schemas.js.map

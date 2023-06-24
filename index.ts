@@ -27,9 +27,3 @@ app.use("/graphs", graphsRouter);
 
 // loading a document in the database
 const accountModel = require("./models/Schemas");
-
-app.post("/", (req: Request, res:Response) => {
-    console.log(req.body);
-    res.send("server works");
-})
-

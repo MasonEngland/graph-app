@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 //connect to the database
 const dbURI = "mongodb+srv://masonengland01:China1014China-@graph-app.gsryziu.mongodb.net/Graph-app?retryWrites=true&w=majority";
 mongoose.connect(dbURI)
-    .then((reslut) => {
+    .then((result) => {
     console.log("database loaded");
     app.listen(3000, () => console.log("listening at 3000"));
 })
@@ -21,8 +21,4 @@ app.use("/accounts", accountRouter);
 app.use("/graphs", graphsRouter);
 // loading a document in the database
 const accountModel = require("./models/Schemas");
-app.post("/", (req, res) => {
-    console.log(req.body);
-    res.send("server works");
-});
 //# sourceMappingURL=index.js.map

@@ -8,4 +8,4 @@ const accountSchema = new Schema({
 }, {timeStamps: true});
 
 const accountModel = mongoose.model("Accounts", accountSchema);
-module.exports = accountModel;
+exports.accountModel = accountModel;
