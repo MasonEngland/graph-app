@@ -18,11 +18,9 @@ async function hashPassword(password) {
 // status code sent based on credability
 exports.verify = async (req, res) => {
     const { username, password, email } = req.body;
-    if (password === undefined ||
-        username === undefined ||
-        email === undefined) {
-        res.status(400).send("invalid request");
-        return;
+    if (!password || !username || !email) {
+        return res.status(400).send("invalid request");
+        //return;
     }
     try {
         const docs = await Model.accountModel.find({ email: email });
@@ -49,6 +47,12 @@ exports.verify = async (req, res) => {
 exports.create = async (req, res) => {
     // grab username, password, and email from request
     const { username, password, email } = req.body;
+    if (!password ||
+        !username ||
+        !email) {
+        res.status(400).send("invalid request");
+        return;
+    }
     const docs = await Model.accountModel.find({ email: email });
     // check if email is already registered
     if (docs.length > 0) {

@@ -5,17 +5,18 @@
 import { Request, Response } from "express";
 const mongoose = require('mongoose');
 const express = require('express');
-const bcrypt = require('bcryptjs');
+//const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
+app.use(express.json());
 
 //connect to the database
 const dbURI = "mongodb+srv://masonengland01:China1014China-@graph-app.gsryziu.mongodb.net/Graph-app?retryWrites=true&w=majority";
 mongoose.connect(dbURI)
     .then((result) => {
         console.log("database loaded");
-        app.listen(3000, () => console.log("listening at 3000"));
+        app.listen(10000, () => console.log("listening at 10000"));
     })
     .catch((err) => console.log(err));
 

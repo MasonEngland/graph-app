@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require('mongoose');
 const express = require('express');
-const bcrypt = require('bcryptjs');
+//const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
@@ -11,7 +11,7 @@ const dbURI = "mongodb+srv://masonengland01:China1014China-@graph-app.gsryziu.mo
 mongoose.connect(dbURI)
     .then((result) => {
     console.log("database loaded");
-    app.listen(3000, () => console.log("listening at 3000"));
+    app.listen(10000, () => console.log("listening at 10000"));
 })
     .catch((err) => console.log(err));
 //connect our routers

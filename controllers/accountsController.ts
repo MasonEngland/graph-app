@@ -17,16 +17,17 @@ async function hashPassword(password: String) {
 // status code sent based on credability
 exports.verify = async(req: Request, res:Response) => {
     const {username, password, email} = req.body;
-    if (password === undefined ||
-        username === undefined ||
-        email === undefined) {
-        res.status(400).send("invalid request");
-        return;
+    if (!password || !username || !email) {
+        return res.status(400).send("invalid request");
+        //return;
     }
     try {
         const docs = await Model.accountModel.find({email: email});
         if (docs.length < 1) {
-            res.send("email not registered");
+            res.json({
+                success: false,
+                errmsg: "email not registered"
+            });
             return;
         }
         const isMatch = await bcrypt.compare(password, docs[0].password);
@@ -48,9 +49,9 @@ exports.verify = async(req: Request, res:Response) => {
 exports.create = async (req: Request, res:Response) => {
     // grab username, password, and email from request
     const {username, password, email} = req.body;
-    if (password === undefined ||
-        username === undefined ||
-        email === undefined) {
+    if (!password ||
+        !username ||
+        !email) {
         res.status(400).send("invalid request");
         return;
     }
