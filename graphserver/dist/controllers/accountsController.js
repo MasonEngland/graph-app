@@ -25,7 +25,10 @@ exports.verify = async (req, res) => {
     try {
         const docs = await Model.accountModel.find({ email: email });
         if (docs.length < 1) {
-            res.send("email not registered");
+            res.json({
+                success: false,
+                errmsg: "email not registered"
+            });
             return;
         }
         const isMatch = await bcrypt.compare(password, docs[0].password);
