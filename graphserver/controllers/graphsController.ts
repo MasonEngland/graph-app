@@ -1,15 +1,19 @@
 import { Request, Response } from 'express';
 const Model = require('../models/Schemas.js');
 
+// hold all models in a list to iterate on later
 const modelList = [
     Model.vendiaModel,
     Model.gChartModel
 ]
 
+// function to pull all graphs for a specifica account
 exports.getGraphs = async (req: Request, res: Response) => {
     const id = req.params.id; 
     let graphList: any[] = [];
     try {
+        // search each db document for graphs linked
+        // to the account ID
         for (let item of modelList) {
             let docs = await item.find({accountID: id});
             graphList.push(docs);
