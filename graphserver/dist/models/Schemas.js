@@ -11,10 +11,11 @@ const vendiaSchema = new Schema({
     Left: Number,
     Width: Number,
     Height: Number,
-    Notes: [{
-            NoteTitle: String,
-            NoteContent: String
-        }]
+    Notes: {
+        Left: [String],
+        Right: [String],
+        Middle: [String],
+    }
 });
 const gChartSchema = new Schema({
     accountID: String,

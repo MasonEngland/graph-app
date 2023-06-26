@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const Model = require("../models/Schemas.js");
 
 // simple function to create a encrypted password
-async function hashPassword(password: String) {
+async function hashPassword(password: string) {
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
@@ -49,9 +49,7 @@ exports.verify = async(req: Request, res:Response) => {
 exports.create = async (req: Request, res:Response) => {
     // grab username, password, and email from request
     const {username, password, email} = req.body;
-    if (!password ||
-        !username ||
-        !email) {
+    if (!password || !username || !email) {
         res.status(400).send("invalid request");
         return;
     }

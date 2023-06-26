@@ -50,9 +50,7 @@ exports.verify = async (req, res) => {
 exports.create = async (req, res) => {
     // grab username, password, and email from request
     const { username, password, email } = req.body;
-    if (!password ||
-        !username ||
-        !email) {
+    if (!password || !username || !email) {
         res.status(400).send("invalid request");
         return;
     }

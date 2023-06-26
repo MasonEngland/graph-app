@@ -1,0 +1,13 @@
+ven-diagram example: 
+{
+    "accountID": "649670a4bb3698c4809398cc",
+    "top": 25,
+    "left": 15,
+    "width": 20,
+    "height": 20,
+    "notes": {
+        "left": ["is not cool", "hates women", "is racist"],
+        "right": ["is cool", "loves women", "isn't racist"],
+        "middle": ["both human", "both have opinions on women", "both have thought on race"]
+    }
+}

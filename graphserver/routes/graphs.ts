@@ -1,8 +1,8 @@
 import {Request, Response, Router} from 'express';
 const router = Router();
+const controller = require("../controllers/graphsController.js");
 
-router.get("/", (req: Request, res: Response) => {
-    res.send("graph router is working");
-})
+router.post("/:type", controller.registerGraph);
+router.get("/:id", controller.getGraphs);
 
 module.exports = router;
