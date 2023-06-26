@@ -2,7 +2,6 @@
  * Graph App by Mason England and Cade Almond
  *  7/19/2023
  */
-import { Request, Response } from "express";
 const mongoose = require('mongoose');
 const express = require('express');
 //const bcrypt = require('bcryptjs');
@@ -26,5 +25,5 @@ const graphsRouter = require('./routes/graphs');
 app.use("/accounts", accountRouter);
 app.use("/graphs", graphsRouter);
 
-// loading a document in the database
-const accountModel = require("./models/Schemas");
+
+

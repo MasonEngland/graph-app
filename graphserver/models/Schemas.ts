@@ -37,3 +37,5 @@ const gChartModel = mongoose.model("Gantt Charts", gChartSchema);
 exports.vendiaModel = vendiaModel;
 exports.accountModel = accountModel;
 exports.gChartModel = gChartModel;
+
+export {};
