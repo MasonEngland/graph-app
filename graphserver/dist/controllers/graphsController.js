@@ -1,10 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Model = require('../models/Schemas.js');
+const mongoose = require('mongoose');
+async function checkID(id) {
+    try {
+        if (mongoose.Types.ObjectId.isValid(id)) {
+            const docs = await Model.accountModel.findById(id);
+            if (!docs) {
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catch (err) {
+        console.log("problem checking id");
+        console.log(err);
+        return false;
+    }
+}
 // hold all models in a list to iterate on later
 const modelList = [
     Model.vendiaModel,
-    Model.gChartModel
+    Model.gChartModel,
+    Model.lineGraphModel
 ];
 // function to pull all graphs for a specifica account
 exports.getGraphs = async (req, res) => {
@@ -20,7 +41,8 @@ exports.getGraphs = async (req, res) => {
         res.status(200).json({
             success: true,
             venDiagrams: graphList[0],
-            gantCharts: graphList[1]
+            gantCharts: graphList[1],
+            lineGraphs: graphList[2]
         });
     }
     catch (err) {
@@ -31,34 +53,37 @@ exports.getGraphs = async (req, res) => {
         });
     }
 };
-exports.registerGraph = async (req, res) => {
-    const data = req.body;
-    const graphType = req.params.type;
-    if (!data.accountID) {
+exports.regVendiagram = async (req, res) => {
+    const { accountID, top, left, width, height, leftlabel, rightlabel, notes } = req.body;
+    const validID = await checkID(accountID);
+    if (!accountID) {
         return res.status(400).json({
             success: false,
             errmsg: "please provide account ID under property name 'accountID'."
         });
     }
-    if (graphType.toLowerCase() === "vendiagram") {
-        const newGraph = new Model.vendiaModel({
-            accountID: data.accountID,
-            Top: data.top,
-            Left: data.left,
-            Width: data.width,
-            Height: data.height,
-            Notes: {
-                Left: data.notes.left,
-                Right: data.notes.right,
-                Middle: data.notes.middle
-            }
+    if (!validID) {
+        return res.status(400).json({
+            success: false,
+            errmsg: "please use valid accountID"
         });
-        newGraph.save();
-        console.log("Hell Yeah!!");
-        res.status(201).send("graph saved");
     }
-    else {
-        res.send("under construction");
-    }
+    const newGraph = new Model.vendiaModel({
+        accountID: accountID,
+        Top: top,
+        Left: left,
+        Width: width,
+        Height: height,
+        LeftLabel: leftlabel,
+        RigthLebel: rightlabel,
+        Notes: {
+            Left: notes.left,
+            Right: notes.right,
+            Middle: notes.middle
+        }
+    });
+    newGraph.save();
+    console.log("Hell Yeah!!");
+    res.status(201).send("graph saved");
 };
 //# sourceMappingURL=graphsController.js.map

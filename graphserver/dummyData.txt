@@ -5,6 +5,8 @@ ven-diagram example:
     "left": 15,
     "width": 20,
     "height": 20,
+    "xlabel": "Gavin morely",
+    "ylabel": "ryan liddiard",
     "notes": {
         "left": ["is not cool", "hates women", "is racist"],
         "right": ["is cool", "loves women", "isn't racist"],

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const Model = require("../models/Schemas.js");
 
 // simple function to create a encrypted password
-async function hashPassword(password: string) {
+async function hashPassword(password: string): Promise<string> {
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
