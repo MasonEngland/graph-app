@@ -13,3 +13,28 @@ ven-diagram example:
         "middle": ["both human", "both have opinions on women", "both have thought on race"]
     }
 }
+
+line graph example:
+{
+    "accountID": "649670a4bb3698c4809398cc",
+    "top": 35,
+    "left": 50,
+    "width": 60,
+    "height": 30,
+    "xlabel": "year"
+    "ylabel": "tempurature in degrees farenheight"
+    "pairs": [
+        {
+            "x": 2015,
+            "y": 95
+        },
+        {
+            "x": 2016,
+            "y": 97
+        },
+        {
+            "x": 2017,
+            "y": 99
+        }
+    ]
+}

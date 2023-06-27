@@ -31,8 +31,8 @@ const lineGraphSchema = new Schema({
     XLabel: String,
     YLabel: String,
     Pairs: [{
-        X: Number,
-        Y: Number
+        x: Number,
+        y: Number
     }]
 })
 

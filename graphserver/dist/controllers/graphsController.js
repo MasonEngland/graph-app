@@ -32,6 +32,10 @@ const modelList = [
 exports.getGraphs = async (req, res) => {
     const id = req.params.id;
     let graphList = [];
+    const validID = await checkID(id);
+    if (!validID) {
+        return res.status(400).send("please use valid ID");
+    }
     try {
         // search each db document for graphs linked
         // to the account ID
@@ -86,5 +90,36 @@ exports.regVendiagram = async (req, res) => {
     newGraph.save();
     console.log("Hell Yeah!!");
     res.status(201).send("graph saved");
+};
+exports.regLineGraph = async (req, res) => {
+    const { accountID, top, left, width, height, xlabel, ylabel, pairs } = req.body;
+    const validID = await checkID(accountID);
+    if (!accountID) {
+        return res.status(400).json({
+            success: false,
+            errmsg: "please provide account ID under property name 'accountID'."
+        });
+    }
+    if (!validID) {
+        return res.status(400).json({
+            success: false,
+            errmsg: "please use valid accountID"
+        });
+    }
+    const newGraph = new lineGraphModel({
+        accountID: accountID,
+        Top: top,
+        Left: left,
+        Width: width,
+        Height: height,
+        XLabel: xlabel,
+        YLabel: ylabel,
+        Pairs: pairs
+    });
+    newGraph.save();
+    res.status(200).json({
+        success: true,
+        message: "graph saved!"
+    });
 };
 //# sourceMappingURL=graphsController.js.map
