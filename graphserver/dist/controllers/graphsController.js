@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Model = require('../models/Schemas.js');
+const { vendiaModel, gChartModel, lineGraphModel, barGraphModel, accountModel } = require('../models/Schemas.js');
 const mongoose = require('mongoose');
 async function checkID(id) {
     try {
         if (mongoose.Types.ObjectId.isValid(id)) {
-            const docs = await Model.accountModel.findById(id);
+            const docs = await accountModel.findById(id);
             if (!docs) {
                 return false;
             }
@@ -23,9 +23,10 @@ async function checkID(id) {
 }
 // hold all models in a list to iterate on later
 const modelList = [
-    Model.vendiaModel,
-    Model.gChartModel,
-    Model.lineGraphModel
+    vendiaModel,
+    gChartModel,
+    lineGraphModel,
+    barGraphModel
 ];
 // function to pull all graphs for a specifica account
 exports.getGraphs = async (req, res) => {
@@ -68,7 +69,7 @@ exports.regVendiagram = async (req, res) => {
             errmsg: "please use valid accountID"
         });
     }
-    const newGraph = new Model.vendiaModel({
+    const newGraph = new vendiaModel({
         accountID: accountID,
         Top: top,
         Left: left,

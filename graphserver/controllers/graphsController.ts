@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-const Model = require('../models/Schemas.js');
+const {vendiaModel, gChartModel, lineGraphModel, barGraphModel, accountModel} = require('../models/Schemas.js');
 const mongoose = require('mongoose');
 
 async function checkID(id: string): Promise<boolean> {
     try {
         if (mongoose.Types.ObjectId.isValid(id)) {
-            const docs = await Model.accountModel.findById(id);
+            const docs = await accountModel.findById(id);
             if (!docs) {
                 return false;
             }
@@ -24,9 +24,10 @@ async function checkID(id: string): Promise<boolean> {
 
 // hold all models in a list to iterate on later
 const modelList = [
-    Model.vendiaModel,
-    Model.gChartModel,
-    Model.lineGraphModel
+    vendiaModel,
+    gChartModel,
+    lineGraphModel,
+    barGraphModel
 ]
 
 // function to pull all graphs for a specifica account
@@ -70,7 +71,7 @@ exports.regVendiagram = async (req: Request, res: Response) => {
             errmsg: "please use valid accountID"
         })
     }
-    const newGraph = new Model.vendiaModel({
+    const newGraph = new vendiaModel({
         accountID: accountID,
         Top: top,
         Left: left,
