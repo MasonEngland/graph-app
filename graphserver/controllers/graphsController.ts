@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
+import {makeDoc} from "../models/docCreator";
 const {vendiaModel, gChartModel, lineGraphModel, barGraphModel, accountModel} = require('../models/Schemas.js');
 const mongoose = require('mongoose');
 
+// checks if account exists in database
 async function checkID(id: string): Promise<boolean> {
     try {
         if (mongoose.Types.ObjectId.isValid(id)) {
@@ -27,6 +29,11 @@ const modelList = [
     gChartModel,
     lineGraphModel,
     barGraphModel
+]
+
+const supportedGraphTypes: string[] = [
+    "vendiagram",
+    "linegraph"
 ]
 
 // function to pull all graphs for a specifica account
@@ -59,8 +66,9 @@ exports.getGraphs = async (req: Request, res: Response) => {
     }
 }
 
-exports.regVendiagram = async (req: Request, res: Response) => {
-    const {accountID, top, left, width, height, leftlabel, rightlabel, notes} = req.body;
+exports.regGraph = async (req: Request, res: Response) => {
+    const graphtype = req.params.type;
+    const {accountID} = req.body;
     const validID = await checkID(accountID);
     if (!accountID) {
         return res.status(400).json({
@@ -68,59 +76,21 @@ exports.regVendiagram = async (req: Request, res: Response) => {
             errmsg: "please provide account ID under property name 'accountID'."
         });
     }
-    if (!validID){
-        return res.status(400).json({
-            success: false,
-            errmsg: "please use valid accountID"
-        });
-    }
-    const newGraph = new vendiaModel({
-        accountID: accountID,
-        Top: top,
-        Left: left,
-        Width: width,
-        Height: height,
-        LeftLabel: leftlabel,
-        RigthLebel: rightlabel,
-        Notes: {
-            Left: notes.left,
-            Right: notes.right,
-            Middle: notes.middle
-        }
-    })
-    newGraph.save();
-    console.log("Hell Yeah!!");
-    res.status(201).send("graph saved");
-}
-
-exports.regLineGraph = async(req:Request, res:Response) => {
-    const {accountID, top, left, width, height, xlabel, ylabel, pairs} = req.body;
-    const validID = await checkID(accountID);
-    if(!accountID) {
-        return res.status(400).json({
-            success: false,
-            errmsg: "please provide account ID under property name 'accountID'."
-        })
-    }
     if (!validID) {
         return res.status(400).json({
             success: false,
             errmsg: "please use valid accountID"
         });
     }
-    const newGraph = new lineGraphModel({
-        accountID: accountID,
-        Top: top,
-        Left: left,
-        Width: width,
-        Height: height,
-        XLabel: xlabel,
-        YLabel: ylabel,
-        Pairs: pairs
-    })
-    newGraph.save();
-    res.status(200).json({
+    if (!supportedGraphTypes.includes(graphtype)) {
+        return res.status(400).json({
+            success: false,
+            errmsg: "graph type not supported"
+        });
+    }
+    makeDoc(graphtype, req.body);
+    res.status(201).json({
         success: true,
-        message: "graph saved!"
-    });
+        msg: "graph saved?"
+    })
 }

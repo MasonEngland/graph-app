@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const docCreator_1 = require("../models/docCreator");
 const { vendiaModel, gChartModel, lineGraphModel, barGraphModel, accountModel } = require('../models/Schemas.js');
 const mongoose = require('mongoose');
+// checks if account exists in database
 async function checkID(id) {
     try {
         if (mongoose.Types.ObjectId.isValid(id)) {
@@ -27,6 +29,10 @@ const modelList = [
     gChartModel,
     lineGraphModel,
     barGraphModel
+];
+const supportedGraphTypes = [
+    "vendiagram",
+    "linegraph"
 ];
 // function to pull all graphs for a specifica account
 exports.getGraphs = async (req, res) => {
@@ -58,8 +64,9 @@ exports.getGraphs = async (req, res) => {
         });
     }
 };
-exports.regVendiagram = async (req, res) => {
-    const { accountID, top, left, width, height, leftlabel, rightlabel, notes } = req.body;
+exports.regGraph = async (req, res) => {
+    const graphtype = req.params.type;
+    const { accountID } = req.body;
     const validID = await checkID(accountID);
     if (!accountID) {
         return res.status(400).json({
@@ -68,6 +75,34 @@ exports.regVendiagram = async (req, res) => {
         });
     }
     if (!validID) {
+        return res.status(400).json({
+            success: false,
+            errmsg: "please use valid accountID"
+        });
+    }
+    if (!supportedGraphTypes.includes(graphtype)) {
+        return res.status(400).json({
+            success: false,
+            errmsg: "graph type not supported"
+        });
+    }
+    (0, docCreator_1.makeDoc)(graphtype, req.body);
+    res.status(201).json({
+        success: true,
+        msg: "graph saved?"
+    });
+};
+// may delete later
+/*exports.regVendiagram = async (req: Request, res: Response) => {
+    const {accountID, top, left, width, height, leftlabel, rightlabel, notes} = req.body;
+    const validID = await checkID(accountID);
+    if (!accountID) {
+        return res.status(400).json({
+            success: false,
+            errmsg: "please provide account ID under property name 'accountID'."
+        });
+    }
+    if (!validID){
         return res.status(400).json({
             success: false,
             errmsg: "please use valid accountID"
@@ -86,19 +121,20 @@ exports.regVendiagram = async (req, res) => {
             Right: notes.right,
             Middle: notes.middle
         }
-    });
+    })
     newGraph.save();
     console.log("Hell Yeah!!");
     res.status(201).send("graph saved");
-};
-exports.regLineGraph = async (req, res) => {
-    const { accountID, top, left, width, height, xlabel, ylabel, pairs } = req.body;
+}
+
+exports.regLineGraph = async(req:Request, res:Response) => {
+    const {accountID, top, left, width, height, xlabel, ylabel, pairs} = req.body;
     const validID = await checkID(accountID);
-    if (!accountID) {
+    if(!accountID) {
         return res.status(400).json({
             success: false,
             errmsg: "please provide account ID under property name 'accountID'."
-        });
+        })
     }
     if (!validID) {
         return res.status(400).json({
@@ -115,11 +151,11 @@ exports.regLineGraph = async (req, res) => {
         XLabel: xlabel,
         YLabel: ylabel,
         Pairs: pairs
-    });
+    })
     newGraph.save();
     res.status(200).json({
         success: true,
         message: "graph saved!"
     });
-};
+}*/ 
 //# sourceMappingURL=graphsController.js.map

@@ -14,7 +14,7 @@ ven-diagram example:
     }
 }
 
-line graph example:
+line/bar graph example:
 {
     "accountID": "649670a4bb3698c4809398cc",
     "top": 35,
