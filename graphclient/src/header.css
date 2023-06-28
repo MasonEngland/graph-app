@@ -1,0 +1,29 @@
+.navigationContainer {
+    width: 95%;
+    height: 60px;
+    margin-left: 2.5%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    background-color: #ffffff;
+    background-image: linear-gradient(315deg, #ffffff 0%, #5899e2 74%);
+    
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.navigationContainer h2 {
+    margin-left: 5%;
+    width: 290px;
+    color: white;
+}
+
+.navigationContainer span {
+    font-size: 19px;
+    margin-left: 5%;
+    color: #dae0eb;
+}
+
+.navigationContainer .navDisplay {
+    translate: 0 -5px;
+}
