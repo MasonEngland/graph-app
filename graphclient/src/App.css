@@ -1,0 +1,31 @@
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #212529;
+
+}
+
+button {
+    background: #187fe6;
+    font-style: bold;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 4px;
+    font-family: 'Quicksand', sans-serif;
+    letter-spacing: 0.5px;
+    color: white;
+    outline: none;
+    border: none;
+}
+
+.AppContainer {
+    width: 15vw;
+    margin-left: 2.5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
