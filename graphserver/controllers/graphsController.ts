@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import {makeDoc} from "../models/docCreator";
-const {vendiaModel, gChartModel, lineGraphModel, barGraphModel, accountModel} = require('../models/Schemas.js');
-const mongoose = require('mongoose');
+import {vendiaModel, gChartModel, lineGraphModel, barGraphModel, accountModel} from '../models/Schemas.js';
+import mongoose from 'mongoose';
 
 // checks if account exists in database
 async function checkID(id: string): Promise<boolean> {
@@ -24,7 +24,7 @@ async function checkID(id: string): Promise<boolean> {
 }
 
 // hold all models in a list to iterate on later
-const modelList = [
+const modelList: any[] = [
     vendiaModel,
     gChartModel,
     lineGraphModel,
@@ -37,7 +37,7 @@ const supportedGraphTypes: string[] = [
 ]
 
 // function to pull all graphs for a specifica account
-exports.getGraphs = async (req: Request, res: Response) => {
+const getGraphs = async (req: Request, res: Response) => {
     const id = req.params.id; 
     let graphList: any[] = [];
     const validID = await checkID(id);
@@ -66,7 +66,7 @@ exports.getGraphs = async (req: Request, res: Response) => {
     }
 }
 
-exports.regGraph = async (req: Request, res: Response) => {
+const regGraph = async (req: Request, res: Response) => {
     const graphtype = req.params.type;
     const {accountID} = req.body;
     const validID = await checkID(accountID);
@@ -95,7 +95,7 @@ exports.regGraph = async (req: Request, res: Response) => {
     })
 }
 
-exports.deleteGraph = async (req: Request, res: Response) => {
+const deleteGraph = async (req: Request, res: Response) => {
     const id = req.params.id;
     const graphType = req.params.type;
     let docs: any;
@@ -153,4 +153,10 @@ exports.deleteGraph = async (req: Request, res: Response) => {
         })
     }
     
+}
+
+export {
+    getGraphs,
+    regGraph,
+    deleteGraph
 }

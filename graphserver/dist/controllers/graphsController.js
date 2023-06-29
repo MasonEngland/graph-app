@@ -1,44 +1,59 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteGraph = exports.regGraph = exports.getGraphs = void 0;
 const docCreator_1 = require("../models/docCreator");
-const { vendiaModel, gChartModel, lineGraphModel, barGraphModel, accountModel } = require('../models/Schemas.js');
-const mongoose = require('mongoose');
+const Schemas_js_1 = require("../models/Schemas.js");
+const mongoose_1 = __importDefault(require("mongoose"));
 // checks if account exists in database
-async function checkID(id) {
-    try {
-        if (mongoose.Types.ObjectId.isValid(id)) {
-            const docs = await accountModel.findById(id);
-            if (!docs) {
+function checkID(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            if (mongoose_1.default.Types.ObjectId.isValid(id)) {
+                const docs = yield Schemas_js_1.accountModel.findById(id);
+                if (!docs) {
+                    return false;
+                }
+                return true;
+            }
+            else {
                 return false;
             }
-            return true;
         }
-        else {
+        catch (err) {
+            console.log("problem checking id");
+            console.log(err);
             return false;
         }
-    }
-    catch (err) {
-        console.log("problem checking id");
-        console.log(err);
-        return false;
-    }
+    });
 }
 // hold all models in a list to iterate on later
 const modelList = [
-    vendiaModel,
-    gChartModel,
-    lineGraphModel,
-    barGraphModel
+    Schemas_js_1.vendiaModel,
+    Schemas_js_1.gChartModel,
+    Schemas_js_1.lineGraphModel,
+    Schemas_js_1.barGraphModel
 ];
 const supportedGraphTypes = [
     "vendiagram",
     "linegraph"
 ];
 // function to pull all graphs for a specifica account
-exports.getGraphs = async (req, res) => {
+const getGraphs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     let graphList = [];
-    const validID = await checkID(id);
+    const validID = yield checkID(id);
     if (!validID) {
         return res.status(400).send("please use valid ID");
     }
@@ -46,7 +61,7 @@ exports.getGraphs = async (req, res) => {
         // search each db document for graphs linked
         // to the account ID
         for (let item of modelList) {
-            let docs = await item.find({ accountID: id });
+            let docs = yield item.find({ accountID: id });
             graphList.push(docs);
         }
         res.status(200).json({
@@ -63,11 +78,12 @@ exports.getGraphs = async (req, res) => {
             errmsg: "internal server error"
         });
     }
-};
-exports.regGraph = async (req, res) => {
+});
+exports.getGraphs = getGraphs;
+const regGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const graphtype = req.params.type;
     const { accountID } = req.body;
-    const validID = await checkID(accountID);
+    const validID = yield checkID(accountID);
     if (!accountID) {
         return res.status(400).json({
             success: false,
@@ -91,13 +107,14 @@ exports.regGraph = async (req, res) => {
         success: true,
         msg: "graph saved?"
     });
-};
-exports.deleteGraph = async (req, res) => {
+});
+exports.regGraph = regGraph;
+const deleteGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const graphType = req.params.type;
     let docs;
     //const validID = await checkID(id);
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
             success: false,
             errmsg: "invalid ID"
@@ -106,7 +123,7 @@ exports.deleteGraph = async (req, res) => {
     try {
         switch (graphType) {
             case "vendiagram":
-                docs = await vendiaModel.findByIdAndDelete(id);
+                docs = yield Schemas_js_1.vendiaModel.findByIdAndDelete(id);
                 if (docs) {
                     res.status(200).json({
                         success: true,
@@ -121,7 +138,7 @@ exports.deleteGraph = async (req, res) => {
                 }
                 break;
             case "linegraph":
-                docs = await lineGraphModel.findByIdAndDelete(id);
+                docs = yield Schemas_js_1.lineGraphModel.findByIdAndDelete(id);
                 if (docs) {
                     res.status(200).json({
                         success: true,
@@ -150,5 +167,6 @@ exports.deleteGraph = async (req, res) => {
             errmsg: err
         });
     }
-};
+});
+exports.deleteGraph = deleteGraph;
 //# sourceMappingURL=graphsController.js.map

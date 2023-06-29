@@ -2,8 +2,8 @@
  * Graph App by Mason England and Cade Almond
  *  7/19/2023
  */
-const mongoose = require('mongoose');
-const express = require('express');
+import mongoose from 'mongoose';
+import express from 'express';
 //const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 const app = express();

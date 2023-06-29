@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
-const bcrypt = require('bcryptjs');
-const Model = require("../models/Schemas.js");
+import * as bcrypt from 'bcryptjs';
+import {accountModel} from "../models/Schemas";
 
 // simple function to create a encrypted password
 async function hashPassword(password: string): Promise<string> {
@@ -15,14 +15,14 @@ async function hashPassword(password: string): Promise<string> {
 }
 // function to compare credentials to the database
 // status code sent based on credability
-exports.verify = async(req: Request, res:Response) => {
+const verify = async(req: Request, res:Response) => {
     const {username, password, email} = req.body;
     if (!password || !username || !email) {
         return res.status(400).send("invalid request");
         //return;
     }
     try {
-        const docs = await Model.accountModel.find({email: email});
+        const docs = await accountModel.find({email: email});
         if (docs.length < 1) {
             res.json({
                 success: false,
@@ -49,21 +49,21 @@ exports.verify = async(req: Request, res:Response) => {
     }
 }
 // create a new account and send to database
-exports.create = async (req: Request, res:Response) => {
+const create = async (req: Request, res:Response) => {
     // grab username, password, and email from request
     const {username, password, email} = req.body;
     if (!password || !username || !email) {
         res.status(400).send("invalid request");
         return;
     }
-    const docs = await Model.accountModel.find({email: email});
+    const docs = await accountModel.find({email: email});
     // check if email is already registered
     if (docs.length > 0) {
         res.status(401).send("email already registered");
         return;
     }
 
-    let newAccount = new Model.accountModel({
+    let newAccount = new accountModel({
         username: username,
         password: await hashPassword(password),
         email: email
@@ -72,3 +72,4 @@ exports.create = async (req: Request, res:Response) => {
     res.sendStatus(201);
 }
 
+export { verify, create }

@@ -1,4 +1,4 @@
-const {vendiaModel, gChartModel, lineGraphModel, barGraphModel} = require('./Schemas.js');
+import {vendiaModel, gChartModel, lineGraphModel, barGraphModel} from './Schemas.js';
 
 
 // creates db document based on graph type

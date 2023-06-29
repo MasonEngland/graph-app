@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.makeDoc = void 0;
-const { vendiaModel, gChartModel, lineGraphModel, barGraphModel } = require('./Schemas.js');
+const Schemas_js_1 = require("./Schemas.js");
 // creates db document based on graph type
 // graph type should correlate to data structure
 function makeDoc(graphType, data) {
     let newDoc;
     switch (graphType) {
         case "vendiagram":
-            newDoc = new vendiaModel({
+            newDoc = new Schemas_js_1.vendiaModel({
                 accountID: data.accountID,
                 Top: data.top,
                 Left: data.left,
@@ -25,7 +25,7 @@ function makeDoc(graphType, data) {
             newDoc.save();
             break;
         case "linegraph":
-            newDoc = new lineGraphModel({
+            newDoc = new Schemas_js_1.lineGraphModel({
                 accountID: data.accountID,
                 Top: data.top,
                 Left: data.left,

@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const accountSchema = new Schema({
     username: String,
     password: String,
     email: String,
-}, {timeStamps: true});
+});
 
 const vendiaSchema = new Schema({
     accountID: String,
@@ -66,9 +66,11 @@ const vendiaModel = mongoose.model("VenDiagrams", vendiaSchema);
 const gChartModel = mongoose.model("Gantt Charts", gChartSchema);
 const lineGraphModel = mongoose.model("Line Graphs", lineGraphSchema);
 const barGraphModel = mongoose.model("Bar Graphs", barGraphSchema);
-exports.vendiaModel = vendiaModel;
-exports.accountModel = accountModel;
-exports.gChartModel = gChartModel;
-exports.lineGraphModel = lineGraphModel;
-exports.barGraphModel = barGraphModel;
-export {};
+
+export {
+    accountModel,
+    vendiaModel,
+    gChartModel,
+    lineGraphModel,
+    barGraphModel
+};

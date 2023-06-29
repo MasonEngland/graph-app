@@ -1,6 +1,6 @@
 import { Router } from 'express';
+import * as controller from "../controllers/accountsController";
 const router = Router();
-const controller = require("../controllers/accountsController.js");
 
 
 // verification route for logging in and signing up
