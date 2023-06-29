@@ -34,7 +34,10 @@ exports.verify = async (req, res) => {
         const isMatch = await bcrypt.compare(password, docs[0].password);
         if (isMatch && docs[0].username === username) {
             console.log("is a match");
-            res.status(200).send(docs[0]._id);
+            res.status(200).json({
+                success: true,
+                id: docs[0]._id
+            });
         }
         else {
             console.log("is NOT a match");

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "sudo tsc && node dist/index.js"
+    "buildMac": "sudo tsc && node dist/index.js",
+    "buildWindows": "tsc && node dist/index.js"
   },
   "keywords": [
     "graph",

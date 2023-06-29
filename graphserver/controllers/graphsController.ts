@@ -110,17 +110,33 @@ exports.deleteGraph = async (req: Request, res: Response) => {
         switch (graphType) {
             case "vendiagram":
                 docs = await vendiaModel.findByIdAndDelete(id);
-                res.status(200).json({
-                    success: true,
-                    msg: "graph deleted!"
-                });
+                if(docs) {
+                    res.status(200).json({
+                        success: true,
+                        msg: "graph deleted!"
+                    });
+                }
+                else {
+                    res.status(404).json({
+                        success: false,
+                        errmsg: "graph not found"
+                    })
+                }
                 break;
             case "linegraph":
                 docs = await lineGraphModel.findByIdAndDelete(id);
-                res.status(200).json({
-                    success: true,
-                    msg: `graph deleted!: ${docs}`
-                })
+                if (docs) {
+                    res.status(200).json({
+                        success: true,
+                        msg: `graph deleted!: ${docs}`
+                    })
+                }
+                else {
+                    res.status(404).json({
+                        success: false,
+                        errmsg: "graph not found"
+                    })
+                }
                 break;
             default:
                 res.status(400).json({

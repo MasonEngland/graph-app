@@ -95,6 +95,7 @@ exports.regGraph = async (req, res) => {
 exports.deleteGraph = async (req, res) => {
     const id = req.params.id;
     const graphType = req.params.type;
+    let docs;
     //const validID = await checkID(id);
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
@@ -105,18 +106,34 @@ exports.deleteGraph = async (req, res) => {
     try {
         switch (graphType) {
             case "vendiagram":
-                vendiaModel.findByIdAndDelete(id);
-                res.status(200).json({
-                    success: true,
-                    msg: "graph deleted!"
-                });
+                docs = await vendiaModel.findByIdAndDelete(id);
+                if (docs) {
+                    res.status(200).json({
+                        success: true,
+                        msg: "graph deleted!"
+                    });
+                }
+                else {
+                    res.status(404).json({
+                        success: false,
+                        errmsg: "graph not found"
+                    });
+                }
                 break;
             case "linegraph":
-                const docs = await lineGraphModel.findByIdAndDelete(id);
-                res.status(200).json({
-                    success: true,
-                    msg: `graph deleted!: ${docs} `
-                });
+                docs = await lineGraphModel.findByIdAndDelete(id);
+                if (docs) {
+                    res.status(200).json({
+                        success: true,
+                        msg: `graph deleted!: ${docs}`
+                    });
+                }
+                else {
+                    res.status(404).json({
+                        success: false,
+                        errmsg: "graph not found"
+                    });
+                }
                 break;
             default:
                 res.status(400).json({
