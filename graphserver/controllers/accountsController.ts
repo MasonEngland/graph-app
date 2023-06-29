@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
-import * as bcrypt from 'bcryptjs';
-import {accountModel} from "../models/Schemas";
+import {default as bcrypt} from 'bcryptjs';
+import {accountModel} from "../models/Schemas.js";
 
 // simple function to create a encrypted password
 async function hashPassword(password: string): Promise<string> {

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import {makeDoc} from "../models/docCreator";
+import {makeDoc} from "../models/docCreator.js";
 import {vendiaModel, gChartModel, lineGraphModel, barGraphModel, accountModel} from '../models/Schemas.js';
 import mongoose from 'mongoose';
 

@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,20 +7,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteGraph = exports.regGraph = exports.getGraphs = void 0;
-const docCreator_1 = require("../models/docCreator");
-const Schemas_js_1 = require("../models/Schemas.js");
-const mongoose_1 = __importDefault(require("mongoose"));
+import { makeDoc } from "../models/docCreator.js";
+import { vendiaModel, gChartModel, lineGraphModel, barGraphModel, accountModel } from '../models/Schemas.js';
+import mongoose from 'mongoose';
 // checks if account exists in database
 function checkID(id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            if (mongoose_1.default.Types.ObjectId.isValid(id)) {
-                const docs = yield Schemas_js_1.accountModel.findById(id);
+            if (mongoose.Types.ObjectId.isValid(id)) {
+                const docs = yield accountModel.findById(id);
                 if (!docs) {
                     return false;
                 }
@@ -40,10 +34,10 @@ function checkID(id) {
 }
 // hold all models in a list to iterate on later
 const modelList = [
-    Schemas_js_1.vendiaModel,
-    Schemas_js_1.gChartModel,
-    Schemas_js_1.lineGraphModel,
-    Schemas_js_1.barGraphModel
+    vendiaModel,
+    gChartModel,
+    lineGraphModel,
+    barGraphModel
 ];
 const supportedGraphTypes = [
     "vendiagram",
@@ -79,7 +73,6 @@ const getGraphs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
 });
-exports.getGraphs = getGraphs;
 const regGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const graphtype = req.params.type;
     const { accountID } = req.body;
@@ -102,19 +95,18 @@ const regGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             errmsg: "graph type not supported"
         });
     }
-    (0, docCreator_1.makeDoc)(graphtype, req.body);
+    makeDoc(graphtype, req.body);
     res.status(201).json({
         success: true,
         msg: "graph saved?"
     });
 });
-exports.regGraph = regGraph;
 const deleteGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const graphType = req.params.type;
     let docs;
     //const validID = await checkID(id);
-    if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
             success: false,
             errmsg: "invalid ID"
@@ -123,7 +115,7 @@ const deleteGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         switch (graphType) {
             case "vendiagram":
-                docs = yield Schemas_js_1.vendiaModel.findByIdAndDelete(id);
+                docs = yield vendiaModel.findByIdAndDelete(id);
                 if (docs) {
                     res.status(200).json({
                         success: true,
@@ -138,7 +130,7 @@ const deleteGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 }
                 break;
             case "linegraph":
-                docs = yield Schemas_js_1.lineGraphModel.findByIdAndDelete(id);
+                docs = yield lineGraphModel.findByIdAndDelete(id);
                 if (docs) {
                     res.status(200).json({
                         success: true,
@@ -168,5 +160,5 @@ const deleteGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
 });
-exports.deleteGraph = deleteGraph;
+export { getGraphs, regGraph, deleteGraph };
 //# sourceMappingURL=graphsController.js.map

@@ -5,7 +5,7 @@
 import mongoose from 'mongoose';
 import express from 'express';
 //const bcrypt = require('bcryptjs');
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
@@ -20,8 +20,8 @@ mongoose.connect(dbURI)
     .catch((err) => console.log(err));
 
 //connect our routers
-const accountRouter = require('./routes/accounts');
-const graphsRouter = require('./routes/graphs');
+import {router as accountRouter} from './routes/accounts.js';
+import {router as graphsRouter} from "./routes/graphs.js";
 app.use("/accounts", accountRouter);
 app.use("/graphs", graphsRouter);
 

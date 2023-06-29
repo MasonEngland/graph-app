@@ -1,27 +1,3 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -31,10 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.create = exports.verify = void 0;
-const bcrypt = __importStar(require("bcryptjs"));
-const Schemas_1 = require("../models/Schemas");
+import { default as bcrypt } from 'bcryptjs';
+import { accountModel } from "../models/Schemas.js";
 // simple function to create a encrypted password
 function hashPassword(password) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -58,7 +32,7 @@ const verify = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         //return;
     }
     try {
-        const docs = yield Schemas_1.accountModel.find({ email: email });
+        const docs = yield accountModel.find({ email: email });
         if (docs.length < 1) {
             res.json({
                 success: false,
@@ -84,7 +58,6 @@ const verify = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.sendStatus(500);
     }
 });
-exports.verify = verify;
 // create a new account and send to database
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // grab username, password, and email from request
@@ -93,13 +66,13 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(400).send("invalid request");
         return;
     }
-    const docs = yield Schemas_1.accountModel.find({ email: email });
+    const docs = yield accountModel.find({ email: email });
     // check if email is already registered
     if (docs.length > 0) {
         res.status(401).send("email already registered");
         return;
     }
-    let newAccount = new Schemas_1.accountModel({
+    let newAccount = new accountModel({
         username: username,
         password: yield hashPassword(password),
         email: email
@@ -107,5 +80,5 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     newAccount.save();
     res.sendStatus(201);
 });
-exports.create = create;
+export { verify, create };
 //# sourceMappingURL=accountsController.js.map

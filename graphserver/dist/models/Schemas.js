@@ -1,11 +1,5 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.barGraphModel = exports.lineGraphModel = exports.gChartModel = exports.vendiaModel = exports.accountModel = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const Schema = mongoose_1.default.Schema;
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 const accountSchema = new Schema({
     username: String,
     password: String,
@@ -61,14 +55,10 @@ const gChartSchema = new Schema({
             TaskName: String
         }]
 });
-const accountModel = mongoose_1.default.model("Accounts", accountSchema);
-exports.accountModel = accountModel;
-const vendiaModel = mongoose_1.default.model("VenDiagrams", vendiaSchema);
-exports.vendiaModel = vendiaModel;
-const gChartModel = mongoose_1.default.model("Gantt Charts", gChartSchema);
-exports.gChartModel = gChartModel;
-const lineGraphModel = mongoose_1.default.model("Line Graphs", lineGraphSchema);
-exports.lineGraphModel = lineGraphModel;
-const barGraphModel = mongoose_1.default.model("Bar Graphs", barGraphSchema);
-exports.barGraphModel = barGraphModel;
+const accountModel = mongoose.model("Accounts", accountSchema);
+const vendiaModel = mongoose.model("VenDiagrams", vendiaSchema);
+const gChartModel = mongoose.model("Gantt Charts", gChartSchema);
+const lineGraphModel = mongoose.model("Line Graphs", lineGraphSchema);
+const barGraphModel = mongoose.model("Bar Graphs", barGraphSchema);
+export { accountModel, vendiaModel, gChartModel, lineGraphModel, barGraphModel };
 //# sourceMappingURL=Schemas.js.map
