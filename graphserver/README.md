@@ -72,7 +72,7 @@ if the requests was a success the server will respond with a 200 status code and
 
 in order to get all graphs connected to a particular account will need the account ID given when you authenticated the account.<br>
 to get the graph make a get request to:
-### `/graphs/:id`
+#### `/graphs/:id`
 where you replace the :id with the account ID. this will return json data of all graphs stored for that account. if the account ID does not exist in the database, the server will let you know.<br><br>
 example of response:
 ```
@@ -121,7 +121,7 @@ example of response:
 ```
 
 in order to register a graph to the database you need to makea post request to:
-### `/graphs/:type`
+#### `/graphs/:type`
 where :type is the parameter for the type of graph.<br><br>
 the current supported graph types are(subject to be updated): 
 - vendiagram 
@@ -130,7 +130,7 @@ the current supported graph types are(subject to be updated):
 the body of this request must have **ALL** the same properies as shown in the dummyData.txt file in this folder. <br><br>
 you can also refer to models/Schemas.ts to see exactly how the data must be structured.<br><br>
 finally in order to delete a graph you must make a **DELETE** request to:
-### `/graphs/:type/:id`
+#### `/graphs/:type/:id`
 where :type is the type of graph and :id is the account id you want to remove the graph from.
 if the type of graph is unsupported or the id is invalid the server will let you know.
 
