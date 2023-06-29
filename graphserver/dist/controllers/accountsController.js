@@ -9,6 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { default as bcrypt } from 'bcryptjs';
 import { accountModel } from "../models/Schemas.js";
+import { default as jwt } from "jsonwebtoken";
+import { default as env } from "dotenv";
 // simple function to create a encrypted password
 function hashPassword(password) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -26,6 +28,7 @@ function hashPassword(password) {
 // function to compare credentials to the database
 // status code sent based on credability
 const verify = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    env.config();
     const { username, password, email } = req.body;
     if (!password || !username || !email) {
         return res.status(400).send("invalid request");
@@ -43,9 +46,13 @@ const verify = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const isMatch = yield bcrypt.compare(password, docs[0].password);
         if (isMatch && docs[0].username === username) {
             console.log("is a match");
+            const userData = {
+                id: docs[0]._id
+            };
+            const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET);
             res.status(200).json({
                 success: true,
-                id: docs[0]._id
+                token: accessToken
             });
         }
         else {

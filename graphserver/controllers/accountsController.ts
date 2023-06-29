@@ -1,6 +1,8 @@
 import {Request, Response} from 'express';
 import {default as bcrypt} from 'bcryptjs';
 import {accountModel} from "../models/Schemas.js";
+import {default as jwt} from "jsonwebtoken";
+import {default as env} from "dotenv";
 
 // simple function to create a encrypted password
 async function hashPassword(password: string): Promise<string> {
@@ -16,6 +18,7 @@ async function hashPassword(password: string): Promise<string> {
 // function to compare credentials to the database
 // status code sent based on credability
 const verify = async(req: Request, res:Response) => {
+    env.config();
     const {username, password, email} = req.body;
     if (!password || !username || !email) {
         return res.status(400).send("invalid request");
@@ -34,9 +37,13 @@ const verify = async(req: Request, res:Response) => {
 
         if (isMatch && docs[0].username === username) {
             console.log("is a match");
+            const userData = {
+                id: docs[0]._id
+            }
+            const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET)
             res.status(200).json({
                 success: true,
-                id: docs[0]._id
+                token: accessToken
             });
         }
         else {

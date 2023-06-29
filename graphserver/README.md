@@ -70,8 +70,9 @@ if the requests was a success the server will respond with a 200 status code and
 
 ## Graph Requests
 
-in order to get all graphs connected to a particular account will need the account ID given when you authenticated the account.<br>
-to get the graph make a get request to:
+in order to get all graphs connected to a particular account will need the account ID and the autorization token given when you authenticated the account.<br><br>
+will will need to put the access token in the authorization header evertime you make a request to `/graphs`<br><br>
+to get the graphs make a get request to:
 #### `/graphs/:id`
 where you replace the :id with the account ID. this will return json data of all graphs stored for that account. if the account ID does not exist in the database, the server will let you know.<br><br>
 example of response:
