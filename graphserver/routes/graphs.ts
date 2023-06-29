@@ -5,5 +5,6 @@ const controller = require("../controllers/graphsController.js");
 // all routes for /graphs
 router.post("/:type", controller.regGraph);
 router.get("/:id", controller.getGraphs);
+router.get("/delete/:type/:id", controller.deleteGraph);
 
 module.exports = router;

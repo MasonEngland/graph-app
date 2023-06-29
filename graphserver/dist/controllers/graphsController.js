@@ -92,70 +92,46 @@ exports.regGraph = async (req, res) => {
         msg: "graph saved?"
     });
 };
-// may delete later
-/*exports.regVendiagram = async (req: Request, res: Response) => {
-    const {accountID, top, left, width, height, leftlabel, rightlabel, notes} = req.body;
-    const validID = await checkID(accountID);
-    if (!accountID) {
+exports.deleteGraph = async (req, res) => {
+    const id = req.params.id;
+    const graphType = req.params.type;
+    //const validID = await checkID(id);
+    if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
             success: false,
-            errmsg: "please provide account ID under property name 'accountID'."
+            errmsg: "invalid ID"
         });
     }
-    if (!validID){
-        return res.status(400).json({
-            success: false,
-            errmsg: "please use valid accountID"
-        });
-    }
-    const newGraph = new vendiaModel({
-        accountID: accountID,
-        Top: top,
-        Left: left,
-        Width: width,
-        Height: height,
-        LeftLabel: leftlabel,
-        RigthLebel: rightlabel,
-        Notes: {
-            Left: notes.left,
-            Right: notes.right,
-            Middle: notes.middle
+    try {
+        switch (graphType) {
+            case "vendiagram":
+                vendiaModel.findByIdAndDelete(id);
+                res.status(200).json({
+                    success: true,
+                    msg: "graph deleted!"
+                });
+                break;
+            case "linegraph":
+                const docs = await lineGraphModel.findByIdAndDelete(id);
+                res.status(200).json({
+                    success: true,
+                    msg: `graph deleted!: ${docs} `
+                });
+                break;
+            default:
+                res.status(400).json({
+                    success: false,
+                    errmsg: "graph type not supported"
+                });
+                break;
         }
-    })
-    newGraph.save();
-    console.log("Hell Yeah!!");
-    res.status(201).send("graph saved");
-}
-
-exports.regLineGraph = async(req:Request, res:Response) => {
-    const {accountID, top, left, width, height, xlabel, ylabel, pairs} = req.body;
-    const validID = await checkID(accountID);
-    if(!accountID) {
-        return res.status(400).json({
-            success: false,
-            errmsg: "please provide account ID under property name 'accountID'."
-        })
     }
-    if (!validID) {
-        return res.status(400).json({
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
             success: false,
-            errmsg: "please use valid accountID"
+            errmsg: err
         });
     }
-    const newGraph = new lineGraphModel({
-        accountID: accountID,
-        Top: top,
-        Left: left,
-        Width: width,
-        Height: height,
-        XLabel: xlabel,
-        YLabel: ylabel,
-        Pairs: pairs
-    })
-    newGraph.save();
-    res.status(200).json({
-        success: true,
-        message: "graph saved!"
-    });
-}*/ 
+};
 //# sourceMappingURL=graphsController.js.map

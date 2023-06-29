@@ -6,5 +6,6 @@ const controller = require("../controllers/graphsController.js");
 // all routes for /graphs
 router.post("/:type", controller.regGraph);
 router.get("/:id", controller.getGraphs);
+router.get("/delete/:id/:type", controller.deleteGraph);
 module.exports = router;
 //# sourceMappingURL=graphs.js.map

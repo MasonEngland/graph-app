@@ -94,3 +94,47 @@ exports.regGraph = async (req: Request, res: Response) => {
         msg: "graph saved?"
     })
 }
+
+exports.deleteGraph = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const graphType = req.params.type;
+    let docs: any;
+    //const validID = await checkID(id);
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            success: false,
+            errmsg: "invalid ID"
+        });
+    }
+    try {
+        switch (graphType) {
+            case "vendiagram":
+                docs = await vendiaModel.findByIdAndDelete(id);
+                res.status(200).json({
+                    success: true,
+                    msg: "graph deleted!"
+                });
+                break;
+            case "linegraph":
+                docs = await lineGraphModel.findByIdAndDelete(id);
+                res.status(200).json({
+                    success: true,
+                    msg: `graph deleted!: ${docs}`
+                })
+                break;
+            default:
+                res.status(400).json({
+                    success: false,
+                    errmsg: "graph type not supported"
+                });
+                break;
+        }  
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            errmsg: err
+        })
+    }
+    
+}
