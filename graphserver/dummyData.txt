@@ -21,8 +21,8 @@ line/bar graph example:
     "left": 50,
     "width": 60,
     "height": 30,
-    "xlabel": "year"
-    "ylabel": "tempurature in degrees farenheight"
+    "xlabel": "year",
+    "ylabel": "tempurature in degrees farenheight",
     "pairs": [
         {
             "x": 2015,

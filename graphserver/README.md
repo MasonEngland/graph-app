@@ -127,10 +127,10 @@ the current supported graph types are(subject to be updated):
 - vendiagram 
 - linegraph
 
-the body of this request must have **all** the same properies as shown in the dummyData.txt file in this folder. <br><br>
+the body of this request must have **ALL** the same properies as shown in the dummyData.txt file in this folder. <br><br>
 you can also refer to models/Schemas.ts to see exactly how the data must be structured.<br><br>
-finally in order to delete a graph you must make a get request to:
-### `/graphs/delete/:type/:id`
+finally in order to delete a graph you must make a **DELETE** request to:
+### `/graphs/:type/:id`
 where :type is the type of graph and :id is the account id you want to remove the graph from.
 if the type of graph is unsupported or the id is invalid the server will let you know.
 
