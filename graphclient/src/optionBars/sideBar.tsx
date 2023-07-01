@@ -14,9 +14,9 @@ export default function SideBar() {
         const value = e.target.value as string;
         setloginInfo((preValue) => {
             return {
-                username: key == "username" ? value : preValue.username,
-                password: key == "password" ? value : preValue.password,
-                email: key == "email" ? value : preValue.email 
+                username: key === "username" ? value : preValue.username,
+                password: key === "password" ? value : preValue.password,
+                email: key === "email" ? value : preValue.email 
             }
         })
         //console.log(loginInfo);
@@ -43,7 +43,7 @@ export default function SideBar() {
                 <input name="username" onChange={(e) => updateLoginInfo(e)} placeholder="Username" />
                 <input name="password" type="password" onChange={(e) => updateLoginInfo(e)} placeholder="Password" />
                 <input name= "email" onChange={(e) => updateLoginInfo(e)} placeholder="Email"/>
-                <button onClick={() => attemptLoginUser()} type="button">Confirm</button>
+                <button onClick={() => attemptLoginUser()} type="submit">Confirm</button>
                 <p>Register</p>
                 <input placeholder="Email" />
                 <input placeholder="Username" />
