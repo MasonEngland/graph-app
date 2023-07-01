@@ -1,4 +1,4 @@
-ven-diagram example: 
+vendiagram example
 {
     "accountID": "649670a4bb3698c4809398cc",
     "top": 25,
@@ -14,7 +14,7 @@ ven-diagram example:
     }
 }
 
-line/bar graph example:
+line/bar graph example
 {
     "accountID": "649670a4bb3698c4809398cc",
     "top": 35,
@@ -37,4 +37,11 @@ line/bar graph example:
             "y": 99
         }
     ]
+}
+
+dummy account
+{
+    "username": "cade",
+    "password": "notPassword",
+    "email": "cademail@gmail.com
 }

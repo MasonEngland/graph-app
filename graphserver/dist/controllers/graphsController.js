@@ -105,13 +105,6 @@ const regGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 const deleteGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     let docs;
-    //const validID = await checkID(id);
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({
-            success: false,
-            errmsg: "invalid ID"
-        });
-    }
     for (let item of modelList) {
         try {
             if (!docs) {
@@ -142,12 +135,6 @@ const editGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const edits = req.body;
     const id = req.params.id;
     let docs = null;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({
-            success: false,
-            errmsg: "invalid id"
-        });
-    }
     for (let item of modelList) {
         try {
             if (!docs) {

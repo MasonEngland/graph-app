@@ -91,7 +91,7 @@ const regGraph = async (req: Request, res: Response) => {
     makeDoc(graphtype, req.body);
     res.status(201).json({
         success: true,
-        msg: "graph saved?"
+        msg: "graph saved!"
     })
 }
 
@@ -99,13 +99,7 @@ const regGraph = async (req: Request, res: Response) => {
 const deleteGraph = async (req: Request, res: Response) => {
     const id = req.params.id;
     let docs: any;
-    //const validID = await checkID(id);
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({
-            success: false,
-            errmsg: "invalid ID"
-        });
-    }
+
     for (let item of modelList) {
         try {
             if (!docs) {
@@ -136,12 +130,6 @@ const editGraph = async (req: Request, res: Response) => {
     const edits = req.body;
     const id = req.params.id;
     let docs: any = null;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({
-            success: false,
-            errmsg: "invalid id"
-        })
-    }
     for (let item of modelList) {
         try {
             if (!docs) {
