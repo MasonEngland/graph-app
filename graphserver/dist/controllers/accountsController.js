@@ -52,7 +52,8 @@ const verify = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET);
             res.status(200).json({
                 success: true,
-                token: accessToken
+                token: accessToken,
+                username: username
             });
         }
         else {

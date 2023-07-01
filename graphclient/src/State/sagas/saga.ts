@@ -7,7 +7,7 @@ import * as Params from '../../Types/saga-parameter-types'
 import axios from 'axios'
 
 let currentUser = ""
-const APIUrl = "http://localhost:????/api"
+const APIUrl = "http://localhost:10000/"
 
 function* authSaga() {
     yield takeEvery(Auth.LOGIN_REQUEST,  loginSaga)
@@ -17,9 +17,10 @@ function* authSaga() {
 
 export function* loginSaga({payload, type} : Params.SagaLoginParams) {
     try {
-        const res: { data : any } = yield axios.post(`${APIUrl}/auth/login`, payload)
+        const res: { data : any } = yield axios.post(`${APIUrl}accounts/verify`, payload)
         yield put({ type: ActionType.UPDATE_USER, payload: res.data})
         currentUser = res.data.userName;
+        console.log(res.data);
     }
     catch(e) {
         // here we would put login failed   yield put(  )
@@ -28,7 +29,7 @@ export function* loginSaga({payload, type} : Params.SagaLoginParams) {
 
 export function* registerAccountSaga({payload, type} : Params.SagaRegisterParams) {
     try {
-        const res: { data : any } = yield axios.post(`${APIUrl}/auth/createUser`, payload)
+        const res: { data : any } = yield axios.post(`${APIUrl}/auth/createUse`, payload)
     }
     catch(e) {
         // here we would put register failed   yield put(  )

@@ -1,14 +1,23 @@
 import './header.css'
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { State } from './State/reducers/rooter-reducer';
+import { useState, useEffect } from 'react';
 
 export default function Header() {
-  let isSignedIn = false
-  let displayMsg = isSignedIn ? "Welcome --UserName--" : " ! Please Sign In"
   
+  
+  const state : any = useSelector((state : State) => state.auth)
+  const [message, setMessage] = useState("please sign in");
+
+  useEffect(() => {
+    if (state.currentUser)    setMessage(state.currentUser.username);
+  }, [state])
+
   return (
       <header className="navigationContainer">
         <nav>
           <div className="navDisplay">
-            <h2>Grapher.IO <span>{displayMsg}</span></h2>
+            <h2>Grapher.IO <span>{message}</span></h2>
           </div>
         </nav>
       </header>

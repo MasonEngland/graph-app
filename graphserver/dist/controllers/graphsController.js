@@ -98,7 +98,7 @@ const regGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     makeDoc(graphtype, req.body);
     res.status(201).json({
         success: true,
-        msg: "graph saved?"
+        msg: "graph saved!"
     });
 });
 // function to delete graphs

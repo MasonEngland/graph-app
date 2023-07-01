@@ -41,6 +41,7 @@ const getGraphs = async (req: Request, res: Response) => {
     const id = req.params.id; 
     let graphList: any[] = [];
     const validID = await checkID(id);
+
     if (!validID) {
         return res.status(400).send("please use valid ID");
     }

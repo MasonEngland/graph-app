@@ -43,7 +43,8 @@ const verify = async(req: Request, res:Response) => {
             const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET)
             res.status(200).json({
                 success: true,
-                token: accessToken
+                token: accessToken,
+                username: username
             });
         }
         else {
