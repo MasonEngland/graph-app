@@ -95,9 +95,9 @@ const regGraph = async (req: Request, res: Response) => {
     })
 }
 
+// function to delete graphs
 const deleteGraph = async (req: Request, res: Response) => {
     const id = req.params.id;
-    const graphType = req.params.type;
     let docs: any;
     //const validID = await checkID(id);
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -106,57 +106,69 @@ const deleteGraph = async (req: Request, res: Response) => {
             errmsg: "invalid ID"
         });
     }
-    try {
-        switch (graphType) {
-            case "vendiagram":
-                docs = await vendiaModel.findByIdAndDelete(id);
-                if(docs) {
-                    res.status(200).json({
-                        success: true,
-                        msg: "graph deleted!"
-                    });
-                }
-                else {
-                    res.status(404).json({
-                        success: false,
-                        errmsg: "graph not found"
-                    })
-                }
-                break;
-            case "linegraph":
-                docs = await lineGraphModel.findByIdAndDelete(id);
-                if (docs) {
-                    res.status(200).json({
-                        success: true,
-                        msg: `graph deleted!: ${docs}`
-                    })
-                }
-                else {
-                    res.status(404).json({
-                        success: false,
-                        errmsg: "graph not found"
-                    })
-                }
-                break;
-            default:
-                res.status(400).json({
-                    success: false,
-                    errmsg: "graph type not supported"
-                });
-                break;
-        }  
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            success: false,
-            errmsg: err
+    for (let item of modelList) {
+        try {
+            if (!docs) {
+                docs = await item.findByIdAndDelete(id);
+            } 
+        } catch (err) {
+            return res.status(500).json({
+                success: false,
+                errmsg: err
+            })
+        }
+    }
+    if (docs) {
+        res.status(200).json({
+            success: true,
+            document: docs
         })
     }
-    
+    else {
+        res.status(404).json({
+            success: false,
+            errmsg: "document by that id does not exist"
+        })
+    }
+}
+
+const editGraph = async (req: Request, res: Response) => {
+    const edits = req.body;
+    const id = req.params.id;
+    let docs: any = null;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            success: false,
+            errmsg: "invalid id"
+        })
+    }
+    for (let item of modelList) {
+        try {
+            if (!docs) {
+                docs = await item.findByIdAndUpdate(id, edits);
+            }
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({
+                success: false
+            });
+        }
+    }
+    if (docs) {
+        return res.json({
+            success: true,
+            docs: docs
+        });
+    }
+    else {
+        console.log("could not find docs");
+        res.sendStatus(404);
+    }
 }
 
 export {
     getGraphs,
     regGraph,
-    deleteGraph
+    deleteGraph,
+    editGraph
 }
