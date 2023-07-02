@@ -7,7 +7,6 @@ const router = Router();
 router.use(authenticateToken);
 // all CRUD operation routes for /graphs
 router.post("/:type", controller.regGraph);
-//router.use(matchToken);
 router.get("/:id", controller.getGraphs);
 router.delete("/:id", validateID, controller.deleteGraph);
 router.patch("/:id", validateID, controller.editGraph);
