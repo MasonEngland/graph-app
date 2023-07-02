@@ -62,13 +62,15 @@ if the username or passowrd is wrong the server will response with a 401 status 
 if the email is not registered the sever will response with a message saying 
 >email not registered
 
-if the requests was a success the server will respond with a 200 status code and the account ID of the account authenticated.
+if the requests was a success the server will respond with a 200 status code and the account ID, username, email, and authorization token of the account authenticated.
 
-**save this somewhere in memory**
+**save these somewhere in memory**
 
 
 
 ## Graph Requests
+
+### <span style="color: red;">NOTE: All graph Requests require a bearer type auth token</span>
 
 in order to get all graphs connected to a particular account will need the account ID and the autorization token given when you authenticated the account.<br><br>
 will will need to put the access token in the authorization header evertime you make a request to `/graphs`<br><br>
@@ -131,8 +133,8 @@ the current supported graph types are(subject to be updated):
 the body of this request must have **ALL** the same properies as shown in the dummyData.txt file in this folder. <br><br>
 you can also refer to models/Schemas.ts to see exactly how the data must be structured.<br><br>
 finally in order to delete a graph you must make a **DELETE** request to:
-#### `/graphs/:type/:id`
-where :type is the type of graph and :id is the account id you want to remove the graph from.
+#### `/graphs/:id`
+where :id is the account id you want to remove the graph from.
 if the type of graph is unsupported or the id is invalid the server will let you know.
 
 

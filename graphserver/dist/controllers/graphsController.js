@@ -83,6 +83,7 @@ const regGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             errmsg: "please provide account ID under property name 'accountID'."
         });
     }
+    // make sure id is valid
     if (!validID) {
         return res.status(400).json({
             success: false,
@@ -105,9 +106,18 @@ const regGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 const deleteGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     let docs;
+    console.log(req.body.tokenID);
     for (let item of modelList) {
         try {
             if (!docs) {
+                docs = yield item.findById(id);
+                if (docs && docs.accountID !== req.body.tokenID) {
+                    return res.status(401).json({
+                        succes: false,
+                        errmsg: "token and accountID do not match"
+                    });
+                }
+                // if the db found an itme before, it will find it again
                 docs = yield item.findByIdAndDelete(id);
             }
         }
@@ -118,6 +128,7 @@ const deleteGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             });
         }
     }
+    // checks to make sure the document was deleted
     if (docs) {
         res.status(200).json({
             success: true,
@@ -138,6 +149,14 @@ const editGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     for (let item of modelList) {
         try {
             if (!docs) {
+                // check if document ID matches token ID
+                docs = yield item.findById(id);
+                if (docs && req.body.tokenID !== docs.accountID) {
+                    return res.status(401).json({
+                        success: false,
+                        errmsg: "illegal token"
+                    });
+                }
                 docs = yield item.findByIdAndUpdate(id, edits);
             }
         }
@@ -148,6 +167,7 @@ const editGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
         }
     }
+    // make sure doc made the edits
     if (docs) {
         return res.json({
             success: true,

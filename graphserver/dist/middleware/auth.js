@@ -10,7 +10,7 @@ function authenticateToken(req, res, next) {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
         if (err)
             return res.status(403).json({ success: false, errmsg: "problem with token" });
-        req.body.tokenID = data;
+        req.body.tokenID = data.id;
         next();
     });
 }

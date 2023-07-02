@@ -24,7 +24,7 @@ async function checkID(id: string): Promise<boolean> {
 }
 
 // hold all models in a list to iterate on later
-const modelList: any[] = [
+const modelList: mongoose.Model<any>[] = [
     vendiaModel,
     gChartModel,
     lineGraphModel,
@@ -41,7 +41,6 @@ const getGraphs = async (req: Request, res: Response) => {
     const id = req.params.id; 
     let graphList: any[] = [];
     const validID = await checkID(id);
-
     if (!validID) {
         return res.status(400).send("please use valid ID");
     }
@@ -77,6 +76,7 @@ const regGraph = async (req: Request, res: Response) => {
             errmsg: "please provide account ID under property name 'accountID'."
         });
     }
+    // make sure id is valid
     if (!validID) {
         return res.status(400).json({
             success: false,
@@ -100,10 +100,18 @@ const regGraph = async (req: Request, res: Response) => {
 const deleteGraph = async (req: Request, res: Response) => {
     const id = req.params.id;
     let docs: any;
-
+    console.log(req.body.tokenID);
     for (let item of modelList) {
         try {
             if (!docs) {
+                docs = await item.findById(id);
+                if (docs && docs.accountID !== req.body.tokenID) {
+                    return res.status(401).json({
+                        succes: false,
+                        errmsg: "token and accountID do not match"
+                    })
+                }
+                // if the db found an itme before, it will find it again
                 docs = await item.findByIdAndDelete(id);
             } 
         } catch (err) {
@@ -113,6 +121,7 @@ const deleteGraph = async (req: Request, res: Response) => {
             })
         }
     }
+    // checks to make sure the document was deleted
     if (docs) {
         res.status(200).json({
             success: true,
@@ -134,6 +143,14 @@ const editGraph = async (req: Request, res: Response) => {
     for (let item of modelList) {
         try {
             if (!docs) {
+                // check if document ID matches token ID
+                docs = await item.findById(id);
+                if (docs && req.body.tokenID !== docs.accountID) {
+                    return res.status(401).json({
+                        success: false,
+                        errmsg: "illegal token"
+                    })
+                }
                 docs = await item.findByIdAndUpdate(id, edits);
             }
         } catch (err) {
@@ -143,6 +160,7 @@ const editGraph = async (req: Request, res: Response) => {
             });
         }
     }
+    // make sure doc made the edits
     if (docs) {
         return res.json({
             success: true,

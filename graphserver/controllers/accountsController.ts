@@ -22,7 +22,6 @@ const verify = async(req: Request, res:Response) => {
     const {username, password, email} = req.body;
     if (!password || !username || !email) {
         return res.status(400).send("invalid request");
-        //return;
     }
     try {
         const docs = await accountModel.find({email: email});
@@ -33,27 +32,32 @@ const verify = async(req: Request, res:Response) => {
             });
             return;
         }
+        // verify with bcrpyt that passwords match
         const isMatch = await bcrypt.compare(password, docs[0].password);
 
         if (isMatch && docs[0].username === username) {
-            console.log("is a match");
             const userData = {
                 id: docs[0]._id
             }
+            // create an access token
             const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET)
             res.status(200).json({
                 success: true,
                 token: accessToken,
-                username: username
+                username: username,
+                id: docs[0]._id
             });
         }
         else {
-            console.log("is NOT a match");
-            res.sendStatus(401);
+            res.status(401).json({
+                succes: false
+            });
         }
     } catch (err) {
         console.log(err);
-        res.sendStatus(500);
+        res.status(500).json({
+            success: false
+        });
     }
 }
 // create a new account and send to database
@@ -70,7 +74,7 @@ const create = async (req: Request, res:Response) => {
         res.status(401).send("email already registered");
         return;
     }
-
+    // schema: accountSchema
     let newAccount = new accountModel({
         username: username,
         password: await hashPassword(password),
