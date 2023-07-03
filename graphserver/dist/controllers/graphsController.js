@@ -41,7 +41,8 @@ const modelList = [
 ];
 const supportedGraphTypes = [
     "vendiagram",
-    "linegraph"
+    "linegraph",
+    "bargraph"
 ];
 // function to pull all graphs for a specifica account
 const getGraphs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -62,7 +63,8 @@ const getGraphs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             success: true,
             venDiagrams: graphList[0],
             gantCharts: graphList[1],
-            lineGraphs: graphList[2]
+            lineGraphs: graphList[2],
+            barGraphs: graphList[3]
         });
     }
     catch (err) {

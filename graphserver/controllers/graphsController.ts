@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import {makeDoc} from "../models/docCreator.js";
 import {vendiaModel, gChartModel, lineGraphModel, barGraphModel, accountModel} from '../models/Schemas.js';
+import matchToken from '../middleware/matchToken.js';
 import mongoose from 'mongoose';
 
 // checks if account exists in database
@@ -33,13 +34,14 @@ const modelList: mongoose.Model<any>[] = [
 
 const supportedGraphTypes: string[] = [
     "vendiagram",
-    "linegraph"
+    "linegraph",
+    "bargraph"
 ]
 
 // function to pull all graphs for a specifica account
 const getGraphs = async (req: Request, res: Response) => {
     const id = req.params.id; 
-    let graphList: any[] = [];
+    let graphList: mongoose.Document[][] = [];
     const validID = await checkID(id);
     if (!validID) {
         return res.status(400).send("please use valid ID");
@@ -48,14 +50,15 @@ const getGraphs = async (req: Request, res: Response) => {
         // search each db document for graphs linked
         // to the account ID
         for (let item of modelList) {
-            let docs = await item.find({accountID: id});
+            let docs: mongoose.Document[] = await item.find({accountID: id});
             graphList.push(docs);
         }
         res.status(200).json({
             success: true,
             venDiagrams: graphList[0],
             gantCharts: graphList[1],
-            lineGraphs: graphList[2]
+            lineGraphs: graphList[2],
+            barGraphs: graphList[3]
         })
     } catch (err) {
         console.log(err);

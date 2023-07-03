@@ -1,10 +1,13 @@
+import mongoose from 'mongoose';
 import {vendiaModel, gChartModel, lineGraphModel, barGraphModel} from './Schemas.js';
 
 
 // creates db document based on graph type
 // graph type should correlate to data structure
+//todo: add gantt charts and maybe timelines?
+//! Model must fallow the schema
 function makeDoc(graphType: string, data: any) {
-    let newDoc: any;
+    let newDoc: mongoose.Document;
     switch (graphType){
         case "vendiagram":
             newDoc = new vendiaModel({
@@ -36,6 +39,19 @@ function makeDoc(graphType: string, data: any) {
             });
             newDoc.save();
             break;
+            case "bargraph":
+                newDoc = new barGraphModel({
+                    accountID: data.accountID,
+                    Top: data.top,
+                    Left: data.left,
+                    Width: data.width,
+                    Height: data.height,
+                    XLabel: data.xlabel,
+                    YLabel: data.ylabel,
+                    Pairs: data.pairs
+                });
+                newDoc.save();
+                break;
     }
 }
 
