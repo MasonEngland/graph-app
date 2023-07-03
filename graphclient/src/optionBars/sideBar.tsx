@@ -1,9 +1,18 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { loginUser } from '../State/action-creators/profile-action-creators';
 
 import './sideBar.css'
+import { useSelector } from 'react-redux';
+import { State } from '../State/reducers/rooter-reducer';
 
 export default function SideBar() {
+
+    const state : any = useSelector((state : State) => state.auth)
+    
+    useEffect( ()=> {
+        if(state.currentUser)
+            setSideBar(sideBars.DEFAULT_USER_SIDE_BAR)
+    } ,[state.currentUser])
 
     enum sideBars {
         REGISTER_SIDE_BAR = "REGISTER_SIDE_BAR",
@@ -89,7 +98,7 @@ export default function SideBar() {
     }
 
     const userHomePage = () => {
-
+        return (<div className="DEFAULT"></div>)
     }
 
     // @ Brief : Update the side bar according to the option that the 
@@ -101,7 +110,7 @@ export default function SideBar() {
             case sideBars.REGISTER_SIDE_BAR:
                 return registerSideBar()
             default :
-            return (<div className="DEFAULT"></div>)
+            return userHomePage()
         }
     }
 
