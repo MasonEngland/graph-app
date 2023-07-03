@@ -45,7 +45,8 @@ const verify = async(req: Request, res:Response) => {
                 success: true,
                 token: accessToken,
                 username: username,
-                id: docs[0]._id
+                email: email,
+                id: docs[0]._id,
             });
         }
         else {

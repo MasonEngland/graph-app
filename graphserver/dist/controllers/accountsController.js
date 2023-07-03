@@ -54,7 +54,8 @@ const verify = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 success: true,
                 token: accessToken,
                 username: username,
-                id: docs[0]._id
+                email: email,
+                id: docs[0]._id,
             });
         }
         else {
