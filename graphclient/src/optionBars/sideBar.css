@@ -33,4 +33,23 @@
     min-height: 30px;
     width: 50%;
 }
-  
+
+.accountNavigation {
+    display: flex;
+}
+
+.accountNavigation .LOGIN_SIDE_BAR-loginTab {
+    background-image: linear-gradient(315deg, rgb(255, 255, 255, 0.85) 0%, rgba(88,153,226, 0.85) 54%);
+}
+
+.accountNavigation .REGISTER_SIDE_BARregisterTab {
+    background-image: linear-gradient(315deg, rgb(255, 255, 255, 0.85) 0%, rgba(88,153,226, 0.85) 54%);
+}
+
+.accountNavigation div {
+    margin-right: 15px;
+    transform: scale(115%);
+    background:rgba(33, 37, 41, 0.65);
+    padding: 2px 7px;
+    border-radius: 5px;
+}
