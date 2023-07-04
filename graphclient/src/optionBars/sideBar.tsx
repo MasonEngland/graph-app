@@ -13,6 +13,7 @@ export enum sideBars {
     EDITING_GRAPH_SIDE_BAR = "EDITING_SIDE_BAR"
 }
 
+// main component implemented in ../App.tsx
 export default function SideBar() {
     const[currentDisplay, setSideBar] = useState(sideBars.LOGIN_IN_SIDE_BAR)
 
@@ -22,8 +23,15 @@ export default function SideBar() {
         email: ""
     })
 
+    const [regInfo, setRegInfo] = useState({
+        username: "",
+        password: "",
+        email: "",
+    })
+
     const state : any = useSelector((state : State) => state.auth)
 
+    //* this checks if there is a user logged in, and if so changes the side bar
     useEffect( ()=> {
         if(state.currentUser) setSideBar(sideBars.DEFAULT_USER_SIDE_BAR)
     }, [state.currentUser] )
@@ -40,6 +48,7 @@ export default function SideBar() {
         )
     }
     
+    //! ignore, just some dummy data
     const userGraphs = [{
         title: "name1WAF"
     }, {
@@ -50,6 +59,7 @@ export default function SideBar() {
 
     // If a new graph is created it should navigate to the 
     // editing page
+    //* this is the main page for each user
     const userHomePage = () => {
         return (<div className="graphs">
             {sideBarNavigation()}
@@ -72,16 +82,16 @@ export default function SideBar() {
             </div>)
     }
 
+    // simple function to 
     const changeDisplay = (newDisplay : sideBars) => setSideBar(newDisplay)
 
-    // @ Brief : Update the side bar according to the option that the 
-    //           user has requested to navigate to. 
+    // @ Brief : Update the side bar according to the option that the user has requested to navigate to. 
     const displaySideBar = (newSideBar : sideBars) => {
         switch(newSideBar) {
             case sideBars.LOGIN_IN_SIDE_BAR:
                 return loginSideBar(changeDisplay, setloginInfo, currentDisplay, loginInfo)
             case sideBars.REGISTER_SIDE_BAR:
-                return registerSideBar(changeDisplay, currentDisplay)
+                return registerSideBar(changeDisplay, currentDisplay, regInfo, setRegInfo);
         }
         return userHomePage()
     }
@@ -89,6 +99,7 @@ export default function SideBar() {
     // We will have a sideBarHeader in the Container which will have buttons.
     // When these buttons are clicked, it will call the setSideBar() with the
     // corresponding sideBars.(OPTION), and than that side
+    //! this is the part called in ../App.tsx
     return (
         <div className="sideBarContainer">
             {displaySideBar(currentDisplay)}

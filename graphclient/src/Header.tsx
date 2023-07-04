@@ -7,7 +7,9 @@ import { useState, useEffect } from 'react';
 //todo: fix css for the display message
 export default function Header() {
   
-  
+  // use selector refers to a reducer which pulls from the store
+  // the store only contains a current user I belive
+  //! please correct any errors in my comments
   const state : any = useSelector((state : State) => state.auth)
   const [message, setMessage] = useState("please sign in");
 

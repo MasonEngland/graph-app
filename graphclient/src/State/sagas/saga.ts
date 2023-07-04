@@ -9,6 +9,7 @@ import axios from 'axios'
 let currentUser = ""
 const APIUrl = "http://localhost:10000/"
 
+// auth saga forks will get merged into the root saga
 function* authSaga() {
     yield takeEvery(Auth.LOGIN_REQUEST,  loginSaga)
     yield takeEvery(Auth.LOGOUT_REQUEST, logoutSaga)
@@ -20,19 +21,20 @@ export function* loginSaga({payload, type} : Params.SagaLoginParams) {
         const res: { data : any } = yield axios.post(`${APIUrl}accounts/verify`, payload)
         yield put({ type: ActionType.UPDATE_USER, payload: res.data})
         currentUser = res.data.userName;
-        //console.log(res.data);
+        console.log(res.data);
     }
     catch(e) {
-        // here we would put login failed   yield put(  )
+        //todo: here we would put login failed   yield put(  )
     }
 } 
 
 export function* registerAccountSaga({payload, type} : Params.SagaRegisterParams) {
     try {
-        const res: { data : any } = yield axios.post(`${APIUrl}/auth/createUse`, payload)
+        const res: { data : any } = yield axios.post(`${APIUrl}accounts/create`, payload)
+        console.log(res.data);
     }
     catch(e) {
-        // here we would put register failed   yield put(  )
+        //todo: here we would put register failed   yield put(  )
     }
 }
 
@@ -42,7 +44,7 @@ export function* logoutSaga() {
         yield put({type : ActionType.UPDATE_USER, payload: null})
     }
     catch(e) {
-        // here we would put register failed     yield put(  )
+        //todo: here we would put register failed     yield put(  )
     }
 }
 

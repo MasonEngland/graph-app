@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
-import { loginUser } from "../State/action-creators/profile-action-creators";
+import { loginUser, regUser } from "../State/action-creators/profile-action-creators";
 import { sideBars } from "./sideBar";
+
 
 const accountAuthNavigation = (changeDisplay : (newDisplay : sideBars) => void, currentDisplay: sideBars) => {
     return (
@@ -15,6 +16,8 @@ const accountAuthNavigation = (changeDisplay : (newDisplay : sideBars) => void, 
     )
 }
 
+// these functions will be import in sideBar.tsx
+//@param set{method}Info, {method}Info - pass in the getter and setter for the coorisponding state var in sideBar.tsx
 export const loginSideBar = (changeDisplay : (newDisplay : sideBars) => void, setLoginInfo: (e: any) => void,
             currentDisplay: sideBars, loginInfo : any) => {
     return ( <>
@@ -28,22 +31,41 @@ export const loginSideBar = (changeDisplay : (newDisplay : sideBars) => void, se
       </ul></>)
 }
 
-export function registerSideBar(changeDisplay : (newDisplay : sideBars) => void, currentDisplay: sideBars) {
+export function registerSideBar(changeDisplay : (newDisplay : sideBars) => void, currentDisplay: sideBars, regInfo: any, setRegInfo: (e: any) => void) {
+
+    const regButtonHandler = (e: any) => {
+        regUser(regInfo);
+        //todo: once user is registered, they should automatically get logged in
+        //loginUser(regInfo);
+        changeDisplay(sideBars.DEFAULT_USER_SIDE_BAR);
+    }
+
     return ( <>
         {accountAuthNavigation(changeDisplay, currentDisplay)}
         <ul>
         <p>Register</p>
-        <input placeholder="Email" />
-        <input placeholder="Username" />
-        <input placeholder="Password" type="password"/>
+        <input name="email" placeholder="Email" onChange={(e) => updateRegInfo(e, setRegInfo, regInfo)} />
+        <input name="username" placeholder="Username" onChange={(e) => updateRegInfo(e, setRegInfo, regInfo)}/>
+        <input name="password" placeholder="Password" type="password" onChange={(e) => updateRegInfo(e, setRegInfo, regInfo)}/>
         <span></span>
-        <button onClick={ ()=> changeDisplay(sideBars.DEFAULT_USER_SIDE_BAR) }>Confirm</button>
+        <button onClick={(e)=> regButtonHandler(e)}>Confirm</button>
         </ul>
     </>)
 }
 
+
+// @param e - type: ChangeEvent<HTMLInputElement>
+// @param set{method}Info..type: (prev) => void - pass in state setter functions
+// @param prev - previous data that you are going to be setting
+//! only use on change events 
 function updateLoginInfo(e: ChangeEvent<HTMLInputElement>, setLoginInfo : (prev: any) => void, prev : any) : any{
     const key = e.target.name as string;
     const value = e.target.value as string;
     setLoginInfo({...prev, [key]: value})
+}
+
+function updateRegInfo(e: ChangeEvent<HTMLInputElement>, setRegInfo: (prev: any) => void, prev: any) {
+    const key = e.target.name as string;
+    const value = e.target.value as string;
+    setRegInfo({...prev, [key]: value})
 }

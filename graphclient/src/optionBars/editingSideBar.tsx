@@ -1,5 +1,7 @@
 import { sideBars } from "./sideBar"
 
+//@param changeDisplay - does what it says, takes argument of a void function
+//* refer to ./sidebar to view side bar options
 const sideBarNavigation = (changeDisplay : (newDisplay : sideBars) => void, currentDisplay : any) => {
     return (
         <>

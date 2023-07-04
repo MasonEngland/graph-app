@@ -49,6 +49,10 @@
     background-color: rgba(88,153,226, 1);
 }
 
+.accountNavigation {
+    cursor: pointer;
+}
+
 .accountNavigation div,
 .sideBarNavigation div {
     margin-right: 15px;
