@@ -20,7 +20,7 @@ export function* loginSaga({payload, type} : Params.SagaLoginParams) {
         const res: { data : any } = yield axios.post(`${APIUrl}accounts/verify`, payload)
         yield put({ type: ActionType.UPDATE_USER, payload: res.data})
         currentUser = res.data.userName;
-        console.log(res.data);
+        //console.log(res.data);
     }
     catch(e) {
         // here we would put login failed   yield put(  )
