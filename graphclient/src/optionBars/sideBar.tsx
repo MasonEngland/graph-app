@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react'
+// ** Components Imports ** //
 import { loginSideBar, registerSideBar} from './profileSideBar';
+import DropDownMenu from './dropDownMenu';
+
+// ** State ** //
+import { useEffect, useState } from 'react'
+import { State } from '../State/reducers/rooter-reducer';
+import { useSelector } from 'react-redux';
 
 import './sideBar.css'
-
-import { useSelector } from 'react-redux';
-import { State } from '../State/reducers/rooter-reducer';
 
 export enum sideBars {
     REGISTER_SIDE_BAR = "REGISTER_SIDE_BAR",
@@ -57,6 +60,11 @@ export default function SideBar() {
         title: "Grahame1"
     }]
 
+    // This gets called when an element has been selected from a drop down menu
+    const selectedOptionDMenu = (selectedOption : string) => {
+        console.log(selectedOption)
+    }
+
     // If a new graph is created it should navigate to the 
     // editing page
     //* this is the main page for each user
@@ -64,14 +72,35 @@ export default function SideBar() {
         return (<div className="graphs">
             {sideBarNavigation()}
             <ul>
-                <h1>Graphs : </h1>
-                <h3>New Graph : </h3>
-                <input/>
-                <input/>
+                <h2>Graphs : </h2>
+                <p>New Graph : </p>
+                <input placeholder="Graph Name"/>
+                <DropDownMenu
+                    open={true} 
+                    multiple={false}
+                    menuOptions ={[
+                        "Ven Diagram",
+                        "Bar Graph",
+                        "UML Diagram",
+                        "Gannt Chart"
+                    ]} 
+                    selectOption = {selectedOptionDMenu}
+                    onEmptyMsg = {"Graph Types ... "}/>
                 <button>Add New : </button>
                 <div className="graphs">
-                <h3>Existing Graphs : </h3>
-                <input/>
+                <p>Existing Graphs : </p>
+                <input placeholder="Search by Name"/>
+                <DropDownMenu
+                    open={true} 
+                    multiple={false}
+                    menuOptions ={[
+                        "Ven Diagram",
+                        "Bar Graph",
+                        "UML Diagram",
+                        "Gannt Chart"
+                    ]} 
+                    selectOption = {selectedOptionDMenu}
+                    onEmptyMsg = {"Filter by Graph"}/>
                 {userGraphs.map(( graph : any, i : number ) => (
                     <div className="graph">
                     <p>{graph.title}</p>
@@ -92,6 +121,8 @@ export default function SideBar() {
                 return loginSideBar(changeDisplay, setloginInfo, currentDisplay, loginInfo)
             case sideBars.REGISTER_SIDE_BAR:
                 return registerSideBar(changeDisplay, currentDisplay, regInfo, setRegInfo);
+            case sideBars.EDITING_GRAPH_SIDE_BAR:
+                return (<>{}</>)
         }
         return userHomePage()
     }
