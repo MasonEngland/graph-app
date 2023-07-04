@@ -1,54 +1,64 @@
 .folderMenu {
     display: flex;
     position: relative;
-    max-height: 2em;
+    max-height: 1.25em;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 5px;
     outline: none;
-    width: 100%;
+    width: 70%;
     padding: 2px;
-    background: rgba(168,162,158, 0.25);
+    background-color: rgba(241, 245, 249, 1);
     z-index: 10;
 }
 
+.folderMenu .selectedFolders button{
+    width: 125px;
+    min-height: 1em;
+    translate: 0 -1.1em;
+}
+
+.folderMenu .selectedFolders p {
+    width: 200%;
+    translate: 0 -1.25em;
+    color: #111827;
+}
+
 .folderMenu:focus {
-    background: rgba(168,162,158, 0.65);
+    background-color: white;
 }
 
 .selectedFolders {
     flex-grow: 1;
 }
 
-.folderMenu .selectedFolders button {
-    transform: translateY(0px);
-    max-height: 30px;
-    margin: 0 5px;
+.folderMenu .menuClose {
+    max-width: 20px;
+    margin-top: 0px;
+    transform: scaleY(-70%);
 }
 
 .folderMenu button {
     border: none;
     outline: none;
     cursor: pointer;
-    background: rgba(129,36,37,.55);
-    height: 2.5em;
-    padding: 0 0.75em;
+    background: rgba(88,153,226 , 0.9);
     translate: 0 0px;
     z-index: 0;
     color: #111827;
 }
 
-.folderMenu .currentFolder {
-    transform: scaleX(10%);
+.folderMenu .selectedFolders {
+    height: 10px;
 }
 
 .folderMenu button:hover,
 .folderMenu button:focus {
-    background-color: rgba(129,36,37,.75);
+    background: rgba(88,153,226 , 1);
 }
 
 .folderMenu .divider {
     align-self: stretch;
-    background-color: rgba(129,36,37,.75);
+    background: rgba(88,153,226 , 0.9);
     margin: 0 5px;
     width: 3px;
     z-index: 1;
@@ -76,7 +86,7 @@
 
 .folderMenu .show{
     display: block;
-    background-color: rgb(228, 225, 225, 1);
+    background-color: rgba(241, 245, 249, 1);
     border-radius: 0.25em;
 }
 
@@ -94,9 +104,9 @@
 }
 
 .folderMenu .selected {
-    background:rgba(129,36,37,.75)
+    background: rgba(88,153,226 , 0.9)
 }
 
 .folderMenu .highlighted {
-    background:rgba(129,36,37,.35)
+    background: rgba(88,153,226 , 0.6)
 }

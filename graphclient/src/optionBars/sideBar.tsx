@@ -88,7 +88,7 @@ export default function SideBar() {
                     onEmptyMsg = {"Graph Types ... "}/>
                 <button>Add New : </button>
                 <div className="graphs">
-                <p>Existing Graphs : </p>
+                <h2>Existing Graphs : </h2>
                 <input placeholder="Search by Name"/>
                 <DropDownMenu
                     open={true} 

@@ -29,3 +29,16 @@ button {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
+
+.AppContainer input, .AppContainer textarea {
+    box-sizing: border-box;
+    outline: none;
+    resize: none;
+    border: none;
+    background-color: #f1f5f9;
+}
+
+.AppContainer input:focus, .AppContainer textarea:focus {
+    background-color: white;
+    box-shadow: 1px 1px 1px 1px rgba(88,153,226, 0.75);
+}

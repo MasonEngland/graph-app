@@ -64,7 +64,7 @@ export default function DropDownMenu ({open, multiple, selectOption, menuOptions
                 //*** We display all selected folders, or an empty message ***// 
             }
             {activeOptions.length == 0 ? 
-            <span>{onEmptyMsg}</span> :
+            <p>{onEmptyMsg}</p> :
             activeOptions.map( ( folder, i ) => (
                 <button 
                 key={folder} 
@@ -74,7 +74,7 @@ export default function DropDownMenu ({open, multiple, selectOption, menuOptions
                 </button>
             ))}
             </span>
-            <button onClick = { (e) => clearFolders(e) } className="menuClose">
+            <button onClick = { (e) => clearFolders(e) } className="menuClose"> X
             </button>
 
             {
