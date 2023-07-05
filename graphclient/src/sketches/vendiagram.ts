@@ -1,4 +1,5 @@
 import p5 from 'p5';
+import react from 'react';
 
 export default function vendiagram(p: p5) {
 

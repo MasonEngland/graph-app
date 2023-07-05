@@ -54,10 +54,12 @@ const gChartSchema = new Schema({
     accountID: String,
     startTime: Number,
     EndTime: Number,
+    GanttTitle: String,
     Tasks: [{
         TaskStartTime: Number,
         TaskEndTime: Number,
-        TaskName: String
+        TaskName: String,
+        TaskPerson: String
     }]
 })
 
