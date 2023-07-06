@@ -8,10 +8,24 @@
     border-radius: 10px;
 }
 .react-p5-wrapper canvas {
-    top: 15vh;
+    top: 10vh;
     display: block;
     margin: auto;
     outline: none;
     border:0 none;
-    /*box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 1);*/
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 1);
 }
+
+.react-p5-wrapper .label0 {
+    position: sticky;
+    bottom: 73vh;
+    left: 49vw;
+}
+
+.react-p5-wrapper .label1 {
+    position: sticky;
+    bottom: 73vh;
+    left: 64vw;
+}
+
+
