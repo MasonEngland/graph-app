@@ -11,14 +11,15 @@ type dropDownMenuParams = {
 
 
 // @ brief : Displays an interactable drop-down for the user to select elements 
-//
-// @ params open : Determines if all the contents of the drop down menu are displayed
-// @ params multiple : Determines if multiple elements from the drop down menu can be selected
-// @ params menuOptions : Displays possible options for the user to select when they open
-//          the drop down menu
-// @ params selectOption : A call back function for when the user has selected an element 
-//           from the drop down menu
-// @ params onEmptyMsg : Text displayed if no elements have been selected by the user 
+/* 
+@params...
+@params open : Determines if all the contents of the drop down menu are displayed
+@params multiple : Determines if multiple elements from the drop down menu can be selected
+@params menuOptions : Displays possible options for the user to select when they openthe drop down menu
+@params selectOption : A call back function for when the user has selected an element from the drop down menu
+@params onEmptyMsg : Text displayed if no elements have been selected by the user  
+@references : sideBar.tsx
+*/
 export default function DropDownMenu ({open, multiple, selectOption, menuOptions, onEmptyMsg}: dropDownMenuParams) { 
     const [isOpen, setOpen] = useState(false)
     const [activeOptions, setActOptions] = useState<any[]>([]) 
@@ -27,11 +28,13 @@ export default function DropDownMenu ({open, multiple, selectOption, menuOptions
     
     useEffect( () => { },[] )
 
+    //todo: add reference location
     const clearFolders = (e : any) => {
         e.stopPropagation()
         setActOptions([])
     }
 
+    //todo: add reference location in documentation
     const selectedFolder = (e : any, option : string) => {
         e.stopPropagation()
         if(multiple) {

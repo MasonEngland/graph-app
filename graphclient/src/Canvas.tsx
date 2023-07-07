@@ -5,7 +5,6 @@ const { ReactP5Wrapper } = require('react-p5-wrapper');
 
 export default function Canvas() {
   return (
-     <ReactP5Wrapper sketch={(p: p5) => vendiagram(p)}/>
+    <ReactP5Wrapper sketch={(p: p5) => vendiagram(p)}/>
   );
 };
-  
