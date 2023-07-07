@@ -12,7 +12,7 @@
     left: 100px;
     top: 100px;
     display: block;
-    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 1); /*! only for developement purposes*/
+    /*box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 1); /*! only for developement purposes*/
 }
 
 .react-p5-wrapper .add-button {
