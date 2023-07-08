@@ -1,6 +1,7 @@
 /**
  * Graph App by Mason England and Cade Almond
- *  7/19/2023
+ * Created 6/19/2023
+ * approximate line count: 1,511 (as of 7/7/23)
  */
 import mongoose from 'mongoose';
 import express from 'express';

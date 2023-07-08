@@ -55,7 +55,7 @@ export default function vendiagram(p: p5) {
             case "right":
                 rightnotes.push(p.createElement("h4", "New Item"));
                 for (let i = 0; i < rightnotes.length; i++) {
-                    rightnotes[i].position(1000, 300 + (i * 30), 'absolute');
+                    rightnotes[i].position(960, 300 + (i * 30), 'absolute');
                     rightnotes[i].attribute('contenteditable', 'true');
                 }
                 break;
