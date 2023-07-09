@@ -16,9 +16,19 @@ export enum sideBars {
     EDITING_GRAPH_SIDE_BAR = "EDITING_SIDE_BAR"
 }
 
+// These are graph types
+enum graphTypes {
+    VEN_DIAGRAM = "venDiagram",
+    UML_DIAGRAM = "umlDiagram",
+    GANNT_CHART = "ganntChart" 
+}
+
 // main component implemented in ../App.tsx
 export default function SideBar() {
     const[currentDisplay, setSideBar] = useState(sideBars.LOGIN_IN_SIDE_BAR)
+    const[userGraph, setUserGraph   ] = useState({})
+    const[graphInputs, setGraphInputs  ] = useState([])
+    const[editingGraph, setEditingGraph] = useState(false)
 
     const [loginInfo, setloginInfo] = useState({
         username: "",
@@ -62,7 +72,21 @@ export default function SideBar() {
 
     // This gets called when an element has been selected from a drop down menu
     const selectedOptionDMenu = (selectedOption : string) => {
-        console.log(selectedOption)
+        console.log(selectedOption + " Is the option you selected")
+        setUserGraph({ ...userGraph, graphType : selectedOption })
+    }
+
+    // @ breif This adds a new graph to the users profile which they can edit
+    const addGraph = (e: any) => {
+        const newGraph = {...userGraph, title: userGraphs[0].title}
+        navigateToGraph(newGraph)
+    }
+
+    // @ brief This select a new graph for the user to edit
+    const navigateToGraph = (selectedGraph : any) => {
+        setUserGraph(selectedGraph)
+        setEditingGraph(false)
+        setSideBar(sideBars.EDITING_GRAPH_SIDE_BAR)
     }
 
     // If a new graph is created it should navigate to the 
@@ -86,7 +110,7 @@ export default function SideBar() {
                     ]} 
                     selectOption = {selectedOptionDMenu}
                     onEmptyMsg = {"Graph Types ... "}/>
-                <button>Add New : </button>
+                <button onClick={ (e)=> addGraph(e) }>Add New : </button>
                 <div className="graphs">
                 <h2>Existing Graphs : </h2>
                 <input placeholder="Search by Name"/>
@@ -111,6 +135,82 @@ export default function SideBar() {
             </div>)
     }
 
+    const venDiagramComponents = ["Ven Diagram"]
+    const umlDiagramComponents = ["Class", "Interface"]
+    const ganntChartComponents = ["Event"]
+
+    const diagramComponentModel = {
+        "Ven Diagram" : venDiagramComponents,
+        "UML Diagram" : umlDiagramComponents,
+        "Gannt Chart" : ganntChartComponents
+    }
+
+    const venDiagramInputs = ["Title", "Contents"]
+    const umlClassInputs = ["Title", "Overview", "Variables"]
+    const eventInputs = ["Event Name", "Task Overview", "Begin Date", "End Date" ]
+
+    const diagramInputModel = {
+        "Ven Diagram" : venDiagramInputs,
+        "Class" : umlClassInputs,
+        "Interface" : umlClassInputs,
+        "Gannt Chart" : eventInputs
+    }
+
+    const selectedComponent = (selectedOption : string) => {
+        console.log(selectedOption)
+        const inputsToGraph = (diagramInputModel as any)[selectedOption] 
+        setGraphInputs(inputsToGraph !== undefined ? inputsToGraph : [])
+    }
+
+    // @ brief : This will allow a user to modify an already existing graph.
+    // A user can 
+    //   1. Add a graph "Component" to a graph
+    //   2. Edit a pre-existing graph component
+    // @params selectedGraph is the graph that the user choose to edit
+    const userEditGraph = (graph : any, editingGraph : boolean) => {
+        const graphType = userGraphs[0]
+        let test = (diagramComponentModel as any)[(userGraph as any)["graphType"]]
+        
+        if(!test) test = []
+
+        return (<div className="graphs">
+            {sideBarNavigation()}
+            <ul>
+                <h2>{graph.title}</h2>
+                <h2>Graph Components : </h2>
+                <input placeholder="Component Name"/>
+                <DropDownMenu
+                    open={true} 
+                    multiple={false}
+                    menuOptions ={ test } 
+                    selectOption = {selectedComponent}
+                    onEmptyMsg = {"Components ... "}/>
+                {graphInputs.map((inputFields : string, i : number ) => (
+                    <>
+                        <input placeholder = {inputFields}/>
+                    </>
+                ))}
+                <button>Add Component </button>
+                <div className="graphs">
+                <h2>Existing Components </h2>
+                <input placeholder="Search by Name"/>
+                <DropDownMenu
+                    open={true} 
+                    multiple={false}
+                    menuOptions ={[
+                        "Ven Diagram",
+                        "Bar Graph",
+                        "UML Diagram",
+                        "Gannt Chart"
+                    ]} 
+                    selectOption = {selectedOptionDMenu}
+                    onEmptyMsg = {"Filter by Component"}/>
+                </div>
+            </ul>
+            </div>)
+    }
+
+
     // simple function to 
     const changeDisplay = (newDisplay : sideBars) => setSideBar(newDisplay)
 
@@ -122,7 +222,7 @@ export default function SideBar() {
             case sideBars.REGISTER_SIDE_BAR:
                 return registerSideBar(changeDisplay, currentDisplay, regInfo, setRegInfo);
             case sideBars.EDITING_GRAPH_SIDE_BAR:
-                return (<>{}</>)
+                return (<>{userEditGraph(userGraph, editingGraph)}</>)
         }
         return userHomePage()
     }

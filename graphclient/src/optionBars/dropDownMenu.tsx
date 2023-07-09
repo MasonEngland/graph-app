@@ -77,6 +77,7 @@ export default function DropDownMenu ({open, multiple, selectOption, menuOptions
                 </button>
             ))}
             </span>
+
             <button onClick = { (e) => clearFolders(e) } className="menuClose"> X
             </button>
 
@@ -84,7 +85,6 @@ export default function DropDownMenu ({open, multiple, selectOption, menuOptions
                 // Display available options to the user if they open the
                 // dropdown Menu
             }
-            <div className="divider"></div>
             <div className="menuOpen"></div>
             <ul className={`folders ${isOpen ? "show" : ""}`}>
                 {menuOptions.map( ( option : any, i : number ) => (

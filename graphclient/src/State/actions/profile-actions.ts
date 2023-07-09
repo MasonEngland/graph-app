@@ -7,7 +7,7 @@
 //     - LoginUser
 //     - LogoutUser
 
-import { Auth } from "../action-types/saga-actions";
+import { Auth, User } from "../action-types/saga-actions";
 import { LoginParams, RegisterParams } from "../../Types/parameter-types";
      
 interface RegisterUser {
@@ -24,8 +24,13 @@ interface LogoutUser {
     type: Auth.LOGOUT_REQUEST,  
 }
 
+interface RetrieveUserGraphs {
+    type: User.RETRIEVE_USER_INFO
+}
+
 export type SagaProfileAction = (
     LoginUser     |
     LogoutUser    |
-    RegisterUser  
+    RegisterUser  |
+    RetrieveUserGraphs
 )

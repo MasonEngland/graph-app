@@ -10,4 +10,6 @@ export enum ActionType {
     UPDATE_USER = "UPDATE_USER",
     LOGIN  = "LOGIN",
     LOGOUT = "LOGOUT",
+
+    UPDATE_USER_GRAPHS = "UPDATE_USER_GRAPHS"
 }

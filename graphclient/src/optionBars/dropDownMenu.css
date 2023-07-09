@@ -14,7 +14,7 @@
 .folderMenu .selectedFolders button{
     width: 125px;
     min-height: 1em;
-    translate: 0 -1.1em;
+    translate: 0 -1.1575em;
 }
 
 .folderMenu .selectedFolders p {

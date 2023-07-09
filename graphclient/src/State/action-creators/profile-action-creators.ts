@@ -7,7 +7,7 @@
 //     - User Auth : loginUser, logoutUser, regUser
 
 import { LoginParams, RegisterParams } from "../../Types/parameter-types";
-import { Auth } from '../action-types/saga-actions'
+import { Auth, User } from '../action-types/saga-actions'
 import store from '../store'
 
 // ## ------------- USER ------------- ##
@@ -23,4 +23,8 @@ export const loginUser = (payload: LoginParams) => {
 
 export const regUser = (payload: RegisterParams) => {
     store.dispatch({type: Auth.REGISTER_REQUEST, payload})
+}
+
+export const getUserGraphs = () => {
+    store.dispatch({type: User.RETRIEVE_USER_INFO})
 }

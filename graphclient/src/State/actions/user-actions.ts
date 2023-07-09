@@ -8,11 +8,16 @@
 import { ActionType } from "../action-types/user-action-types";
 import { UserProfile } from "../../Types/state-types";     
 
-interface Update {
+interface UpdateUser {
     type: ActionType,
     payload: UserProfile
 }
 
+interface UpdatedUserInfo {
+    type: ActionType,
+    payload: any
+}
+
 export {SagaProfileAction} from './profile-actions'
 
-export type Action = ( Update ) 
+export type Action = ( UpdateUser | UpdatedUserInfo ) 
