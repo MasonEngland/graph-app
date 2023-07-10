@@ -76,7 +76,7 @@ export default function SideBar() {
         setGraphInputs(inputsToGraph !== undefined ? inputsToGraph : [])
     }
     
-    // simple function to 
+    // simple function to set which Side Bar the user has navigated too
     const changeDisplay = (newDisplay : sideBars) => setSideBar(newDisplay)
 
     // @ Brief : Update the side bar according to the option that the user has requested to navigate to. 
@@ -87,16 +87,13 @@ export default function SideBar() {
             case sideBars.REGISTER_SIDE_BAR:
                 return registerSideBar(changeDisplay, currentDisplay, regInfo, setRegInfo);
             case sideBars.EDITING_GRAPH_SIDE_BAR:
-                return (<>{userGraphEditing(userGraphs, selectedOptionDMenu, currentDisplay, userGraphs[0].title, 
+                return (<>{userGraphEditing(selectedOptionDMenu, currentDisplay, userGraph, 
                     selectedComponent, changeDisplay,userGraphs[0], graphInputs)}</>)
         }
         return userHomePage(userGraphs, selectedOptionDMenu, addGraph, changeDisplay, currentDisplay)
     }
 
-    // We will have a sideBarHeader in the Container which will have buttons.
-    // When these buttons are clicked, it will call the setSideBar() with the
-    // corresponding sideBars.(OPTION), and than that side
-    //! this is the part called in ../App.tsx
+    // Render the side bar
     return (
         <div className="sideBarContainer">
             {displaySideBar(currentDisplay)}

@@ -69,3 +69,14 @@
     padding: 2px 7px;
     border-radius: 5px;
 }
+
+.sideBarContainer .graph {
+    background-color: #dee7ec;
+    margin: 10px 0;
+    width: 70%;
+}
+
+.sideBarContainer .graph p {
+    margin: 5px;
+    color: rgba(33, 37, 41, 1);
+}
