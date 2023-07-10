@@ -14,7 +14,7 @@ vendiagram example
     }
 }
 
-line/bar graph example
+bar graph example
 {
     "accountID": "649670a4bb3698c4809398cc",
     "top": 35,
@@ -25,15 +25,15 @@ line/bar graph example
     "ylabel": "tempurature in degrees farenheight",
     "pairs": [
         {
-            "x": 2015,
+            "x": "2015",
             "y": 95
         },
         {
-            "x": 2016,
+            "x": "2016",
             "y": 97
         },
         {
-            "x": 2017,
+            "x": "2017",
             "y": 99
         }
     ]

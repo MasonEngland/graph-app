@@ -45,8 +45,8 @@ const barGraphSchema = new Schema({
     XLabel: String,
     YLabel: String,
     Pairs: [{
-        X: Number,
-        Y: Number
+        x: String,
+        y: Number
     }]
 })
 

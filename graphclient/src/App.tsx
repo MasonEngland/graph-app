@@ -9,6 +9,7 @@ import { State } from './State/reducers/rooter-reducer';
 import { getUserGraphs } from './State/action-creators/profile-action-creators';
 import vendiagram from './sketches/vendiagram';
 import p5 from 'p5';
+import Canvas from './Canvas';
 
 const { ReactP5Wrapper } = require('react-p5-wrapper');
 
@@ -34,7 +35,7 @@ function App() {
       <NavBar/>
       <div className="AppContainer">
           <SideBar/>
-          <ReactP5Wrapper sketch={(p: p5) => vendiagram(p)}/>
+          <Canvas />
       </div>
     </>
   );
