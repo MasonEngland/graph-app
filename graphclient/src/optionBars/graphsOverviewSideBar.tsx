@@ -20,9 +20,9 @@ const sideBarNavigation = (changeDisplay : (newDisplay : sideBars) => void, curr
 export const userHomePage = (userGraphs: any[], selectedOptionDMenu : (selectedOption : string) => void, addGraph : (e : any) => void,
         changeDisplay : (newDisplay : sideBars) => void, currentDisplay: sideBars) => {
     return (<div className="graphs">
+        <h2>Graphs : </h2>
         {sideBarNavigation(changeDisplay, currentDisplay)}
         <ul>
-        <h2>Graphs : </h2>
         <p>New Graph : </p>
         <input placeholder="Graph Name"/>
         <DropDownMenu
@@ -38,7 +38,7 @@ export const userHomePage = (userGraphs: any[], selectedOptionDMenu : (selectedO
             onEmptyMsg = {"Graph Types ... "}/>
         <button onClick={ (e)=> addGraph(e) }>Add New : </button>
         <div className="graphs">
-        <h2>Existing Graphs : </h2>
+        <p>Existing Graphs : </p>
         <input placeholder="Search by Name"/>
         <DropDownMenu
             open={true} 
@@ -66,19 +66,21 @@ export const userHomePage = (userGraphs: any[], selectedOptionDMenu : (selectedO
 //   1. Add a graph "Component" to a graph
 //   2. Edit a pre-existing graph component
 // @params selectedGraph is the graph that the user choose to edit
-export const userGraphEditing = (userGraphs: any[], selectedOptionDMenu : (selectedOption : string) => void, currentDisplay: sideBars, userGraph : string,
+export const userGraphEditing = ( selectedOptionDMenu : (selectedOption : string) => void, currentDisplay: sideBars, userGraph : {},
 selectedComponent : (selectedOption : string) => void, changeDisplay : (newDisplay : sideBars) => void, graph : any, graphInputs : any[]) => {
-
+    console.log(userGraph, "USER -G ")
+    let componentsOfGraph = (diagramComponentModel as any)[(userGraph as any)["graphType"]]
+    if(!componentsOfGraph) componentsOfGraph = []
     return (<div className="graphs">
+        <h2>Graphs : </h2>
         {sideBarNavigation(changeDisplay, currentDisplay)}
         <ul>
         <h2>{graph.title}</h2>
-        <h2>Graph Components : </h2>
         <input placeholder="Component Name"/>
         <DropDownMenu
             open={true} 
             multiple={false}
-            menuOptions ={ (diagramComponentModel as any)[(userGraph as any)["graphType"]] } 
+            menuOptions ={ componentsOfGraph } 
             selectOption = {selectedComponent}
             onEmptyMsg = {"Components ... "}/>
             {graphInputs.map((inputFields : string, i : number ) => (
@@ -88,7 +90,7 @@ selectedComponent : (selectedOption : string) => void, changeDisplay : (newDispl
             ))}
         <button>Add Component </button>
         <div className="graphs">
-        <h2>Existing Components </h2>
+        <p>Existing Components </p>
         <input placeholder="Search by Name"/>
         <DropDownMenu
             open={true} 

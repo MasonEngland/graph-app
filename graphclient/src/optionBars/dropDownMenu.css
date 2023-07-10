@@ -7,7 +7,7 @@
     outline: none;
     width: 70%;
     padding: 2px;
-    background-color: rgba(241, 245, 249, 1);
+    background-color: rgba(33, 37, 41, 0.65);
     z-index: 10;
 }
 
@@ -20,11 +20,11 @@
 .folderMenu .selectedFolders p {
     width: 200%;
     translate: 0 -1.25em;
-    color: #111827;
+    color: #e2e8f0;
 }
 
 .folderMenu:focus {
-    background-color: white;
+    background-color: rgb(24, 28, 31, 0.9);
 }
 
 .selectedFolders {
