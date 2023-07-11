@@ -28,7 +28,7 @@
 
 svg {
     position: relative;
-    top: 50px;
+    top: 80px;
     left: 80px;
-    border: 5px solid black;
+    /*border: 5px solid black;*/
 }
