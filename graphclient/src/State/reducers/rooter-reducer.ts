@@ -8,9 +8,11 @@
 
 import { combineReducers } from "redux";
 import authReducer from "./auth-reducers"
+import userInfoReducer from "./user-info-reducer";
 
 export const reducers = combineReducers({
     auth: authReducer,
+    userInfo: userInfoReducer
 });
 
 export type State = ReturnType<typeof reducers>
