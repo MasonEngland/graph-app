@@ -8,23 +8,24 @@ import { useEffect, useState } from 'react';
 const { ReactP5Wrapper } = require('react-p5-wrapper');
 
 export default function Canvas() {
-
-
-
   const state: any = useSelector((state: State) => state.userInfo);
-  const [currentGraph, setCurrentGraph] = useState([{x: "0", y: 0, id: ""}, {x: "1", y: 1, id: ""}])
+  const [currentGraph, setCurrentGraph] = useState({
+    XLabel: "year",
+    YLabel: "temp(f)",
+    Pairs: []
+  })
   useEffect(() => {
     if (state.userGraphs && state.userGraphs.barGraphs.length > 0) {
       setCurrentGraph((prev) => {
-        console.log(state.userGraphs);
-        return state.userGraphs.barGraphs[0].Pairs;
+        //console.log(state.userGraphs);
+        return state.userGraphs.barGraphs[0];
       });
     }
   }, [state])
 
   return (
     <div className='background'>
-      <BarChart pairs={currentGraph}/>
+      <BarChart graph={currentGraph}/>
     </div>
   );
 };

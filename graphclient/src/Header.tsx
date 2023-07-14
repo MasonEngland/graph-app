@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 export default function Header() {
   
   // use selector refers to a reducer which pulls from the store
-  // the store only contains a current user I belive
+  // the store contains auth and userData
   //! please correct any errors in my comments
   const state : any = useSelector((state : State) => state.auth)
   const [message, setMessage] = useState("please sign in");

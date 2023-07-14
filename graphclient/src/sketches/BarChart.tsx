@@ -2,39 +2,28 @@ import { Component, ReactNode, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { useSelector } from "react-redux";
 import { State } from "../State/reducers/rooter-reducer";
+import DUMMY_DATA from './dummydata';
 
+/**
+ * @ brief - this file draws a bargraph based on recieved graph data
+ * @ brief - call with <BarChart graph = {insert graph data}/>
+ */
 
-const DUMMY_DATA = [{
-    x: "2014",
-    y: 88
-}, {
-    x: "2015",
-    y: 32,
-}, {
-    x: "2016",
-    y: 55
-}, {
-    x: "2017",
-    y: 150
-}, {
-    x: "2018",
-    y: 103
-}, {
-    x: "2019",
-    y: 142
-}, {
-    x: "2020",
-    y: 213,
-}, {
-    x: "2021",
-    y: 94
-}, {
-    x: "2022",
-    y: 66
-}, {
-    x: "2023",
-    y: 120
-}]
+type Graph = {
+    _id?: string,
+    accountID?: string,
+    top?: number,
+    left?: number,
+    width?: number,
+    height?: number,
+    XLabel: string,
+    YLabel: string,
+    Pairs: {
+        x: string,
+        y: number,
+        _id?: string
+    }[]
+}
 
 type Pairs = {
     x: string,
@@ -42,12 +31,12 @@ type Pairs = {
     _id?: string
 }
 
-type Props = {
-    pairs: Pairs[]
+interface Props{
+    graph: Graph
 }
 
 
-const yValues: number[] = DUMMY_DATA.map((d) => d.y);
+const yValues: number[] = DUMMY_DATA().map((d) => d.y);
 
 
 export default class BarChart extends Component<Props> {
@@ -57,15 +46,11 @@ export default class BarChart extends Component<Props> {
     }
 
     state = {
-        pairs: DUMMY_DATA
+        pairs: []
     }
 
-    static getDerivedStateFromProps(props: any, state: any) {
-        return {pairs: props.pairs}
-    }
-
-    componentDidMount(): void {
-        this.drawChart(DUMMY_DATA);
+    static getDerivedStateFromProps(props: Props, state: any) {
+        return {pairs: props.graph.Pairs}
     }
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<{}>, snapshot?: any): void  => {
@@ -82,7 +67,6 @@ export default class BarChart extends Component<Props> {
     drawChart(GraphData: Pairs[]) {
 
         const yValues: number[] = GraphData.map((d) => d.y);
-
 
         let svg = d3
             .select(".bar-chart")
@@ -120,15 +104,12 @@ export default class BarChart extends Component<Props> {
             .attr("height", (d) => 350 - y(d.y)) 
             .attr("x", (d) => x(d.x) as number)
             .attr("y", (d) => y(d.y))
-            
-        
-        
-        
-            
-            
     }
 
     render(): ReactNode {
+        if (this.state.pairs.length === 0) {
+            return <h1>Loading...</h1>
+        }
         return <svg className="bar-chart"></svg>
     }
 }

@@ -37,7 +37,7 @@ export function* loginSaga({payload, type} : Params.SagaLoginParams) {
         yield put({ type: ActionType.UPDATE_USER, payload: res.data})
         currentUser = res.data.id;
         token       = res.data.token;
-        console.log(res.data);
+        //console.log(res.data);
     }
     catch(e) {
         //todo: here we would put login failed   yield put(  )
