@@ -1,5 +1,4 @@
 import p5 from 'p5';
-import './canvas.css'
 import vendiagram from './sketches/vendiagram';
 import BarChart from './sketches/BarChart';
 import { useSelector } from 'react-redux';

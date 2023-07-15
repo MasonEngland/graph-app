@@ -1,7 +1,5 @@
 import SideBar from './optionBars/sideBar';
 import NavBar from './Header'
-import './App.css';
-import './canvas.css'
 
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';

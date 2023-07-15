@@ -25,6 +25,7 @@ export const userHomePage = (userGraphs: any[], selectedOptionDMenu : (selectedO
         <ul>
         <p>New Graph : </p>
         <input placeholder="Graph Name"/>
+        <>
         <DropDownMenu
             open={true} 
             multiple={false}
@@ -36,6 +37,7 @@ export const userHomePage = (userGraphs: any[], selectedOptionDMenu : (selectedO
             ]} 
             selectOption = {selectedOptionDMenu}
             onEmptyMsg = {"Graph Types ... "}/>
+        </>
         <button onClick={ (e)=> addGraph(e) }>Add New : </button>
         <div className="graphs">
         <p>Existing Graphs : </p>

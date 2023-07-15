@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 import { State } from '../State/reducers/rooter-reducer';
 import { useSelector } from 'react-redux';
 
-import './sideBar.css'
 import { userHomePage, userGraphEditing } from './graphsOverviewSideBar';
 import { diagramInputModel } from '../Types/graphs-structure';
 

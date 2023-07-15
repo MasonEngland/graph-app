@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Calibri', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #212529;
+}
+
+button {
+  background: #187fe6;
+  font-style: bold;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 4px;
+  font-family: 'Quicksand', sans-serif;
+  letter-spacing: 0.5px;
+  color: white;
+  outline: none;
+  border: none;
+}
+
+.AppContainer {
+  width: 15vw;
+  margin-left: 2.5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+-webkit-text-fill-color: #dfe8f0;
+-webkit-box-shadow: 0 0 0px 1000px rgba(33, 37, 41, 0.65) inset;
+transition: background-color 5000s ease-in-out 0s;
+}
+
+.AppContainer ::placeholder{
+  color: #e2e8f0;
+}
+
+.AppContainer input, .AppContainer textarea {
+  box-sizing: border-box;
+  outline: none;
+  resize: none;
+  border: none;
+  background-color: rgba(33, 37, 41, 0.75);
+}
+
+.AppContainer input:focus, .AppContainer textarea:focus {
+  background-color: rgba(33, 37, 41, 1);
+  box-shadow: 1px 1px 1px 1px rgba(88,153,226, 0.75);
+}

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import './dropDownMenu.css'
 
 type dropDownMenuParams = {
     open: boolean,
@@ -24,9 +23,6 @@ export default function DropDownMenu ({open, multiple, selectOption, menuOptions
     const [isOpen, setOpen] = useState(false)
     const [activeOptions, setActOptions] = useState<any[]>([]) 
     const [highLightFolder, setHLFolder] = useState<number>(-1)
-
-    
-    useEffect( () => { },[] )
 
     //todo: add reference location
     const clearFolders = (e : any) => {
