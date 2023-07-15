@@ -9,11 +9,8 @@ const { ReactP5Wrapper } = require('react-p5-wrapper');
 
 export default function Canvas() {
   const state: any = useSelector((state: State) => state.userInfo);
-  const [currentGraph, setCurrentGraph] = useState({
-    XLabel: "year",
-    YLabel: "temp(f)",
-    Pairs: []
-  })
+  const [currentGraph, setCurrentGraph] = useState({XLabel: "year", YLabel: "temp(f)",Pairs: []});
+  
   useEffect(() => {
     if (state.userGraphs && state.userGraphs.barGraphs.length > 0) {
       setCurrentGraph((prev) => {
