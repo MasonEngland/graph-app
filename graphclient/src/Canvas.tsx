@@ -25,17 +25,17 @@ export default function Canvas({ onClickDiagram } : CanvasParams) {
       });
     }
   }, [state])
+  //! couldn't help but notice my graph isn't centered anymore
+  //!grrrrrrrrr
+  // jk, do what you need to do
+
+
+  //!!!!!!!!!!         all ur code is located in dummydata.ts btw
 
   return (
 
     <div className='background' ref = {ref}>
-      { /*<BarChart graph={currentGraph}/> */ }
-      <VenDiagram 
-      // If the height and width exist, pass this info to D3
-        height={ ref.current ? ref.current.clientHeight : 10 } 
-        width ={ ref.current ? ref.current.clientWidth  : 10 }
-      // When the user clicks on a ven diagram, this method will be called 
-        onClickDiagram={(d) => onClickDiagram(d)} />
+      <BarChart graph={currentGraph}/> 
     </div>
   );
 };

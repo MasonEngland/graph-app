@@ -55,3 +55,12 @@ export const dummyData2 = [{
     graphType: "ven diagram"
 }
 ]
+
+/*
+    <VenDiagram
+      // If the height and width exist, pass this info to D3
+        height={ ref.current ? ref.current.clientHeight : 10 } 
+        width ={ ref.current ? ref.current.clientWidth  : 10 }
+      // When the user clicks on a ven diagram, this method will be called 
+        onClickDiagram={(d) => onClickDiagram(d)} />
+*/
