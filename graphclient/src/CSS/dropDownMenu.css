@@ -1,14 +1,16 @@
 .folderMenu {
     display: flex;
     position: relative;
-    max-height: 1.25em;
+    max-height: 1.5em;
+    width: 74%;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 4px;
     outline: none;
-    width: 70%;
-    padding: 2px;
-    background-color: rgba(33, 37, 41, 0.65);
+    padding: 5px;
+    border: 1px solid rgba(241, 239, 239, 0.96);
+    background-color: #252525;
     z-index: 10;
+    margin-bottom: 10px;
 }
 
 .folderMenu .selectedFolders button{
@@ -19,12 +21,14 @@
 
 .folderMenu .selectedFolders p {
     width: 200%;
-    translate: 0 -1.25em;
+    translate: 0.9em -1.25em;
+    font-family: 'Segoe UI';
+    font-size: 12px;
     color: #e2e8f0;
 }
 
 .folderMenu:focus {
-    background-color: rgb(24, 28, 31, 0.9);
+    border: 1px solid rgba(88,153,226, 0.75);
 }
 
 .selectedFolders {
@@ -41,7 +45,7 @@
     border: none;
     outline: none;
     cursor: pointer;
-    background: rgba(88,153,226 , 0.9);
+    background: rgba(88,153,226, 0.9);
     translate: 0 0px;
     z-index: 0;
     color: #111827;
@@ -53,12 +57,12 @@
 
 .folderMenu button:hover,
 .folderMenu button:focus {
-    background: rgba(88,153,226 , 1);
+    background: rgba(88,153,226, 1);
 }
 
 .folderMenu .divider {
     align-self: stretch;
-    background: rgba(88,153,226 , 0.9);
+    background: rgba(88,153,226, 0.9);
     margin: 0 5px;
     width: 3px;
     z-index: 1;
@@ -104,9 +108,9 @@
 }
 
 .folderMenu .selected {
-    background: rgba(88,153,226 , 0.9)
+    background: rgba(88,153,226, 0.95)
 }
 
 .folderMenu .highlighted {
-    background: rgba(88,153,226 , 0.6)
+    background: rgba(88,153,226, 0.4)
 }

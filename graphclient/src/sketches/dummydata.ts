@@ -32,3 +32,26 @@ export default function DUMMY_DATA() {
     }
     ]
 }
+
+export const dummyData2 = [{
+    x: 200,
+    y: 150,
+    id: 1,
+    graphType: "ven diagram"
+}, {
+    x: 400,
+    y: 50,
+    id: 2,
+    graphType: "ven diagram"
+}, {
+    x: 320,
+    y: 150,
+    id: 3,
+    graphType: "ven diagram"
+}, {
+    x: 150,
+    y: 50,
+    id: 4,
+    graphType: "ven diagram"
+}
+]

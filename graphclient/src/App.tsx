@@ -15,6 +15,7 @@ const { ReactP5Wrapper } = require('react-p5-wrapper');
 function App() {
   const state : any = useSelector((state : State) => state.auth)
   const[displayGraph, setDisplayGraph] = useState()
+  const[currentGraph, setCurrentGraph] = useState()
   const[userGraphs, setUserGraphs]     = useState()
 
   // On start useEffect runs
@@ -26,6 +27,11 @@ function App() {
     if(state.currentUser) getUserGraphs()
   }, [state.currentUser])
 
+  const onClickDiagram = (selectedDiagramComponent : any) => {
+    console.log(selectedDiagramComponent)
+    setCurrentGraph(selectedDiagramComponent)
+  }
+
   // all user graphs
 
   return (
@@ -33,7 +39,7 @@ function App() {
       <NavBar/>
       <div className="AppContainer">
           <SideBar/>
-          <Canvas />
+          <Canvas onClickDiagram={(d) => onClickDiagram(d)} />
       </div>
     </>
   );

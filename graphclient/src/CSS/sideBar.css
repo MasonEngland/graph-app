@@ -1,6 +1,6 @@
 .sideBarContainer {
     width: 300px;
-    background-color: #33393f;
+    background-color: #252525;
     padding-left: 15px;
     margin-right: 10px;
     margin-top: 20px;
@@ -18,13 +18,32 @@
 }
 
 .sideBarContainer input {
-    height: 40%;
+    max-height: 1.50em;
+    margin-bottom: 10px;
     border-radius: 5px;
-    margin: 4px 0;
-    outline: none;
-    padding: 3px;
+    border: 1px solid rgba(241, 239, 239, 0.96);
+    background: #252525;
+    border-radius: 4px;
     box-sizing: border-box;
-    border-bottom: solid 2px rgba(168,162,158, 0.65);
+    padding: 16px;
+}
+
+.sideBarContainer input:focus {
+    outline: none;
+    border: 2px solid rgba(88,153,226, 0.75);
+}
+
+.sideBarContainer ::placeholder{
+    font-family: 'Segoe UI';
+    font-size: 12px;
+    pointer-events: none;
+    color: #e2e8f0;
+    transition: all 0.15s ease-out;
+}  
+
+.sideBarContainer input:focus ::placeholder{
+    background-color: #252525;
+    color: rgba(88,153,226, 0.75);
 }
 
 .sideBarContainer button{
@@ -35,7 +54,18 @@
     cursor: pointer;
 }
 
-.sideBarContainer .graphs input{}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+-webkit-text-fill-color: #dfe8f0;
+transition: background-color 5000s ease-in-out 0s;
+}
 
 .accountNavigation, .sideBarNavigation {
     display: flex;
@@ -46,15 +76,15 @@
 }
 
 .accountNavigation .REGISTER_SIDE_BAR-registerTab {
-    background-color: rgba(88,153,226, 1);
+    background-color:  rgba(88,153,226, 1);
 }
 
 .sideBarNavigation .DEFAULT_SIDE_BAR-GraphsTab {
-    background-color: rgba(88,153,226, 1);
+    background-color:  rgba(88,153,226, 1);
 }
 
 .sideBarNavigation .EDITING_SIDE_BAR-EditingTab {
-    background-color: rgba(88,153,226, 1);
+    background-color:  rgba(88,153,226, 1);
 }
 
 .accountNavigation, .sideBarNavigation {
@@ -65,7 +95,7 @@
 .sideBarNavigation div {
     margin-right: 15px;
     transform: scale(115%);
-    background:rgba(33, 37, 41, 0.65);
+    background:rgba(80, 115, 150, 0.65);
     padding: 2px 7px;
     border-radius: 5px;
 }
