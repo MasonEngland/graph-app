@@ -1,28 +1,14 @@
 import { Component, ReactNode, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import DUMMY_DATA from './dummydata';
-import { Graph } from '../Types/graphs-structure';
+import { BarGraph } from '../Types/graphs-structure';
 
 /**
  * @ brief - this file draws a bargraph based on recieved graph data
  * @ brief - call with <BarChart graph = {insert graph data}/>
  */
 
-/*type Graph = {
-    _id?: string,
-    accountID?: string,
-    top?: number,
-    left?: number,
-    width?: number,
-    height?: number,
-    XLabel: string,
-    YLabel: string,
-    Pairs: {
-        x: string,
-        y: number,
-        _id?: string
-    }[]
-}*/
+
 
 type Pairs = {
     x: string,
@@ -31,10 +17,8 @@ type Pairs = {
 }
 
 interface Props{
-    graph: Graph
+    graph: BarGraph
 }
-
-
 
 export default class BarChart extends Component<Props> {
 
@@ -57,7 +41,6 @@ export default class BarChart extends Component<Props> {
         d3.select('.bar-chart')
             .selectAll('g')
             .remove()
-        console.log(this.state.pairs);
         this.drawChart(this.state.pairs);
     }
 

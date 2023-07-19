@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux"
 import { diagramComponentModel } from "../Types/graphs-structure"
 import DropDownMenu from "./dropDownMenu"
 import { sideBars } from "./sideBar"
+import { State } from '../State/reducers/rooter-reducer';
+import { useEffect, useState } from "react";
 
 const sideBarNavigation = (changeDisplay : (newDisplay : sideBars) => void, currentDisplay: sideBars) => {
     return (
@@ -72,6 +75,7 @@ export const userGraphEditing = ( selectedOptionDMenu : (selectedOption : string
 selectedComponent : (selectedOption : string) => void, changeDisplay : (newDisplay : sideBars) => void, graph : any, graphInputs : any[]) => {
     console.log(userGraph, "USER -G ")
     let componentsOfGraph = (diagramComponentModel as any)[(userGraph as any)["graphType"]]
+
     if(!componentsOfGraph) componentsOfGraph = []
     return (<div className="graphs">
         <h2>Graphs : </h2>

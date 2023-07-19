@@ -35,12 +35,24 @@ export default function SideBar() {
         email: "",
     })
 
+    // state configuration
     const state : any = useSelector((state : State) => state.auth)
+    const [currentGraph, setCurrentGraph] = useState();
+    const graphstate = useSelector((state: State) => state.updateGraph)
+    useEffect(() => {
+        setCurrentGraph(graphstate.currentGraph);
+        console.log(currentGraph);
+    }, [graphstate])
+
 
     //* this checks if there is a user logged in, and if so changes the side bar
     useEffect( ()=> {
         if(state.currentUser) setSideBar(sideBars.DEFAULT_USER_SIDE_BAR)
     }, [state.currentUser] )
+    useEffect(() => {
+        //set a state var
+        console.log(graphstate.currentGraph);
+    }, [graphstate])
     
     //! ignore, just some dummy data
     const userGraphs = [{

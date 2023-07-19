@@ -15,10 +15,8 @@ interface CanvasParams {
 
 export default function Canvas({ onClickDiagram } : CanvasParams) {
   const userstate: any = useSelector((state: State) => state.userInfo);
-  const graphState = useSelector((state: State) => state.updateGraph)
   const [currentGraph, setCurrentGraph] = useState({XLabel: "year", YLabel: "temp(f)",Pairs: []});
-  const ref = useRef<any>(null)
-  useEffect(() => console.log(graphState.currentGraph), [graphState]);
+  const ref = useRef<any>(null);
 
   useEffect(() => {
     if (userstate.userGraphs && userstate.userGraphs.barGraphs.length > 0) {
@@ -29,9 +27,20 @@ export default function Canvas({ onClickDiagram } : CanvasParams) {
     }
   }, [userstate]);
 
-  //!!!!!!!!!!         all ur code is located in dummydata.ts btw
+  // @section --- EVENT HANDLERS
+
+  const graphUpdateHandler = (e: React.MouseEvent<any>) => {
+    if (currentGraph.Pairs.length > 0) {
+      updateGraph("bargraph", currentGraph);
+    }
+    else return;
+  }
+
+  // @section --- COMPONENT
+
+  //!!!!!!!!!!         all ur code is located in dummydata.ts
   return (
-    <div className='background' ref = {ref} onClick={(e)=> updateGraph("bargraph", currentGraph)}>
+    <div className='background' ref = {ref} onClick={graphUpdateHandler}>
       <BarChart graph={currentGraph}/>
     </div>
   );

@@ -26,7 +26,7 @@ export const diagramInputModel = {
     "Gannt Chart" : eventInputs
 }
 
-export type Graph = {
+export type BarGraph = {
     _id?: string,
     accountID?: string,
     top?: number,
