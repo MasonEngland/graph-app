@@ -30,7 +30,7 @@ export const getUserGraphs = () => {
     store.dispatch({type: User.RETRIEVE_USER_INFO})
 }
 
-export const updateGraph = (graphtype: "bargraph" | "linegraph"| "vennDiagram", payload: Graph) => {
+export const updateGraph = (graphtype: "bargraph" | "linegraph"| "vennDiagram", payload: any) => {
     switch (graphtype) {
         case "bargraph":
             store.dispatch({type: ActionType.UPDATE_BAR_GRAPH, payload});

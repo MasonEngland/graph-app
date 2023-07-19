@@ -14,23 +14,24 @@ interface CanvasParams {
 }
 
 export default function Canvas({ onClickDiagram } : CanvasParams) {
-  const state: any = useSelector((state: State) => state.userInfo);
+  const userstate: any = useSelector((state: State) => state.userInfo);
+  const graphState = useSelector((state: State) => state.updateGraph)
   const [currentGraph, setCurrentGraph] = useState({XLabel: "year", YLabel: "temp(f)",Pairs: []});
   const ref = useRef<any>(null)
+  useEffect(() => console.log(graphState.currentGraph), [graphState]);
 
   useEffect(() => {
-    if (state.userGraphs && state.userGraphs.barGraphs.length > 0) {
+    if (userstate.userGraphs && userstate.userGraphs.barGraphs.length > 0) {
       setCurrentGraph((prev) => {
         //console.log(state.userGraphs);
-        return state.userGraphs.barGraphs[0];
+        return userstate.userGraphs.barGraphs[0];
       });
     }
-  }, [state]);
+  }, [userstate]);
 
   //!!!!!!!!!!         all ur code is located in dummydata.ts btw
-
   return (
-    <div className='background' ref = {ref}>
+    <div className='background' ref = {ref} onClick={(e)=> updateGraph("bargraph", currentGraph)}>
       <BarChart graph={currentGraph}/>
     </div>
   );

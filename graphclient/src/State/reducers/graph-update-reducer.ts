@@ -16,7 +16,8 @@ type AppAction = Action | SagaProfileAction
 const updateGraphReducer = (state = initialState, action: AppAction ) => {
     switch (action.type) {
         case ActionType.UPDATE_BAR_GRAPH:
-            return {...state, curentGraph: action.payload}
+            //console.log(action.payload);
+            return {...state, currentGraph: action.payload}
         default:
             return state
     }

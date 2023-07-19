@@ -107,5 +107,6 @@ selectedComponent : (selectedOption : string) => void, changeDisplay : (newDispl
             onEmptyMsg = {"Filter by Component"}/>
         </div>
         </ul>
+        <button type="button" onClick={()=> console.log("")}>Save</button>
         </div>)
 }
