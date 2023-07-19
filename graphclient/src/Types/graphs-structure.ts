@@ -25,3 +25,19 @@ export const diagramInputModel = {
     "Interface" : umlClassInputs,
     "Gannt Chart" : eventInputs
 }
+
+export type Graph = {
+    _id?: string,
+    accountID?: string,
+    top?: number,
+    left?: number,
+    width?: number,
+    height?: number,
+    XLabel: string,
+    YLabel: string,
+    Pairs: {
+        x: string,
+        y: number,
+        _id?: string
+    }[]
+}

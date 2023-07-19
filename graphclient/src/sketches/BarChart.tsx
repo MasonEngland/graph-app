@@ -1,15 +1,14 @@
 import { Component, ReactNode, useEffect, useState } from 'react';
 import * as d3 from 'd3';
-import { useSelector } from "react-redux";
-import { State } from "../State/reducers/rooter-reducer";
 import DUMMY_DATA from './dummydata';
+import { Graph } from '../Types/graphs-structure';
 
 /**
  * @ brief - this file draws a bargraph based on recieved graph data
  * @ brief - call with <BarChart graph = {insert graph data}/>
  */
 
-type Graph = {
+/*type Graph = {
     _id?: string,
     accountID?: string,
     top?: number,
@@ -23,7 +22,7 @@ type Graph = {
         y: number,
         _id?: string
     }[]
-}
+}*/
 
 type Pairs = {
     x: string,
@@ -35,8 +34,6 @@ interface Props{
     graph: Graph
 }
 
-
-const yValues: number[] = DUMMY_DATA().map((d) => d.y);
 
 
 export default class BarChart extends Component<Props> {

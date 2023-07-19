@@ -7,7 +7,8 @@
 //     - User Auth : loginUser, logoutUser, regUser
 
 import { LoginParams, RegisterParams } from "../../Types/parameter-types";
-import { Auth, User } from '../action-types/saga-actions'
+import { Auth, Graph, User } from '../action-types/saga-actions'
+import { ActionType } from "../action-types/user-action-types";
 import store from '../store'
 
 // ## ------------- USER ------------- ##
@@ -27,4 +28,14 @@ export const regUser = (payload: RegisterParams) => {
 
 export const getUserGraphs = () => {
     store.dispatch({type: User.RETRIEVE_USER_INFO})
+}
+
+export const updateGraph = (graphtype: "bargraph" | "linegraph"| "vennDiagram", payload: Graph) => {
+    switch (graphtype) {
+        case "bargraph":
+            store.dispatch({type: ActionType.UPDATE_BAR_GRAPH, payload});
+            break;
+        default:
+            console.error("updateGraph is under construction: type of this graph is not supported yet");
+    }
 }

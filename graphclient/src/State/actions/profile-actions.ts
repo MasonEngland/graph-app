@@ -7,7 +7,7 @@
 //     - LoginUser
 //     - LogoutUser
 
-import { Auth, User } from "../action-types/saga-actions";
+import { Auth, Graph, User } from "../action-types/saga-actions";
 import { LoginParams, RegisterParams } from "../../Types/parameter-types";
      
 interface RegisterUser {
@@ -28,9 +28,14 @@ interface RetrieveUserGraphs {
     type: User.RETRIEVE_USER_INFO
 }
 
+interface UpdateCurrentGraph {
+    type: Graph.UPDATE_BAR_GRAPH
+}
+
 export type SagaProfileAction = (
     LoginUser     |
     LogoutUser    |
     RegisterUser  |
+    UpdateCurrentGraph |
     RetrieveUserGraphs
 )

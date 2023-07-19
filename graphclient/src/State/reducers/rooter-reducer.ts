@@ -9,10 +9,12 @@
 import { combineReducers } from "redux";
 import authReducer from "./auth-reducers"
 import userInfoReducer from "./user-info-reducer";
+import updateGraphReducer from "./graph-update-reducer";
 
 export const reducers = combineReducers({
     auth: authReducer,
-    userInfo: userInfoReducer
+    userInfo: userInfoReducer,
+    updateGraph: updateGraphReducer
 });
 
 export type State = ReturnType<typeof reducers>

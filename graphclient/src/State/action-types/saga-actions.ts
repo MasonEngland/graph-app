@@ -16,3 +16,7 @@ export enum User {
     RETRIEVE_USER_INFO = "RETRIEVE_USER_INFO",
     SAVE_USER_INFO     = "SAVE_USER_INFO"
 }
+
+export enum Graph {
+    UPDATE_BAR_GRAPH = "UPDATE_BAR_GRAPH"
+}
