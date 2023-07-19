@@ -25,5 +25,12 @@
 svg {
     position: relative;
     max-height: 80.5vh !important;
+    cursor: pointer;
     /*border: 5px solid black;*/
+}
+
+.bar-chart {
+    position: absolute;
+    left: 500px;
+    top: 200px;
 }

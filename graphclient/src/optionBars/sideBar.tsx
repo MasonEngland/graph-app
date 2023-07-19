@@ -36,6 +36,7 @@ export default function SideBar() {
     })
 
     // state configuration
+    // current graphs is a state var that stores the selected graph
     const state : any = useSelector((state : State) => state.auth)
     const [currentGraph, setCurrentGraph] = useState();
     const graphstate = useSelector((state: State) => state.updateGraph)
