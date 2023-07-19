@@ -15,11 +15,8 @@ interface CanvasParams {
 
 export default function Canvas({ onClickDiagram } : CanvasParams) {
   const state: any = useSelector((state: State) => state.userInfo);
-  const otherState: any = useSelector((state: State) => state.updateGraph.currentGraph)
   const [currentGraph, setCurrentGraph] = useState({XLabel: "year", YLabel: "temp(f)",Pairs: []});
   const ref = useRef<any>(null)
-
-  useEffect(() => console.log(otherState), [otherState]);
 
   useEffect(() => {
     if (state.userGraphs && state.userGraphs.barGraphs.length > 0) {
@@ -34,7 +31,7 @@ export default function Canvas({ onClickDiagram } : CanvasParams) {
 
   return (
     <div className='background' ref = {ref}>
-      <BarChart graph={currentGraph}/> 
+      <BarChart graph={currentGraph}/>
     </div>
   );
 };
