@@ -18,5 +18,6 @@ export enum User {
 }
 
 export enum Graph {
-    UPDATE_BAR_GRAPH = "UPDATE_BAR_GRAPH"
+    UPDATE_BAR_GRAPH = "UPDATE_BAR_GRAPH",
+    SAVE_GRAPH = "SAVE_GRAPH"
 }

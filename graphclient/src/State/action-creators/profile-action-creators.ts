@@ -30,7 +30,7 @@ export const getUserGraphs = () => {
     store.dispatch({type: User.RETRIEVE_USER_INFO})
 }
 
-export const updateGraph = (graphtype: "bargraph" | "linegraph"| "vennDiagram", payload: any) => {
+export const updateGraph = (graphtype: "bargraph" | "linegraph"| "venndiagram", payload: any) => {
     switch (graphtype) {
         case "bargraph":
             store.dispatch({type: ActionType.UPDATE_BAR_GRAPH, payload});
@@ -38,4 +38,8 @@ export const updateGraph = (graphtype: "bargraph" | "linegraph"| "vennDiagram", 
         default:
             console.error("updateGraph is under construction: type of this graph is not supported yet");
     }
+}
+
+export const saveGraph = (graphtype:"bargraph" | "linegraph" | "venndiagram", payload: any) => {
+    store.dispatch({type: Graph.SAVE_GRAPH, payload, graphtype});
 }

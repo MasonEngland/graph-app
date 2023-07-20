@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux"
-import { diagramComponentModel } from "../Types/graphs-structure"
+import { diagramComponentModel, BarGraph } from '../Types/graphs-structure';
 import DropDownMenu from "./dropDownMenu"
 import { sideBars } from "./sideBar"
 import { State } from '../State/reducers/rooter-reducer';
 import { useEffect, useState } from "react";
+import { saveGraph } from "../State/action-creators/profile-action-creators";
 
 const sideBarNavigation = (changeDisplay : (newDisplay : sideBars) => void, currentDisplay: sideBars) => {
     return (
@@ -111,6 +112,6 @@ selectedComponent : (selectedOption : string) => void, changeDisplay : (newDispl
             onEmptyMsg = {"Filter by Component"}/>
         </div>
         </ul>
-        <button type="button" onClick={()=> console.log("")}>Save</button>
+        <button type="button" >Save</button>
         </div>)
 }

@@ -32,10 +32,15 @@ interface UpdateCurrentGraph {
     type: Graph.UPDATE_BAR_GRAPH
 }
 
+interface SaveGraph {
+    type: Graph.SAVE_GRAPH
+}
+
 export type SagaProfileAction = (
     LoginUser     |
     LogoutUser    |
     RegisterUser  |
     UpdateCurrentGraph |
-    RetrieveUserGraphs
+    RetrieveUserGraphs |
+    SaveGraph
 )

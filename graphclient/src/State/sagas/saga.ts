@@ -1,4 +1,4 @@
-import { Auth, User } from '../action-types/saga-actions';
+import { Auth, User, Graph } from '../action-types/saga-actions';
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { ActionType } from '../action-types/user-action-types'
 
@@ -16,6 +16,7 @@ function* authSaga() {
     yield takeEvery(Auth.LOGOUT_REQUEST, logoutSaga)
     yield takeEvery(Auth.REGISTER_REQUEST, registerAccountSaga)
     yield takeEvery(User.RETRIEVE_USER_INFO, retrieveGraphsSaga)
+    yield takeEvery(Graph.SAVE_GRAPH, saveGraphSaga)
 }
 
 export function* retrieveGraphsSaga({payload, type} : any) {
@@ -29,6 +30,20 @@ export function* retrieveGraphsSaga({payload, type} : any) {
         //console.log(res.data);
     }
     catch(e){}
+}
+
+export function* saveGraphSaga({payload, type, graphtype} : any) {
+    const config = {
+        headers: {Authorization: `Bearer ${token}`} 
+    }
+
+    try {
+        const res: {data : any} = yield axios.post(`${APIUrl}graphs/${graphtype}`, payload, config);
+        yield put({ type: ActionType.SAVE_GRAPH, payload: res.data});
+        console.log(res.data);
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 export function* loginSaga({payload, type} : Params.SagaLoginParams) {
