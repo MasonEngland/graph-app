@@ -112,6 +112,26 @@ selectedComponent : (selectedOption : string) => void, changeDisplay : (newDispl
             onEmptyMsg = {"Filter by Component"}/>
         </div>
         </ul>
-        <button type="button" >Save</button>
+        <button type="button" onClick={() => saveDummyGraph()}>Save</button>
         </div>)
+}
+
+const dummyGraph: BarGraph = {
+    accountID: "649670a4bb3698c4809398cc",
+    XLabel: "Day",
+    YLabel: "Distance (miles)",
+    Pairs: [{
+        x: "Day 1",
+        y: 8
+    },{
+        x: "Day 2",
+        y: 12
+    }, {
+        x: "Day 3",
+        y: 6
+    }]
+}
+
+function saveDummyGraph() {
+    saveGraph("bargraph", dummyGraph);
 }

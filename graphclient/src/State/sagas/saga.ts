@@ -41,6 +41,9 @@ export function* saveGraphSaga({payload, type, graphtype} : any) {
         const res: {data : any} = yield axios.post(`${APIUrl}graphs/${graphtype}`, payload, config);
         yield put({ type: ActionType.SAVE_GRAPH, payload: res.data});
         console.log(res.data);
+        if (res.data.success === true) {
+            alert("Graph saved")
+        }
     } catch (err) {
         console.log(err);
     }

@@ -12,16 +12,16 @@ function makeDoc(graphType: string, data: any) {
         case "vendiagram":
             newDoc = new vendiaModel({
                 accountID: data.accountID,
-                Top: data.top,
-                Left: data.left,
-                Width: data.width,
-                Height: data.height,
-                LeftLabel: data.leftlabel,
-                RigthLebel: data.rightlabel,
+                Top: data.Top,
+                Left: data.Left,
+                Width: data.Width,
+                Height: data.Height,
+                LeftLabel: data.LeftLabel,
+                RigthLebel: data.RightLabel,
                 Notes: {
-                    Left: data.notes.left,
-                    Right: data.notes.right,
-                    Middle: data.notes.middle
+                    Left: data.Notes.Left,
+                    Right: data.Notes.Right,
+                    Middle: data.Notes.Middle
                 }
             });
             newDoc.save();
@@ -29,26 +29,26 @@ function makeDoc(graphType: string, data: any) {
         case "linegraph":
             newDoc = new lineGraphModel({
                 accountID: data.accountID,
-                Top: data.top,
-                Left: data.left,
-                Width: data.width,
-                Height: data.height,
-                XLabel: data.xlabel,
-                YLabel: data.ylabel,
-                Pairs: data.pairs
+                Top: data.Top,
+                Left: data.Left,
+                Width: data.Width,
+                Height: data.Height,
+                XLabel: data.XLabel,
+                YLabel: data.YLabel,
+                Pairs: data.Pairs
             });
             newDoc.save();
             break;
             case "bargraph":
                 newDoc = new barGraphModel({
                     accountID: data.accountID,
-                    Top: data.top,
-                    Left: data.left,
-                    Width: data.width,
-                    Height: data.height,
-                    XLabel: data.xlabel,
-                    YLabel: data.ylabel,
-                    Pairs: data.pairs
+                    Top: data.Top,
+                    Left: data.Left,
+                    Width: data.Width,
+                    Height: data.Height,
+                    XLabel: data.XLabel,
+                    YLabel: data.YLabel,
+                    Pairs: data.Pairs
                 });
                 newDoc.save();
                 break;

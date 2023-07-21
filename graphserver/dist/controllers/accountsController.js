@@ -31,7 +31,10 @@ const verify = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     env.config();
     const { username, password, email } = req.body;
     if (!password || !username || !email) {
-        return res.status(400).send("invalid request");
+        return res.status(400).json({
+            success: false,
+            msg: "invalid request"
+        });
     }
     try {
         const docs = yield accountModel.find({ email: email });
@@ -76,13 +79,19 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // grab username, password, and email from request
     const { username, password, email } = req.body;
     if (!password || !username || !email) {
-        res.status(400).send("invalid request");
+        res.status(400).json({
+            success: false,
+            msg: "invalid request"
+        });
         return;
     }
     const docs = yield accountModel.find({ email: email });
     // check if email is already registered
     if (docs.length > 0) {
-        res.status(401).send("email already registered");
+        res.status(401).json({
+            success: false,
+            msg: "email already registered"
+        });
         return;
     }
     // schema: accountSchema
@@ -92,7 +101,10 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         email: email
     });
     newAccount.save();
-    res.sendStatus(201);
+    res.status(201).json({
+        success: true,
+        msg: "account saved!"
+    });
 });
 export { verify, create };
 //# sourceMappingURL=accountsController.js.map

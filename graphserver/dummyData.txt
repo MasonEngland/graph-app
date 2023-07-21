@@ -1,29 +1,29 @@
 vendiagram example
 {
     "accountID": "649670a4bb3698c4809398cc",
-    "top": 25,
-    "left": 15,
-    "width": 20,
-    "height": 20,
-    "xlabel": "Gavin morely",
-    "ylabel": "ryan liddiard",
-    "notes": {
-        "left": ["is not cool", "hates women", "is racist"],
-        "right": ["is cool", "loves women", "isn't racist"],
-        "middle": ["both human", "both have opinions on women", "both have thought on race"]
+    "Top": 25,
+    "Left": 15,
+    "Width": 20,
+    "Height": 20,
+    "LeftLabel": "Gavin morely",
+    "RightLabel": "ryan liddiard",
+    "Notes": {
+        "Left": ["is not cool", "hates women", "is racist"],
+        "Right": ["is cool", "loves women", "isn't racist"],
+        "Middle": ["both human", "both have opinions on women", "both have thought on race"]
     }
 }
 
 bar graph example
 {
     "accountID": "649670a4bb3698c4809398cc",
-    "top": 35,
-    "left": 50,
-    "width": 60,
-    "height": 30,
-    "xlabel": "year",
-    "ylabel": "tempurature in degrees farenheight",
-    "pairs": [
+    "Top": 35,
+    "Left": 50,
+    "Width": 60,
+    "Height": 30,
+    "XLabel": "year",
+    "YLabel": "tempurature in degrees farenheight",
+    "Pairs": [
         {
             "x": "2015",
             "y": 95
@@ -39,30 +39,6 @@ bar graph example
     ]
 }
 
-bar graph example:
-{
-    "accountID": "649670a4bb3698c4809398cc",
-    "top": 50,
-    "left": 20,
-    "width": 120,
-    "height": 60,
-    "xlabel": "year",
-    "ylabel": "people who like radiohead(in millions)",
-    "pairs": [
-        {
-            "x": 2015,
-            "y": 12.2
-        },
-        {
-            "x": 2016,
-            "y": 10.6
-        },
-        {
-            "x": 2017,
-            "y": 8
-        }
-    ]
-}
 
 dummy account
 {
