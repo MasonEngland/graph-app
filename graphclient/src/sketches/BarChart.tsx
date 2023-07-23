@@ -2,6 +2,7 @@ import { Component, ReactNode, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import DUMMY_DATA from './dummydata';
 import { BarGraph } from '../Types/graphs-structure';
+import { updateGraphComponent } from '../State/action-creators/profile-action-creators';
 
 /**
  * @ brief - this file draws a bargraph based on recieved graph data
@@ -17,7 +18,7 @@ type Pairs = {
 }
 
 interface Props{
-    graph: BarGraph
+    graph: BarGraph,
 }
 
 export default class BarChart extends Component<Props> {
@@ -71,7 +72,7 @@ export default class BarChart extends Component<Props> {
             .range([ 350, 0]);
           svg.append("g")
             .attr("transform", "translate(50, 0)")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y))
 
 
         svg
@@ -83,7 +84,11 @@ export default class BarChart extends Component<Props> {
             .attr("width", x.bandwidth())
             .attr("height", (d) => 350 - y(d.y)) 
             .attr("x", (d) => x(d.x) as number)
-            .attr("y", (d) => y(d.y))
+            .attr("y", (d) => y(d.y))            
+            .on('click', function(d, i : any){ 
+                console.log(i)
+                updateGraphComponent(i)
+            })
     }
 
     render(): ReactNode {

@@ -39,7 +39,7 @@ function App() {
       <NavBar/>
       <div className="AppContainer">
           <SideBar/>
-          <Canvas onClickDiagram={(d) => onClickDiagram(d)} />
+          <Canvas />
       </div>
     </>
   );

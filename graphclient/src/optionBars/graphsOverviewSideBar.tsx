@@ -73,11 +73,12 @@ export const userHomePage = (userGraphs: any[], selectedOptionDMenu : (selectedO
 //   2. Edit a pre-existing graph component
 // @params selectedGraph is the graph that the user choose to edit
 export const userGraphEditing = ( selectedOptionDMenu : (selectedOption : string) => void, currentDisplay: sideBars, userGraph : {},
-selectedComponent : (selectedOption : string) => void, changeDisplay : (newDisplay : sideBars) => void, graph : any, graphInputs : any[]) => {
-    console.log(userGraph, "USER -G ")
+selectedComponent : (selectedOption : string) => void, changeDisplay : (newDisplay : sideBars) => void, graph : any, graphInputs : any[], currentGraphComp : any) => {
+
     let componentsOfGraph = (diagramComponentModel as any)[(userGraph as any)["graphType"]]
 
     if(!componentsOfGraph) componentsOfGraph = []
+
     return (<div className="graphs">
         <h2>Graphs : </h2>
         {sideBarNavigation(changeDisplay, currentDisplay)}
@@ -90,12 +91,24 @@ selectedComponent : (selectedOption : string) => void, changeDisplay : (newDispl
             menuOptions ={ componentsOfGraph } 
             selectOption = {selectedComponent}
             onEmptyMsg = {"Components ... "}/>
-            {graphInputs.map((inputFields : string, i : number ) => (
+            {currentGraphComp ? 
+            graphInputs.map((inputFields: string, i : number) => (
+                <>
+                    <input placeholder= {inputFields}
+                     value={currentGraphComp[inputFields.toLowerCase()] 
+                     ? currentGraphComp[inputFields.toLowerCase()] : "" }></input>
+                </>
+            )) :
+            graphInputs.map((inputFields : string, i : number ) => (
                 <>
                     <input placeholder = {inputFields}/>
                 </>
-            ))}
-        <button>Add Component </button>
+            ))
+        }
+        {currentGraphComp ? 
+            <button>Save Changes </button> : 
+            <button>Add Component </button>
+        }
         <div className="graphs">
         <p>Existing Components </p>
         <input placeholder="Search by Name"/>
@@ -112,7 +125,7 @@ selectedComponent : (selectedOption : string) => void, changeDisplay : (newDispl
             onEmptyMsg = {"Filter by Component"}/>
         </div>
         </ul>
-        <button type="button" onClick={() => saveDummyGraph()}>Save</button>
+         { /** <button type="button" onClick={() => saveDummyGraph()}>Save</button> */ }
         </div>)
 }
 

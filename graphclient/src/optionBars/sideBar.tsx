@@ -21,7 +21,6 @@ export default function SideBar() {
     const[currentDisplay, setSideBar] = useState(sideBars.LOGIN_IN_SIDE_BAR)
     const[userGraph, setUserGraph   ] = useState({})
     const[graphInputs, setGraphInputs  ] = useState([])
-    const[editingGraph, setEditingGraph] = useState(false)
 
     const [loginInfo, setloginInfo] = useState({
         username: "",
@@ -39,21 +38,31 @@ export default function SideBar() {
     // current graphs is a state var that stores the selected graph
     const state : any = useSelector((state : State) => state.auth)
     const [currentGraph, setCurrentGraph] = useState();
-    const graphstate = useSelector((state: State) => state.updateGraph)
+    const [currentGraphComp, setCurrentGraphComp] = useState<any | null>(null);
+
+    const graphstate : any = useSelector((state: State) => state.updateGraph)
+    
+    // If a graph is selected, update state
     useEffect(() => {
-        setCurrentGraph(graphstate.currentGraph);
-        console.log(currentGraph);
-    }, [graphstate])
+        setCurrentGraph(graphstate.currentGraph)
+    }, [graphstate.currentGraph])
+
+    // If the graphs component is selected, update state
+    useEffect(() => {
+        if(graphstate.currentGraphComponent ){ 
+            setSideBar(sideBars.EDITING_GRAPH_SIDE_BAR)
+            console.log(graphstate.currentGraphComponent.graphType)
+            selectedComponent(graphstate.currentGraphComponent.graphType);
+        }
+        setCurrentGraphComp(graphstate.currentGraphComponent)
+    }, [graphstate.currentGraphComponent])
 
 
     //* this checks if there is a user logged in, and if so changes the side bar
     useEffect( ()=> {
         if(state.currentUser) setSideBar(sideBars.DEFAULT_USER_SIDE_BAR)
     }, [state.currentUser] )
-    useEffect(() => {
-        //set a state var
-        console.log(graphstate.currentGraph);
-    }, [graphstate])
+    
     
     //! ignore, just some dummy data
     const userGraphs = [{
@@ -77,19 +86,22 @@ export default function SideBar() {
 
     // @ brief This select a new graph for the user to edit
     const navigateToGraph = (selectedGraph : any) => {
+        setCurrentGraphComp(null)
         setUserGraph(selectedGraph)
-        setEditingGraph(false)
         setSideBar(sideBars.EDITING_GRAPH_SIDE_BAR)
     }
 
     const selectedComponent = (selectedOption : string) => {
-        console.log(selectedOption)
-        const inputsToGraph = (diagramInputModel as any)[selectedOption] 
+        const inputsToGraph = (diagramInputModel as any)[selectedOption]
+        console.log(inputsToGraph, selectedOption) 
         setGraphInputs(inputsToGraph !== undefined ? inputsToGraph : [])
     }
     
     // simple function to set which Side Bar the user has navigated too
-    const changeDisplay = (newDisplay : sideBars) => setSideBar(newDisplay)
+    const changeDisplay = (newDisplay : sideBars) => { 
+        setCurrentGraphComp(null)
+        setSideBar(newDisplay)
+    }
 
     // @ Brief : Update the side bar according to the option that the user has requested to navigate to. 
     const displaySideBar = (newSideBar : sideBars) => {
@@ -99,8 +111,8 @@ export default function SideBar() {
             case sideBars.REGISTER_SIDE_BAR:
                 return registerSideBar(changeDisplay, currentDisplay, regInfo, setRegInfo);
             case sideBars.EDITING_GRAPH_SIDE_BAR:
-                return (<>{userGraphEditing(selectedOptionDMenu, currentDisplay, userGraph, 
-                    selectedComponent, changeDisplay,userGraphs[0], graphInputs)}</>)
+                return userGraphEditing(selectedOptionDMenu, currentDisplay, userGraph, 
+                    selectedComponent, changeDisplay,userGraphs[0], graphInputs, currentGraphComp)
         }
         return userHomePage(userGraphs, selectedOptionDMenu, addGraph, changeDisplay, currentDisplay)
     }

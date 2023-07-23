@@ -9,11 +9,7 @@ import VenDiagram from './sketches/VenDiagram2';
 import { updateGraph } from './State/action-creators/profile-action-creators';
 const { ReactP5Wrapper } = require('react-p5-wrapper');
 
-interface CanvasParams {
-  onClickDiagram: ( g : any) => void
-}
-
-export default function Canvas({ onClickDiagram } : CanvasParams) {
+export default function Canvas() {
   const userstate: any = useSelector((state: State) => state.userInfo);
   const [currentGraph, setCurrentGraph] = useState({XLabel: "year", YLabel: "temp(f)",Pairs: []});
   const ref = useRef<any>(null);

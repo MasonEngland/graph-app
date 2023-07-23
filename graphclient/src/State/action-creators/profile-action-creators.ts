@@ -43,3 +43,11 @@ export const updateGraph = (graphtype: "bargraph" | "linegraph"| "venndiagram", 
 export const saveGraph = (graphtype:"bargraph" | "linegraph" | "venndiagram", payload: any) => {
     store.dispatch({type: Graph.SAVE_GRAPH, payload, graphtype});
 }
+
+export const updateUserGraph = (payload: any) => {
+    store.dispatch({type: ActionType.UPDATE_USER_GRAPH, payload})
+}
+
+export const updateGraphComponent = (payload: any) => {
+    store.dispatch({type: ActionType.UPDATE_GRAPH_COMPONENT, payload})
+}
