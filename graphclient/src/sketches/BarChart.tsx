@@ -85,7 +85,7 @@ export default class BarChart extends Component<Props> {
             .attr("height", (d) => 350 - y(d.y)) 
             .attr("x", (d) => x(d.x) as number)
             .attr("y", (d) => y(d.y))            
-            .on('click', function(d, i : any){ 
+            .on('click', (d, i) => { //we can use arrow functions since we don't use the 'this' keyword
                 console.log(i)
                 updateGraphComponent(i)
             })

@@ -12,6 +12,8 @@ function makeDoc(graphType: string, data: any) {
         case "vendiagram":
             newDoc = new vendiaModel({
                 accountID: data.accountID,
+                Name: data.Name,
+                Type: "venndiagram",
                 Top: data.Top,
                 Left: data.Left,
                 Width: data.Width,
@@ -29,6 +31,8 @@ function makeDoc(graphType: string, data: any) {
         case "linegraph":
             newDoc = new lineGraphModel({
                 accountID: data.accountID,
+                Name: data.Name,
+                Type: "linegraph",
                 Top: data.Top,
                 Left: data.Left,
                 Width: data.Width,
@@ -42,6 +46,8 @@ function makeDoc(graphType: string, data: any) {
             case "bargraph":
                 newDoc = new barGraphModel({
                     accountID: data.accountID,
+                    Name: data.Name,
+                    Type: "bargraph",
                     Top: data.Top,
                     Left: data.Left,
                     Width: data.Width,

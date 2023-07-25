@@ -44,7 +44,8 @@ export default function SideBar() {
     
     // If a graph is selected, update state
     useEffect(() => {
-        setCurrentGraph(graphstate.currentGraph)
+        setCurrentGraph(graphstate.currentGraph);
+        console.log(currentGraph);
     }, [graphstate.currentGraph])
 
     // If the graphs component is selected, update state

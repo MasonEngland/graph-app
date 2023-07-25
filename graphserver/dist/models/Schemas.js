@@ -7,6 +7,8 @@ const accountSchema = new Schema({
 });
 const vendiaSchema = new Schema({
     accountID: String,
+    Name: String,
+    Type: String,
     Top: Number,
     Left: Number,
     Width: Number,
@@ -21,6 +23,8 @@ const vendiaSchema = new Schema({
 });
 const lineGraphSchema = new Schema({
     accountID: String,
+    Name: String,
+    Type: String,
     Top: Number,
     Left: Number,
     Width: Number,
@@ -34,6 +38,8 @@ const lineGraphSchema = new Schema({
 });
 const barGraphSchema = new Schema({
     accountID: String,
+    Name: String,
+    Type: String,
     Top: Number,
     Left: Number,
     Width: Number,
@@ -47,6 +53,8 @@ const barGraphSchema = new Schema({
 });
 const gChartSchema = new Schema({
     accountID: String,
+    Name: String,
+    Type: String,
     startTime: Number,
     EndTime: Number,
     GanttTitle: String,

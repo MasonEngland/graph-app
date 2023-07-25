@@ -4,7 +4,7 @@ import DropDownMenu from "./dropDownMenu"
 import { sideBars } from "./sideBar"
 import { State } from '../State/reducers/rooter-reducer';
 import { useEffect, useState } from "react";
-import { saveGraph } from "../State/action-creators/profile-action-creators";
+import { saveNewGraph } from "../State/action-creators/profile-action-creators";
 
 const sideBarNavigation = (changeDisplay : (newDisplay : sideBars) => void, currentDisplay: sideBars) => {
     return (
@@ -146,5 +146,5 @@ const dummyGraph: BarGraph = {
 }
 
 function saveDummyGraph() {
-    saveGraph("bargraph", dummyGraph);
+    saveNewGraph("bargraph", dummyGraph);
 }
