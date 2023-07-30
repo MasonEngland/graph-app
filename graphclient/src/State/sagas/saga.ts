@@ -4,7 +4,7 @@ import { ActionType } from '../action-types/user-action-types'
 
 import * as Params from '../../Types/saga-parameter-types'
 
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 let currentUser = ""
 let token       = ""
@@ -51,12 +51,15 @@ export function* loginSaga({payload, type} : Params.SagaLoginParams) {
     try {
         const res: { data : any } = yield axios.post(`${APIUrl}accounts/verify`, payload)
         yield put({ type: ActionType.UPDATE_USER, payload: res.data})
+        if (res.data.success == false) {
+            alert("Login Failed");
+        }
         currentUser = res.data.id;
         token       = res.data.token;
-        //console.log(res.data);
+        console.log(res.data);
     }
     catch(e) {
-        //todo: here we would put login failed   yield put(  )
+        alert("Login Failed");
     }
 } 
 
