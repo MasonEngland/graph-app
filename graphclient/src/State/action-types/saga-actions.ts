@@ -1,3 +1,4 @@
+import { saveGraphSaga } from '../sagas/saga';
 // =========---- SAGA-ACTIONS.TS ----=========
 // @ Brief : This class is meant to provide defined types 
 //           which are meant to describe and initiate an 
@@ -19,5 +20,6 @@ export enum User {
 
 export enum Graph {
     UPDATE_BAR_GRAPH = "UPDATE_BAR_GRAPH",
-    SAVE_GRAPH = "SAVE_GRAPH"
+    SAVE_GRAPH = "SAVE_GRAPH",
+    SAVE_EDITS = "SAVE_EDITS"
 }

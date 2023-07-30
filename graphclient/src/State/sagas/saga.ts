@@ -17,6 +17,7 @@ function* authSaga() {
     yield takeEvery(Auth.REGISTER_REQUEST, registerAccountSaga)
     yield takeEvery(User.RETRIEVE_USER_INFO, retrieveGraphsSaga)
     yield takeEvery(Graph.SAVE_GRAPH, saveGraphSaga)
+    yield takeEvery(Graph.SAVE_EDITS, SaveEditsSaga)
 }
 
 export function* retrieveGraphsSaga({payload, type} : any) {
@@ -41,9 +42,6 @@ export function* saveGraphSaga({payload, type, graphtype} : any) {
         const res: {data : any} = yield axios.post(`${APIUrl}graphs/${graphtype}`, payload, config);
         yield put({ type: ActionType.SAVE_GRAPH, payload: res.data});
         console.log(res.data);
-        if (res.data.success === true) {
-            alert("Graph saved")
-        }
     } catch (err) {
         console.log(err);
     }
@@ -79,6 +77,21 @@ export function* logoutSaga() {
     }
     catch(e) {
         //todo: here we would put register failed     yield put(  )
+    }
+}
+
+export function* SaveEditsSaga({payload, type, graphID} : any) {
+    const config = {
+        headers: {Authorization: `Bearer ${token}`}
+    }
+
+
+    try {
+        const res: {data: any} = yield axios.patch(`${APIUrl}graphs/${graphID}`, payload, config);
+        yield put({type: ActionType.SAVE_EDITS, payload: res.data});
+        console.log(res.data);
+    } catch (e) {
+        console.log(e);
     }
 }
 

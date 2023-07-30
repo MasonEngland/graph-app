@@ -36,11 +36,16 @@ interface SaveGraph {
     type: Graph.SAVE_GRAPH
 }
 
+interface SaveEdits {
+    type: Graph.SAVE_EDITS
+}
+
 export type SagaProfileAction = (
     LoginUser     |
     LogoutUser    |
     RegisterUser  |
     UpdateCurrentGraph |
     RetrieveUserGraphs |
-    SaveGraph
+    SaveGraph |
+    SaveEdits
 )

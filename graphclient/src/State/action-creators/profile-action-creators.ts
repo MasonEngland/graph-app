@@ -40,6 +40,11 @@ export const updateGraphComponent = (payload: any) => {
     store.dispatch({type: ActionType.UPDATE_GRAPH_COMPONENT, payload})
 }
 
+// this saves any change made to an existing graph in the database
+// has nothing to do with state
+export const SaveEdits = (payload: any, graphID: string) => {
+    store.dispatch({type: Graph.SAVE_EDITS, payload, graphID})
+}
 
 //! Useless?
 // these will be commented out to save the garbage collector
