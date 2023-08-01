@@ -5,7 +5,7 @@ export interface LoginParams {
 }
 
 export interface RegisterParams {
-    name: string | null,
+    username: string | null,
     email: string | null,
     password: string | null,
 }
