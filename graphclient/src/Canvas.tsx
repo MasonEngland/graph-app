@@ -24,6 +24,7 @@ export default function Canvas() {
         //console.log(state.userGraphs);
         return userstate.userGraphs.barGraphs[0];
       });
+      console.log(currentGraph);
     }
   }, [userstate]);
 
@@ -42,11 +43,19 @@ export default function Canvas() {
 
 
   // @section --- COMPONENT
+
+  if (currentGraph.Type == "bargraph") {
+    return (
+      <div className='background' ref={ref}>
+        <BarChart graph={currentGraph} />
+      </div>
+    );
+  } 
   return (
     <div className='background' ref={ref}>
-      <BarChart graph={currentGraph} />
+      <h1>Loading...</h1>
     </div>
-  );
+  )
 };
 
 /*

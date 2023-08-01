@@ -17,10 +17,7 @@ vendiagram example
 bar graph example
 {
     "accountID": "649670a4bb3698c4809398cc",
-    "Top": 35,
-    "Left": 50,
-    "Width": 60,
-    "Height": 30,
+    "Type": "bargraph",
     "XLabel": "year",
     "YLabel": "tempurature in degrees farenheight",
     "Pairs": [
@@ -35,6 +32,30 @@ bar graph example
         {
             "x": "2017",
             "y": 99
+        },
+        {
+            "x": "2018",
+            "y": 126
+        },
+        {
+            "x": "2019",
+            "y": 115
+        },
+        {
+            "x": "2020",
+            "y": 83
+        },
+        {
+            "x": "2021",
+            "y": 103
+        },
+        {
+            "x": "2022",
+            "y": 92
+        },
+        {
+            "x": "2023",
+            "y": 107
         }
     ]
 }

@@ -28,7 +28,7 @@ export function* retrieveGraphsSaga({payload, type} : any) {
     try {
         const res: { data : any } = yield axios.get(`${APIUrl}graphs/${currentUser}`, config)
         yield put({type: ActionType.UPDATE_USER_GRAPHS, payload: res.data})
-        //console.log(res.data);
+        console.log(res.data);
     }
     catch(e){}
 }

@@ -160,7 +160,8 @@ const editGraph = async (req: Request, res: Response) => {
         } catch (err) {
             console.log(err);
             return res.status(500).json({
-                success: false
+                success: false,
+                errmsg: "internal server error"
             });
         }
     }
@@ -173,7 +174,10 @@ const editGraph = async (req: Request, res: Response) => {
     }
     else {
         console.log("could not find docs");
-        res.sendStatus(404);
+        res.status(404).json({
+            success: false,
+            errmsg: "graph could not be found"
+        });
     }
 }
 
