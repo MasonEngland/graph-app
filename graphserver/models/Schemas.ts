@@ -11,10 +11,6 @@ const vendiaSchema = new Schema({
     accountID: String,
     Name: String,
     Type: String,
-    Top: Number,
-    Left: Number,
-    Width: Number,
-    Height: Number,
     LeftLabel: String,
     RigthLabel: String,
     Notes: {
@@ -28,10 +24,6 @@ const lineGraphSchema = new Schema({
     accountID: String,
     Name: String,
     Type: String,
-    Top: Number,
-    Left: Number,
-    Width: Number,
-    Height: Number,
     XLabel: String,
     YLabel: String,
     Pairs: [{
@@ -44,10 +36,6 @@ const barGraphSchema = new Schema({
     accountID: String,
     Name: String,
     Type: String,
-    Top: Number,
-    Left: Number,
-    Width: Number,
-    Height: Number,
     XLabel: String,
     YLabel: String,
     Pairs: [{

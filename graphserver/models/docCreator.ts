@@ -14,10 +14,6 @@ function makeDoc(graphType: string, data: any) {
                 accountID: data.accountID,
                 Name: data.Name,
                 Type: "venndiagram",
-                Top: data.Top,
-                Left: data.Left,
-                Width: data.Width,
-                Height: data.Height,
                 LeftLabel: data.LeftLabel,
                 RigthLebel: data.RightLabel,
                 Notes: {
@@ -33,10 +29,6 @@ function makeDoc(graphType: string, data: any) {
                 accountID: data.accountID,
                 Name: data.Name,
                 Type: "linegraph",
-                Top: data.Top,
-                Left: data.Left,
-                Width: data.Width,
-                Height: data.Height,
                 XLabel: data.XLabel,
                 YLabel: data.YLabel,
                 Pairs: data.Pairs
@@ -48,10 +40,6 @@ function makeDoc(graphType: string, data: any) {
                     accountID: data.accountID,
                     Name: data.Name,
                     Type: "bargraph",
-                    Top: data.Top,
-                    Left: data.Left,
-                    Width: data.Width,
-                    Height: data.Height,
                     XLabel: data.XLabel,
                     YLabel: data.YLabel,
                     Pairs: data.Pairs

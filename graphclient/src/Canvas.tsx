@@ -9,9 +9,14 @@ import VenDiagram from './sketches/VenDiagram2';
 const { ReactP5Wrapper } = require('react-p5-wrapper');
 
 export default function Canvas() {
+
+  // @section --- STATE
   const userstate: any = useSelector((state: State) => state.userInfo);
+  const graphstate: any = useSelector((state: State) => state.updateGraph);
   const [currentGraph, setCurrentGraph] = useState({XLabel: "year", YLabel: "temp(f)",Pairs: []});
   const ref = useRef<any>(null);
+
+  // @section --- EFFECT
 
   useEffect(() => {
     if (userstate.userGraphs && userstate.userGraphs.barGraphs.length > 0) {
@@ -22,12 +27,21 @@ export default function Canvas() {
     }
   }, [userstate]);
 
+  useEffect(() => {
+    try {
+      if (graphstate.currentGraph) {
+        setCurrentGraph(graphstate.currentGraph);
+        console.log("All things work as planned");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }, [graphstate]);
+
   // @section --- EVENT HANDLERS
 
 
   // @section --- COMPONENT
-
-  //!!!!!!!!!!         all ur code is located in dummydata.ts
   return (
     <div className='background' ref={ref}>
       <BarChart graph={currentGraph} />

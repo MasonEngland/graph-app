@@ -10,6 +10,10 @@ import { State } from '../State/reducers/rooter-reducer';
 import { useSelector } from 'react-redux';
 
 import { diagramInputModel } from '../Types/graphs-structure';
+import { saveNewGraph, updateUserGraph } from '../State/action-creators/profile-action-creators';
+
+// ** Misc ** //
+import { initialBarGraph } from '../sketches/dummydata';
 
 export enum sideBars {
     REGISTER_SIDE_BAR = "REGISTER_SIDE_BAR",
@@ -21,7 +25,7 @@ export enum sideBars {
 // main component implemented in ../App.tsx
 export default function SideBar() {
     const[currentDisplay, setSideBar] = useState(sideBars.LOGIN_IN_SIDE_BAR)
-    const[userGraph, setUserGraph   ] = useState({})
+    const[userGraph, setUserGraph   ] = useState({graphType: ""});
     const[graphInputs, setGraphInputs  ] = useState([])
 
     // state configuration
@@ -67,9 +71,14 @@ export default function SideBar() {
 
     // @ brief This select a new graph for the user to edit
     const navigateToGraph = (selectedGraph : any) => {
-        setCurrentGraphComp(null)
-        setUserGraph(selectedGraph)
-        setSideBar(sideBars.EDITING_GRAPH_SIDE_BAR)
+        setCurrentGraphComp(null);
+        setUserGraph(selectedGraph);
+        setSideBar(sideBars.EDITING_GRAPH_SIDE_BAR);
+        updateUserGraph(initialBarGraph);
+        if (userGraph.graphType == "Bar Graph") {
+            initialBarGraph.accountID = state.currentUser.id;
+            saveNewGraph("bargraph", initialBarGraph);
+        }
     }
 
     // TODO

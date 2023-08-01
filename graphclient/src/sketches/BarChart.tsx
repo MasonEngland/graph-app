@@ -1,6 +1,5 @@
-import { Component, ReactNode, useEffect, useState } from 'react';
+import { Component, ReactNode } from 'react';
 import * as d3 from 'd3';
-import DUMMY_DATA from './dummydata';
 import { BarGraph } from '../Types/graphs-structure';
 import { updateGraphComponent } from '../State/action-creators/profile-action-creators';
 
@@ -23,16 +22,14 @@ interface Props{
 
 export default class BarChart extends Component<Props> {
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     state = {
-        pairs: []
+        pairs: [],
+        xlabel: null,
+        ylabel: null
     }
 
     static getDerivedStateFromProps(props: Props, state: any) {
-        return {pairs: props.graph.Pairs}
+        return {pairs: props.graph.Pairs, xlabel: props.graph.XLabel, ylabel: props.graph.YLabel}
     }
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<{}>, snapshot?: any): void  => {
@@ -92,7 +89,7 @@ export default class BarChart extends Component<Props> {
     }
 
     render(): ReactNode {
-        if (this.state.pairs.length === 0) {
+        if (this.state.pairs.length === 0 && this.state.xlabel === null || this.state.ylabel === null) {
             return <h1>Loading...</h1>
         }
         return <svg className="bar-chart"></svg>

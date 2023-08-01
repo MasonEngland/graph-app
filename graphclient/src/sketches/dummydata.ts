@@ -1,3 +1,5 @@
+import { BarGraph } from "../Types/graphs-structure"
+
 export default function DUMMY_DATA() {
     return [{
     x: "2014",
@@ -75,6 +77,13 @@ export const dummyData2 = [{
     graphType: "Ven Diagram"
 }
 ]
+
+export var initialBarGraph: BarGraph = {
+    accountID: undefined,
+    XLabel: "",
+    YLabel: "",
+    Pairs: []
+}
 
 /*
     <VenDiagram

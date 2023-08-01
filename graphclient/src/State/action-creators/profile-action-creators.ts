@@ -46,14 +46,14 @@ export const SaveEdits = (payload: any, graphID: string) => {
     store.dispatch({type: Graph.SAVE_EDITS, payload, graphID})
 }
 
-//! Useless?
-// these will be commented out to save the garbage collector
-/*export const updateUserGraph = (payload: any) => {
+export const updateUserGraph = (payload: any) => {
     store.dispatch({type: ActionType.UPDATE_USER_GRAPH, payload})
 }
+//! Useless?
+// these will be commented out to save the garbage collector
 
 
-export const updateGraph = (graphtype: "bargraph" | "linegraph"| "venndiagram", payload: any) => {
+/*export const updateGraph = (graphtype: "bargraph" | "linegraph"| "venndiagram", payload: any) => {
     switch (graphtype) {
         case "bargraph":
             store.dispatch({type: ActionType.UPDATE_BAR_GRAPH, payload});
