@@ -10,10 +10,10 @@ const { ReactP5Wrapper } = require('react-p5-wrapper');
 
 export default function Canvas() {
 
-  // @section --- STATE
-  const userstate: any = useSelector((state: State) => state.userInfo);
-  const graphstate: any = useSelector((state: State) => state.updateGraph);
-  const [currentGraph, setCurrentGraph] = useState({XLabel: "year", YLabel: "temp(f)",Pairs: []});
+  // @section --- STATE 
+  const userstate: any = useSelector((state: State) => state.userInfo); // @STORE -- all graphs connected to the user
+  const graphstate: any = useSelector((state: State) => state.updateGraph); // @STORE -- current graph being edited
+  const [currentGraph, setCurrentGraph] = useState({Type: "", XLabel: "year", YLabel: "temp(f)",Pairs: []});
   const ref = useRef<any>(null);
 
   // @section --- EFFECT

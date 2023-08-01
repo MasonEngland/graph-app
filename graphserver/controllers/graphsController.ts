@@ -69,6 +69,7 @@ const getGraphs = async (req: Request, res: Response) => {
     }
 }
 
+// Register Graph
 const regGraph = async (req: Request, res: Response) => {
     const graphtype = req.params.type;
     const {accountID} = req.body;

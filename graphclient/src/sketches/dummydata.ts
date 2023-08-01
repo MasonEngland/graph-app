@@ -80,6 +80,7 @@ export const dummyData2 = [{
 
 export var initialBarGraph: BarGraph = {
     accountID: undefined,
+    Type: "bargraph",
     XLabel: "",
     YLabel: "",
     Pairs: []

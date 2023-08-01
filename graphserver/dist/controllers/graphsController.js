@@ -75,6 +75,7 @@ const getGraphs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
 });
+// Register Graph
 const regGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const graphtype = req.params.type;
     const { accountID } = req.body;
