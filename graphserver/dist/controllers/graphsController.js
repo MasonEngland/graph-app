@@ -166,7 +166,8 @@ const editGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         catch (err) {
             console.log(err);
             return res.status(500).json({
-                success: false
+                success: false,
+                errmsg: "internal server error"
             });
         }
     }
@@ -179,7 +180,10 @@ const editGraph = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     else {
         console.log("could not find docs");
-        res.sendStatus(404);
+        res.status(404).json({
+            success: false,
+            errmsg: "graph could not be found"
+        });
     }
 });
 export { getGraphs, regGraph, deleteGraph, editGraph };

@@ -37,6 +37,7 @@ export const diagramInputModel = {
 export type BarGraph = {
     _id?: string,
     accountID?: string,
+    Name?:string,
     Type: string,
     XLabel: string,
     YLabel: string,

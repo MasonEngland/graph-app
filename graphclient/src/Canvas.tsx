@@ -19,16 +19,6 @@ export default function Canvas() {
   // @section --- EFFECT
 
   useEffect(() => {
-    if (userstate.userGraphs && userstate.userGraphs.barGraphs.length > 0) {
-      setCurrentGraph((prev) => {
-        //console.log(state.userGraphs);
-        return userstate.userGraphs.barGraphs[0];
-      });
-      console.log(currentGraph);
-    }
-  }, [userstate]);
-
-  useEffect(() => {
     try {
       if (graphstate.currentGraph) {
         setCurrentGraph(graphstate.currentGraph);
@@ -39,23 +29,28 @@ export default function Canvas() {
     }
   }, [graphstate]);
 
+  useEffect(() => {
+    if (userstate.userGraphs && userstate.userGraphs.barGraphs.length > 0) {
+      setCurrentGraph((prev) => {
+        //console.log(state.userGraphs);
+        return userstate.userGraphs.barGraphs[0];
+      });
+      console.log(currentGraph);
+    }
+  }, [userstate]);
+
+  
+
   // @section --- EVENT HANDLERS
 
 
   // @section --- COMPONENT
 
-  if (currentGraph.Type == "bargraph") {
-    return (
-      <div className='background' ref={ref}>
-        <BarChart graph={currentGraph} />
-      </div>
-    );
-  } 
   return (
     <div className='background' ref={ref}>
-      <h1>Loading...</h1>
+      <BarChart graph={currentGraph} />
     </div>
-  )
+  );
 };
 
 /*

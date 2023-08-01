@@ -73,10 +73,10 @@ export default function SideBar() {
     const navigateToGraph = (selectedGraph : any) => {
         setCurrentGraphComp(null);
         setUserGraph(selectedGraph);
-        setSideBar(sideBars.EDITING_GRAPH_SIDE_BAR);
-        updateUserGraph(initialBarGraph);
         if (userGraph.graphType == "Bar Graph") {
+            setSideBar(sideBars.EDITING_GRAPH_SIDE_BAR);
             initialBarGraph.accountID = state.currentUser.id;
+            updateUserGraph(initialBarGraph);
             saveNewGraph("bargraph", initialBarGraph);
         }
     }

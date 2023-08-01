@@ -2,6 +2,7 @@ import { Component, ReactNode } from 'react';
 import * as d3 from 'd3';
 import { BarGraph } from '../Types/graphs-structure';
 import { updateGraphComponent } from '../State/action-creators/profile-action-creators';
+import React from 'react';
 
 /**
  * @ brief - this file draws a bargraph based on recieved graph data
@@ -25,11 +26,17 @@ export default class BarChart extends Component<Props> {
     state = {
         pairs: [],
         xlabel: null,
-        ylabel: null
+        ylabel: null,
+        type: null,
     }
 
     static getDerivedStateFromProps(props: Props, state: any) {
-        return {pairs: props.graph.Pairs, xlabel: props.graph.XLabel, ylabel: props.graph.YLabel}
+        return {
+            pairs: props.graph.Pairs, 
+            xlabel: props.graph.XLabel, 
+            ylabel: props.graph.YLabel,
+            type: props.graph.Type
+        }
     }
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<{}>, snapshot?: any): void  => {
@@ -40,6 +47,7 @@ export default class BarChart extends Component<Props> {
             .selectAll('g')
             .remove()
         this.drawChart(this.state.pairs);
+        console.log(this.state.pairs);
     }
 
     drawChart(GraphData: Pairs[]) {
@@ -92,6 +100,9 @@ export default class BarChart extends Component<Props> {
         if (this.state.pairs.length === 0 && this.state.xlabel === null || this.state.ylabel === null) {
             return <h1>Loading...</h1>
         }
-        return <svg className="bar-chart"></svg>
+        else if (this.state.type === "bargraph") {
+            return <svg className="bar-chart" ></svg>
+        }
+        else return <></>
     }
 }
