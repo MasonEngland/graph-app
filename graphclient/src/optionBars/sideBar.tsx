@@ -24,18 +24,25 @@ export enum sideBars {
 
 // main component implemented in ../App.tsx
 export default function SideBar() {
-    const[currentDisplay, setSideBar] = useState(sideBars.LOGIN_IN_SIDE_BAR)
+
+    // @section --- STATE
+
+    const[currentDisplay, setSideBar] = useState(sideBars.LOGIN_IN_SIDE_BAR);
     const[userGraph, setUserGraph   ] = useState({graphType: ""});
-    const[graphInputs, setGraphInputs  ] = useState([])
+    const[graphInputs, setGraphInputs  ] = useState([]);
+    const [nameInput, setNameInput] = useState("");
 
     // state configuration
     // current graphs is a state var that stores the selected graph
-    const state : any = useSelector((state : State) => state.auth)
+    const state : any = useSelector((state : State) => state.auth);
     const [currentGraph, setCurrentGraph] = useState();
     const [currentGraphComp, setCurrentGraphComp] = useState<any | null>(null);
 
-    const graphstate : any = useSelector((state: State) => state.updateGraph)
+    const graphstate : any = useSelector((state: State) => state.updateGraph);
     
+
+    // @section --- EFFECT
+
     // If a graph is selected, update state
     useEffect(() => {
         setCurrentGraph(graphstate.currentGraph);
@@ -63,6 +70,8 @@ export default function SideBar() {
         setUserGraph({ ...userGraph, graphType : selectedOption })
     }
 
+    // @section --- FUNCTIONS
+
     // @ breif This adds a new graph to the users profile which they can edit
     const addGraph = (e: any) => {
         const newGraph = {...userGraph, title: "GRAPH TITLE"}
@@ -73,9 +82,10 @@ export default function SideBar() {
     const navigateToGraph = (selectedGraph : any) => {
         setCurrentGraphComp(null);
         setUserGraph(selectedGraph);
-        if (userGraph.graphType == "Bar Graph") {
+        if (userGraph.graphType === "Bar Graph") {
             setSideBar(sideBars.EDITING_GRAPH_SIDE_BAR);
             initialBarGraph.accountID = state.currentUser.id;
+            initialBarGraph.Name = nameInput;
             updateUserGraph(initialBarGraph);
             saveNewGraph("bargraph", initialBarGraph);
         }
@@ -123,8 +133,12 @@ export default function SideBar() {
                  selectedOptionDMenu = {selectedOptionDMenu} 
                  addGraph = {addGraph}
                  changeDisplay = {changeDisplay}
-                 currentDisplay ={currentDisplay}/>
+                 currentDisplay ={currentDisplay}
+                 setNameInput={setNameInput}/>
     }
+
+
+    // @section --- COMPONENT
 
     // Render the side bar
     return (

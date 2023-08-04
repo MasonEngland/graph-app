@@ -6,14 +6,15 @@ interface UserHomePageParams {
     changeDisplay : (newDisplay : sideBars) => void,
     currentDisplay: sideBars,
     selectedOptionDMenu : (selectedOption : string) => void,
-    addGraph : (e : any) => void
+    addGraph : (e : any) => void,
+    setNameInput : React.Dispatch<React.SetStateAction<string>>;
 }
 
 // If a new graph is created it should navigate to the 
 // editing page
 //* this is the main page for each user
 export default function UserHomeSideBar ({selectedOptionDMenu, changeDisplay, currentDisplay, 
-    addGraph} : UserHomePageParams) {
+    addGraph, setNameInput} : UserHomePageParams) {
     
     //! ignore, just some dummy data
     const userGraphs = [{
@@ -29,7 +30,9 @@ export default function UserHomeSideBar ({selectedOptionDMenu, changeDisplay, cu
         {sideBarNavigation(changeDisplay, currentDisplay)}
         <ul>
         <p>New Graph : </p>
-        <input placeholder="Graph Name"/>
+        <input placeholder="Graph Name" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setNameInput(e.target.value);
+            }}/>
         <>
         <DropDownMenu
             open={true} 
