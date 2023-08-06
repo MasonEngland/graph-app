@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { dummyData2 } from './dummydata';
 import * as d3 from 'd3';
 import { updateGraphComponent } from '../State/action-creators/profile-action-creators';

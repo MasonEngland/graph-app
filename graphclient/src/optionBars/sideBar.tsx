@@ -51,12 +51,8 @@ export default function SideBar() {
 
     // If the graphs component is selected, update state
     useEffect(() => {
-        if(graphstate.currentGraphComponent ){ 
+        if(graphstate.currentGraphComponent )
             setSideBar(sideBars.EDITING_GRAPH_SIDE_BAR)
-            console.log(graphstate.currentGraphComponent.graphType)
-            selectedComponent(graphstate.currentGraphComponent.graphType);
-        }
-        setCurrentGraphComp(graphstate.currentGraphComponent)
     }, [graphstate.currentGraphComponent])
 
 
@@ -90,15 +86,6 @@ export default function SideBar() {
             saveNewGraph("bargraph", initialBarGraph);
         }
     }
-
-    // TODO
-    // THIS MIGHT BE BETTER IN EDITING SIDE BAR SINCE DROPDOWN MENU IS IMPLEMENTED 
-    // IN THE EDITING SIDE BAR AND DOES NOT NEED TO BE GLOBAL
-    const selectedComponent = (selectedOption : string) => {
-        const inputsToGraph = (diagramInputModel as any)[selectedOption]
-        console.log(inputsToGraph, selectedOption) 
-        setGraphInputs(inputsToGraph !== undefined ? inputsToGraph : [])
-    }
     
     // simple function to set which Side Bar the user has navigated too
     const changeDisplay = (newDisplay : sideBars) => { 
@@ -118,16 +105,11 @@ export default function SideBar() {
                         currentDisplay= {currentDisplay}
                         changeDisplay ={changeDisplay} />
             case sideBars.EDITING_GRAPH_SIDE_BAR:
-                { /* TRY TO REDUCE PROPS HERE !!!!! - selectOptionDMenu, graphInputs, graph, currentGraphComp etc */ }
                 return <EditGraphSideBar 
                         selectedOptionDMenu = {selectedOptionDMenu} 
                         currentDisplay = {currentDisplay} 
                         userGraph = {userGraph}
-                        selectedComponent = {selectedComponent} 
-                        changeDisplay = {changeDisplay}
-                        graph = {"GRAPH TITLE"}
-                        graphInputs = {graphInputs}
-                        currentGraphComp = {currentGraphComp}/>
+                        changeDisplay = {changeDisplay}/>
         }
         return <UserHomeSideBar
                  selectedOptionDMenu = {selectedOptionDMenu} 
