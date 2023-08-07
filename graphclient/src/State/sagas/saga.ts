@@ -1,14 +1,16 @@
 import { Auth, User, Graph } from '../action-types/saga-actions';
-import { call, put, takeEvery } from 'redux-saga/effects'
-import { ActionType } from '../action-types/user-action-types'
+import { call, put, takeEvery } from 'redux-saga/effects';
+import { ActionType } from '../action-types/user-action-types';
 
-import * as Params from '../../Types/saga-parameter-types'
+import Cookies from 'js-cookie';
 
-import axios, { AxiosError } from 'axios'
+import * as Params from '../../Types/saga-parameter-types';
 
-let currentUser = ""
-let token       = ""
-const APIUrl = "http://localhost:10000/"
+import axios, { AxiosError } from 'axios';
+
+let currentUser = "";
+let token = "";
+const APIUrl = "http://localhost:10000/";
 
 // auth saga forks will get merged into the root saga
 function* authSaga() {
@@ -18,6 +20,7 @@ function* authSaga() {
     yield takeEvery(User.RETRIEVE_USER_INFO, retrieveGraphsSaga)
     yield takeEvery(Graph.SAVE_GRAPH, saveGraphSaga)
     yield takeEvery(Graph.SAVE_EDITS, SaveEditsSaga)
+    yield takeEvery(Auth.QUICKAUTH_REQUEST, quickLoginSaga);
 }
 
 export function* retrieveGraphsSaga({payload, type} : any) {
@@ -57,11 +60,33 @@ export function* loginSaga({payload, type} : Params.SagaLoginParams) {
         currentUser = res.data.id;
         token       = res.data.token;
         console.log(res.data);
+
+        Cookies.set("token", token, {expires: 7});
     }
     catch(e) {
         alert("Login Failed");
     }
 } 
+
+export function* quickLoginSaga() {
+    try {
+        token = Cookies.get("token") as string;
+
+        if (token && token != "") {
+            const config = {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+            const res: {data: any} = yield axios.get(`${APIUrl}accounts/quickauth`, config);
+            yield put({type: ActionType.UPDATE_USER, payload: res.data});
+            if (res.data.success == false) {
+                console.log(res.data.msg);
+            }
+            console.log(res.data);
+        }
+    } catch(err) {
+        console.log(err);
+    }
+}
 
 export function* registerAccountSaga({payload, type} : Params.SagaRegisterParams) {
     try {

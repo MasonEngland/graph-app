@@ -11,6 +11,9 @@ function authenticateToken(req, res, next) {
         if (err)
             return res.status(403).json({ success: false, errmsg: "problem with token" });
         req.body.tokenID = data.id;
+        req.body.tokenUsername = data.username;
+        req.body.tokenPassword = data.password;
+        req.body.tokenEmail = data.email;
         next();
     });
 }

@@ -49,7 +49,10 @@ const verify = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const isMatch = yield bcrypt.compare(password, docs[0].password);
         if (isMatch && docs[0].username === username) {
             const userData = {
-                id: docs[0]._id
+                id: docs[0]._id,
+                username,
+                password,
+                email
             };
             // create an access token
             const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET);
@@ -106,5 +109,25 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         msg: "account saved!"
     });
 });
-export { verify, create };
+const quickAuth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { tokenID, tokenUsername, tokenPassword, tokenEmail } = req.body;
+        const docs = accountModel.findById(tokenID);
+        if (docs) {
+            return res.status(200).json({
+                success: true,
+                username: tokenUsername,
+                email: tokenEmail,
+                id: tokenID
+            });
+        }
+    }
+    catch (err) {
+        res.status(500).json({
+            success: false,
+            msg: err
+        });
+    }
+});
+export { verify, create, quickAuth };
 //# sourceMappingURL=accountsController.js.map

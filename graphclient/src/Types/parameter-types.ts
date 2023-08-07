@@ -9,3 +9,7 @@ export interface RegisterParams {
     email: string | null,
     password: string | null,
 }
+
+export interface quickAuthParams {
+    token?: string 
+}

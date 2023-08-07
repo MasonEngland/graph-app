@@ -40,7 +40,10 @@ const verify = async(req: Request, res:Response) => {
 
         if (isMatch && docs[0].username === username) {
             const userData = {
-                id: docs[0]._id
+                id: docs[0]._id,
+                username,
+                password,
+                email
             }
             // create an access token
             const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET)
@@ -97,4 +100,26 @@ const create = async (req: Request, res:Response) => {
     });
 }
 
-export { verify, create }
+const quickAuth = async (req: Request, res: Response) => {
+    try {
+        const {tokenID, tokenUsername, tokenPassword, tokenEmail} = req.body;
+        const docs = accountModel.findById(tokenID);
+
+        if (docs) {
+            return res.status(200).json({
+                success: true,
+                username: tokenUsername,
+                email: tokenEmail,
+                id: tokenID
+            })
+        }
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            msg: err
+        })
+    }
+
+}
+
+export { verify, create, quickAuth}

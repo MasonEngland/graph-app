@@ -20,6 +20,10 @@ interface LoginUser {
     payload: LoginParams
 }
 
+interface QuickLogin {
+    type: Auth.QUICKAUTH_REQUEST,
+}
+
 interface LogoutUser {
     type: Auth.LOGOUT_REQUEST,  
 }
@@ -42,6 +46,7 @@ interface SaveEdits {
 
 export type SagaProfileAction = (
     LoginUser     |
+    QuickLogin    |
     LogoutUser    |
     RegisterUser  |
     UpdateCurrentGraph |

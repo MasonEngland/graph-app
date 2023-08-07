@@ -22,6 +22,10 @@ export const loginUser = (payload: LoginParams) => {
     store.dispatch({type: Auth.LOGIN_REQUEST, payload})
 }
 
+export const loginWithToken = () => {
+    store.dispatch({type: Auth.QUICKAUTH_REQUEST});
+}
+
 export const regUser = (payload: RegisterParams) => {
     store.dispatch({type: Auth.REGISTER_REQUEST, payload})
 }

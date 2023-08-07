@@ -6,14 +6,16 @@
 import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
+import env from 'dotenv';
 //const bcrypt = require('bcryptjs');
 import bodyParser from 'body-parser';
+env.config();
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 //connect to the database
-const dbURI = "mongodb+srv://masonengland01:China1014China-@graph-app.gsryziu.mongodb.net/Graph-app?retryWrites=true&w=majority";
+const dbURI = `mongodb+srv://masonengland01:${process.env.DATABASE_PASSWORD}@graph-app.gsryziu.mongodb.net/Graph-app?retryWrites=true&w=majority`;
 mongoose.connect(dbURI)
     .then((result) => {
     console.log("database loaded");

@@ -8,7 +8,6 @@ type SagaRegisterParams =
     { payload: RegisterParams, type: Auth.REGISTER_REQUEST }
 
 
-
 export type {
     SagaLoginParams,
     SagaRegisterParams, 
