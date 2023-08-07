@@ -35,9 +35,12 @@ export const saveNewGraph = (graphtype:"bargraph" | "linegraph" | "venndiagram",
     store.dispatch({type: Graph.SAVE_GRAPH, payload, graphtype});
 }
 
-
 export const updateGraphComponent = (payload: any) => {
     store.dispatch({type: ActionType.UPDATE_GRAPH_COMPONENT, payload})
+}
+
+export const setEditingComponent = (payload: any) => {
+    store.dispatch({type: ActionType.UPDATE_EDITING_COMPONENT, payload})
 }
 
 // this saves any change made to an existing graph in the database
@@ -49,6 +52,7 @@ export const SaveEdits = (payload: any, graphID: string) => {
 export const updateUserGraph = (payload: any) => {
     store.dispatch({type: ActionType.UPDATE_USER_GRAPH, payload})
 }
+
 //! Useless?
 // these will be commented out to save the garbage collector
 

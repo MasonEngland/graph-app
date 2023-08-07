@@ -5,6 +5,7 @@ import { sideBars } from "./sideBar";
 import { sideBarNavigation } from "./sideBarNavigations";
 import { useSelector } from "react-redux";
 import { State } from "../State/reducers/rooter-reducer";
+import { setEditingComponent } from "../State/action-creators/profile-action-creators";
 
 
 interface EditGraphComponentParams {
@@ -31,8 +32,9 @@ export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, 
     if(!componentsOfGraph) componentsOfGraph = []
 
     const currentGraphComp = graphstate.currentGraphComponent
-
     const [graphValues, setGraphValues] = useState(currentGraphComp)
+
+    useEffect( ()=> setGraphValues(currentGraphComp), [currentGraphComp] )
 
     const selectedComponent = (selectedOption : string) => {
         const inputsToGraph = (diagramInputModel as any)[selectedOption]
@@ -42,9 +44,10 @@ export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, 
     function updateLoginInfo(e: ChangeEvent<HTMLInputElement>) : any{
         const key = e.target.name as string;
         const value = e.target.value as string;
-        setGraphValues ({...graphValues, [key]: value})
+        const updatedGraph = {...graphValues, [key]: value} 
+        setGraphValues (updatedGraph)
+        setEditingComponent(updatedGraph)
     }
-
 
     return (<div className="graphs">
         <h2>Graphs : </h2>

@@ -18,6 +18,11 @@ interface UpdatedUserInfo {
     payload: any
 }
 
+interface UpdateGraph {
+    type: ActionType.UPDATE_EDITING_COMPONENT,
+    payload: any
+}
+
 export {SagaProfileAction} from './profile-actions'
 
-export type Action = ( UpdateUser | UpdatedUserInfo ) 
+export type Action = ( UpdateUser | UpdatedUserInfo | UpdateGraph ) 
