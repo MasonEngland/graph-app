@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
 import DropDownMenu from "./dropDownMenu";
 import { sideBars } from "./sideBar";
 import { sideBarNavigation } from "./sideBarNavigations";
+import { State } from "../State/reducers/rooter-reducer";
+import { useEffect, useState } from "react";
+import { updateUserGraph } from "../State/action-creators/profile-action-creators";
 
 interface UserHomePageParams {
     changeDisplay : (newDisplay : sideBars) => void,
@@ -15,15 +19,30 @@ interface UserHomePageParams {
 //* this is the main page for each user
 export default function UserHomeSideBar ({selectedOptionDMenu, changeDisplay, currentDisplay, 
     addGraph, setNameInput} : UserHomePageParams) {
+    const graphstate : any = useSelector((state: State) => state.userInfo);
     
-    //! ignore, just some dummy data
-    const userGraphs = [{
-        title: "name1WAF"
-    }, {
-        title: "nHraghame1"
-    }, {
-        title: "Grahame1"
-    }]
+    const setupUserGraphs = ()=> {
+        let graphs: any[] = []
+        
+        Object.keys(graphstate.userGraphs).forEach( (graphType : string) => {
+            const currentGraphs = graphstate.userGraphs[graphType]
+            if(typeof(currentGraphs) == typeof([]) ) {
+                currentGraphs.forEach( (graph : {}) =>
+                    graphs.push({...graph, "graphType" : graphType})
+                )
+            }
+        })
+        return graphs
+    }
+
+    const[userGraphs, setUserGraphs] = useState<any []>([])
+
+    useEffect( ()=> {
+        if(graphstate.userGraphs) {
+            setUserGraphs(setupUserGraphs())
+        }
+    },[graphstate.userGraphs])
+
 
     return (<div className="graphs">
         <h2>Graphs : </h2>
@@ -61,9 +80,10 @@ export default function UserHomeSideBar ({selectedOptionDMenu, changeDisplay, cu
             ]} 
             selectOption = {selectedOptionDMenu}
             onEmptyMsg = {"Filter by Graph"}/>
-        {userGraphs.map(( graph : any, i : number ) => (
-            <div className="graph">
-            <p>{graph.title}</p>
+         { /** Display User Graphs*/ }
+        {userGraphs.map((graph: {}) => (
+            <div className="graph" onClick = { () => updateUserGraph(graph) }>
+                <p>{(graph as any)["graphType"]}</p>
             </div>
         ))}
         </div>
