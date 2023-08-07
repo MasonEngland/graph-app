@@ -81,6 +81,7 @@ export function* quickLoginSaga() {
             if (res.data.success == false) {
                 console.log(res.data.msg);
             }
+            currentUser = res.data.id;
             console.log(res.data);
         }
     } catch(err) {
