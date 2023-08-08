@@ -100,9 +100,11 @@ const create = async (req: Request, res:Response) => {
     });
 }
 
+// authentication using only a token
+// this is allow the user to not have to login
 const quickAuth = async (req: Request, res: Response) => {
     try {
-        const {tokenID, tokenUsername, tokenPassword, tokenEmail} = req.body;
+        const {tokenID, tokenUsername, tokenEmail} = req.body;
         const docs = accountModel.findById(tokenID);
 
         if (docs) {

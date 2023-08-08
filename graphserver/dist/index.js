@@ -10,6 +10,7 @@ import env from 'dotenv';
 //const bcrypt = require('bcryptjs');
 import bodyParser from 'body-parser';
 env.config();
+// configure express server
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
@@ -22,7 +23,7 @@ mongoose.connect(dbURI)
     app.listen(10000, () => console.log("listening at 10000"));
 })
     .catch((err) => console.log(err));
-//connect our routers
+//connect routers
 import { router as accountRouter } from './routes/accounts.js';
 import { router as graphsRouter } from "./routes/graphs.js";
 app.use("/accounts", accountRouter);

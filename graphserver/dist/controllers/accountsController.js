@@ -109,9 +109,11 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         msg: "account saved!"
     });
 });
+// authentication using only a token
+// this is allow the user to not have to login
 const quickAuth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { tokenID, tokenUsername, tokenPassword, tokenEmail } = req.body;
+        const { tokenID, tokenUsername, tokenEmail } = req.body;
         const docs = accountModel.findById(tokenID);
         if (docs) {
             return res.status(200).json({
