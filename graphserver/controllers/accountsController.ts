@@ -105,7 +105,7 @@ const create = async (req: Request, res:Response) => {
 const quickAuth = async (req: Request, res: Response) => {
     try {
         const {tokenID, tokenUsername, tokenEmail} = req.body;
-        const docs = accountModel.findById(tokenID);
+        const docs =  await accountModel.findById(tokenID);
 
         if (docs) {
             return res.status(200).json({
