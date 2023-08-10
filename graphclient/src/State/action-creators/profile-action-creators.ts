@@ -35,7 +35,7 @@ export const getUserGraphs = () => {
 }
 
 
-export const saveNewGraph = (graphtype:"bargraph" | "linegraph" | "venndiagram", payload: any) => {
+export const saveNewGraph = (graphtype:string, payload: any) => {
     store.dispatch({type: Graph.SAVE_GRAPH, payload, graphtype});
 }
 
