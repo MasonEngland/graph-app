@@ -23,9 +23,12 @@ export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, 
     const graphstate : any = useSelector((state: State) => state.updateGraph);
     
     useEffect( ()=> {
-        const graphType = graphstate.currentGraphComponent.graphType
-        const inputsToGraph = (diagramInputModel as any)[graphType]
-        setGraphInputs(inputsToGraph !== undefined ? inputsToGraph : [])
+        if(graphstate.currentGraphComponent.graphType) {
+            const graphType = graphstate.currentGraphComponent.graphType
+            console.log(graphstate.currentGraphComponent.graphType)
+            const inputsToGraph = (diagramInputModel as any)[graphType]
+            setGraphInputs(inputsToGraph !== undefined ? inputsToGraph : [])
+        }
     }, [])
     
     let componentsOfGraph = (diagramComponentModel as any)[(userGraph as any)["graphType"]]
