@@ -114,7 +114,7 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 const quickAuth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { tokenID, tokenUsername, tokenEmail } = req.body;
-        const docs = accountModel.findById(tokenID);
+        const docs = yield accountModel.findById(tokenID);
         if (docs) {
             return res.status(200).json({
                 success: true,

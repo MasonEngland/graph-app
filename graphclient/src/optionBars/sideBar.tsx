@@ -78,12 +78,8 @@ export default function SideBar() {
     const navigateToGraph = (selectedGraph : any) => {
         setCurrentGraphComp(null);
         setUserGraph(selectedGraph);
-        if (userGraph.graphType === "Bar Graph") {
-            setSideBar(sideBars.EDITING_GRAPH_SIDE_BAR);
-            initialBarGraph.accountID = state.currentUser.id;
-            initialBarGraph.Name = nameInput;
-            updateUserGraph(initialBarGraph);
-            saveNewGraph("bargraph", initialBarGraph);
+        if (userGraph.graphType = "Bar Graph") {
+            saveNew("bargraph");
         }
     }
     
@@ -91,6 +87,14 @@ export default function SideBar() {
     const changeDisplay = (newDisplay : sideBars) => { 
         setCurrentGraphComp(null)
         setSideBar(newDisplay)
+    }
+
+    const saveNew = (type: string) => {
+        setSideBar(sideBars.EDITING_GRAPH_SIDE_BAR);
+        initialBarGraph.accountID = state.currentUser.id;
+        initialBarGraph.Name = nameInput;
+        updateUserGraph(initialBarGraph);
+        saveNewGraph(type, initialBarGraph);
     }
 
     // @ Brief : Update the side bar according to the option that the user has requested to navigate to. 
@@ -129,4 +133,3 @@ export default function SideBar() {
         </div>
     );
 };
-    
