@@ -6,6 +6,7 @@ import { ActionType } from "../action-types/user-action-types";
 type graphstate = {
     currentGraph: any | null,
     currentGraphComponent: any | null,
+    editingComponentType: string | null,
     editingComponent: any | null,
     graphType: string| null
 }
@@ -13,6 +14,7 @@ type graphstate = {
 const initialState: graphstate = {
     currentGraph: null,
     currentGraphComponent: null,
+    editingComponentType: null,
     editingComponent: null,
     graphType: null
 }

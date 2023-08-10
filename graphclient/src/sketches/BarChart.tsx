@@ -80,6 +80,24 @@ export default class BarChart extends Component<Props> {
             .call(d3.axisLeft(y))
 
 
+        /*
+        const getGraphData = (data : any) : Pairs => {
+            let graphdata: any[] = []
+            const editingComponent = "EDITING COMPONENT FROM THE REDUX STORE"
+            if(!editingComponent) return data
+            data.forEach( (graph : any) =>{
+                // graph.id === editingComponent.id
+                if(graph.id === editingComponent) {
+                    graphdata.push(editingComponent)
+                }
+                else
+                    graphdata.push(graph)
+            })
+
+            return [{}]
+        }
+        */
+       
         svg
             .selectAll('rect')
             .data(GraphData)

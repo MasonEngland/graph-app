@@ -48,11 +48,7 @@ export default function Canvas() {
 
   return (
     <div className='background' ref={ref}>
-      <VenDiagram
-        // If the height and width exist, pass this info to D3
-        height={ ref.current ? ref.current.clientHeight : 10 } 
-        width ={ ref.current ? ref.current.clientWidth  : 10 } 
-        />   
+      <BarChart graph={currentGraph} />
     </div>
   );
 };

@@ -13,6 +13,9 @@ const vendiaSchema = new Schema({
     Type: String,
     LeftLabel: String,
     RigthLabel: String,
+    // Add a components array, which has an X, Y, Id, Text-Content, and Radius
+
+    // Can remove notes
     Notes: {
         Left: [String],
         Right: [String],
