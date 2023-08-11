@@ -14,13 +14,12 @@ const vendiaSchema = new Schema({
     LeftLabel: String,
     RigthLabel: String,
     // Add a components array, which has an X, Y, Id, Text-Content, and Radius
-
-    // Can remove notes
-    Notes: {
-        Left: [String],
-        Right: [String],
-        Middle: [String],
-    }
+    Pairs: [{
+        x: Number,
+        y: Number,
+        textContent: String,
+        radius: Number
+    }]
 })
 
 const lineGraphSchema = new Schema({

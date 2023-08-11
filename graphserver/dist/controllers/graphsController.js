@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { makeDoc } from "../models/docCreator.js";
+import makeDoc from "../models/docCreator.js";
 import { vendiaModel, gChartModel, lineGraphModel, barGraphModel, accountModel } from '../models/Schemas.js';
 import mongoose from 'mongoose';
 // checks if account exists in database

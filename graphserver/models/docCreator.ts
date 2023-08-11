@@ -16,11 +16,7 @@ function makeDoc(graphType: string, data: any) {
                 Type: "venndiagram",
                 LeftLabel: data.LeftLabel,
                 RigthLebel: data.RightLabel,
-                Notes: {
-                    Left: data.Notes.Left,
-                    Right: data.Notes.Right,
-                    Middle: data.Notes.Middle
-                }
+                Pairs: data.Pairs
             });
             newDoc.save();
             break;
@@ -49,4 +45,4 @@ function makeDoc(graphType: string, data: any) {
     }
 }
 
-export {makeDoc};
+export default makeDoc;

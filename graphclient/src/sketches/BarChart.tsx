@@ -1,8 +1,10 @@
-import { Component, ReactNode } from 'react';
+import { Component, ReactNode, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { BarGraph } from '../Types/graphs-structure';
 import { updateGraphComponent } from '../State/action-creators/profile-action-creators';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { State } from '../State/reducers/rooter-reducer';
 
 /**
  * @ brief - this file draws a bargraph based on recieved graph data
@@ -21,37 +23,44 @@ interface Props{
     graph: BarGraph,
 }
 
-export default class BarChart extends Component<Props> {
+export default function BarChart({graph}: Props) {
+    const [state, setState] = useState(graph.Pairs);
+    const graphState = useSelector((state: State) => state.updateGraph);
 
-    state = {
-        pairs: [],
-        xlabel: null,
-        ylabel: null,
-        type: null,
-    }
-
-    static getDerivedStateFromProps(props: Props, state: any) {
-        return {
-            pairs: props.graph.Pairs, 
-            xlabel: props.graph.XLabel, 
-            ylabel: props.graph.YLabel,
-            type: props.graph.Type
+    const getGraphData = (data : any) : Pairs[] => {
+        let graphdata: any[] = []
+        const editingComponent = graphState.editingComponent;
+        if(!editingComponent) return data
+        for (let graph of data) {
+            if(graph._id === editingComponent) {
+                graphdata.push(editingComponent)
+            }
+            else
+                graphdata.push(graph)
         }
+
+        return graphdata;
     }
 
-    componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<{}>, snapshot?: any): void  => {
+    useEffect(() => {
+        setState(getGraphData(state));
+    }, [graphState.editingComponent]);
+
+    useEffect(() => {
+        setState(graph.Pairs);
+    }, [graph])
+
+    useEffect(() => {
         d3.select(".bar-chart")
             .selectAll('rect')
             .remove()
         d3.select('.bar-chart')
             .selectAll('g')
             .remove()
-        this.drawChart(this.state.pairs);
-        console.log(this.state.pairs);
-    }
+        drawChart(state);
+    }, [state]);
 
-    drawChart(GraphData: Pairs[]) {
-
+    const drawChart = (GraphData: Pairs[]) => {
         const yValues: number[] = GraphData.map((d) => d.y);
 
         let svg = d3
@@ -79,24 +88,7 @@ export default class BarChart extends Component<Props> {
             .attr("transform", "translate(50, 0)")
             .call(d3.axisLeft(y))
 
-
-        /*
-        const getGraphData = (data : any) : Pairs => {
-            let graphdata: any[] = []
-            const editingComponent = "EDITING COMPONENT FROM THE REDUX STORE"
-            if(!editingComponent) return data
-            data.forEach( (graph : any) =>{
-                // graph.id === editingComponent.id
-                if(graph.id === editingComponent) {
-                    graphdata.push(editingComponent)
-                }
-                else
-                    graphdata.push(graph)
-            })
-
-            return [{}]
-        }
-        */
+        
        
         svg
             .selectAll('rect')
@@ -108,19 +100,17 @@ export default class BarChart extends Component<Props> {
             .attr("height", (d) => 350 - y(d.y)) 
             .attr("x", (d) => x(d.x) as number)
             .attr("y", (d) => y(d.y))            
-            .on('click', (d, i) => { //we can use arrow functions since we don't use the 'this' keyword
-                console.log(i)
-                updateGraphComponent(i)
+            .on('click', (d, i) => {
+                console.log(i);
+                updateGraphComponent(i);
             })
     }
 
-    render(): ReactNode {
-        if (this.state.pairs.length === 0 && this.state.xlabel === null || this.state.ylabel === null) {
-            return <h1>Loading...</h1>
-        }
-        else if (this.state.type === "bargraph") {
-            return <svg className="bar-chart" ></svg>
-        }
-        else return <></>
+    if (graph.Pairs.length === 0 && graph.XLabel === null || graph.YLabel === null) {
+        return <h1>Loading...</h1>
     }
+    else if (graph.Type === "bargraph") {
+        return <svg className="bar-chart" ></svg>
+    }
+    else return <></>
 }

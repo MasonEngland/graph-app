@@ -31,7 +31,7 @@ export function* retrieveGraphsSaga({payload, type} : any) {
     try {
         const res: { data : any } = yield axios.get(`${APIUrl}graphs/${currentUser}`, config)
         yield put({type: ActionType.UPDATE_USER_GRAPHS, payload: res.data})
-        console.log(res.data);
+        //console.log(res.data);
     }
     catch(e){}
 }
@@ -44,7 +44,7 @@ export function* saveGraphSaga({payload, type, graphtype} : any) {
     try {
         const res: {data : any} = yield axios.post(`${APIUrl}graphs/${graphtype}`, payload, config);
         yield put({ type: ActionType.SAVE_GRAPH, payload: res.data});
-        console.log(res.data);
+        //console.log(res.data);
     } catch (err) {
         console.log(err);
     }
@@ -59,7 +59,7 @@ export function* loginSaga({payload, type} : Params.SagaLoginParams) {
         }
         currentUser = res.data.id;
         token       = res.data.token;
-        console.log(res.data);
+        //console.log(res.data);
 
         Cookies.set("token", token, {expires: 7});
     }
@@ -82,7 +82,7 @@ export function* quickLoginSaga() {
                 console.log(res.data.msg);
             }
             currentUser = res.data.id;
-            console.log(res.data);
+            //console.log(res.data);
         }
     } catch(err) {
         console.log(err);
@@ -92,7 +92,7 @@ export function* quickLoginSaga() {
 export function* registerAccountSaga({payload, type} : Params.SagaRegisterParams) {
     try {
         const res: { data : any } = yield axios.post(`${APIUrl}accounts/create`, payload)
-        console.log(res.data);
+        //console.log(res.data);
     }
     catch(e) {
         //todo: here we would put register failed   yield put(  )
@@ -118,7 +118,7 @@ export function* SaveEditsSaga({payload, type, graphID} : any) {
     try {
         const res: {data: any} = yield axios.patch(`${APIUrl}graphs/${graphID}`, payload, config);
         yield put({type: ActionType.SAVE_EDITS, payload: res.data});
-        console.log(res.data);
+        //console.log(res.data);
     } catch (e) {
         console.log(e);
     }
