@@ -19,7 +19,8 @@ const initialState: graphstate = {
     graphType: null
 }
 
-// This is not done need to finish later
+// This is not done need to finish later, meant to save changes to the editing components if
+// another graph componenet was selected
 const saveChangesToComponent = (editingComponent : any, currentGraphComponent : any) => {
     if(editingComponent === currentGraphComponent) return currentGraphComponent
     return editingComponent
@@ -38,6 +39,8 @@ const updateGraphReducer = (state = initialState, action: AppAction ) => {
             return {...state, currentGraphComponent : action.payload}
         case ActionType.UPDATE_EDITING_COMPONENT:
             return {...state, editingComponent : action.payload}
+        case ActionType.ADD_NEW_GRAPH : 
+            return {...state, currentGraph : action.payload}
         default:
             return state
     }

@@ -72,7 +72,6 @@ export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, 
         setGraphValues (updatedGraph)
         setEditingComponent(updatedGraph)
     }
-
     
     return (<div className="graphs">
         <h2>Graphs : </h2>

@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { State } from '../State/reducers/rooter-reducer';
 import { useSelector } from 'react-redux';
 
-import { saveNewGraph, updateUserGraph } from '../State/action-creators/profile-action-creators';
+import { addGraphToStore, saveNewGraph, updateUserGraph } from '../State/action-creators/profile-action-creators';
 
 // ** Misc ** //
 import { initialBarGraph } from '../sketches/dummydata';
@@ -28,7 +28,6 @@ export default function SideBar() {
 
     const[currentDisplay, setSideBar] = useState(sideBars.LOGIN_IN_SIDE_BAR);
     const[userGraph, setUserGraph   ] = useState({graphType: ""});
-    const[graphInputs, setGraphInputs  ] = useState([]);
     const [nameInput, setNameInput] = useState("");
 
     // state configuration
@@ -69,8 +68,9 @@ export default function SideBar() {
 
     // @ breif This adds a new graph to the users profile which they can edit
     const addGraph = (e: any) => {
-        const newGraph = {...userGraph, title: "GRAPH TITLE"}
+        const newGraph = {...userGraph, title: nameInput}
         navigateToGraph(newGraph)
+        addGraphToStore(newGraph)
     }
 
     // @ brief This select a new graph for the user to edit
@@ -78,7 +78,7 @@ export default function SideBar() {
         setCurrentGraphComp(null);
         setUserGraph(selectedGraph);
         if (userGraph.graphType = "Bar Graph") {
-            saveNew("bargraph");
+            //saveNew("bargraph");
         }
     }
     

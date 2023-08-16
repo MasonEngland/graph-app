@@ -4,7 +4,7 @@ import { sideBars } from "./sideBar";
 import { sideBarNavigation } from "./sideBarNavigations";
 import { State } from "../State/reducers/rooter-reducer";
 import { useEffect, useState } from "react";
-import { updateUserGraph } from "../State/action-creators/profile-action-creators";
+import { updateUserGraph, addGraphToStore } from "../State/action-creators/profile-action-creators";
 
 interface UserHomePageParams {
     changeDisplay : (newDisplay : sideBars) => void,

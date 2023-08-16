@@ -35,6 +35,9 @@ export const getUserGraphs = () => {
 }
 
 
+// ## ----------- GRAPHS ------------- ##
+// ======================================
+
 export const saveNewGraph = (graphtype:string, payload: any) => {
     store.dispatch({type: Graph.SAVE_GRAPH, payload, graphtype});
 }
@@ -51,6 +54,10 @@ export const setEditingComponent = (payload: any) => {
 // has nothing to do with state
 export const SaveEdits = (payload: any, graphID: string) => {
     store.dispatch({type: Graph.SAVE_EDITS, payload, graphID})
+}
+
+export const addGraphToStore = (payload: any) => {
+    store.dispatch({type: ActionType.ADD_NEW_GRAPH, payload})
 }
 
 export const updateUserGraph = (payload: any) => {

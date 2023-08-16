@@ -30,9 +30,10 @@ export default function BarChart({graph}: Props) {
     const getGraphData = (data : any) : Pairs[] => {
         let graphdata: any[] = []
         const editingComponent = graphState.editingComponent;
-        if(!editingComponent) return data
+        if(!editingComponent?._id) return data
+
         for (let graph of data) {
-            if(graph._id === editingComponent) {
+            if(graph._id === editingComponent?._id) {
                 graphdata.push(editingComponent)
             }
             else
@@ -71,7 +72,7 @@ export default function BarChart({graph}: Props) {
         
         let x = d3.scaleBand()
             .range([50, 600])
-            .domain(GraphData.map((d) => d.x))
+            .domain(GraphData?.map((d) => d.x))
             .padding(0.2);
         svg 
             .append('g')
@@ -106,7 +107,7 @@ export default function BarChart({graph}: Props) {
             })
     }
 
-    if (graph.Pairs.length === 0 && graph.XLabel === null || graph.YLabel === null) {
+    if (graph.Pairs?.length === 0 && graph.XLabel === null || graph.YLabel === null) {
         return <h1>Loading...</h1>
     }
     else if (graph.Type === "bargraph") {
