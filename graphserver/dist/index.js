@@ -15,6 +15,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
+try {
+    app.use(express.static("../graphclient/build"));
+}
+catch (err) {
+    console.log("build folder not found");
+}
 //connect to the database
 const dbURI = `mongodb+srv://masonengland01:${process.env.DATABASE_PASSWORD}@graph-app.gsryziu.mongodb.net/Graph-app?retryWrites=true&w=majority`;
 mongoose.connect(dbURI)
