@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { State } from './State/reducers/rooter-reducer';
 import { useEffect, useState, useRef, ReactNode } from 'react';
 import VenDiagram from './sketches/VenDiagram2';
+import { updateUserGraph } from './State/action-creators/profile-action-creators';
 const { ReactP5Wrapper } = require('react-p5-wrapper');
 
 export default function Canvas() {
@@ -31,6 +32,7 @@ export default function Canvas() {
 
   useEffect(() => {
     if (userstate.userGraphs && userstate.userGraphs.barGraphs.length > 0) {
+      updateUserGraph(userstate.userGraphs.barGraphs[0]);
       setCurrentGraph((prev) => {
         //console.log(state.userGraphs);
         return userstate.userGraphs.barGraphs[0];

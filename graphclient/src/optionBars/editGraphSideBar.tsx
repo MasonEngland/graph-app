@@ -40,23 +40,28 @@ export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, 
     // Generate an array with the given components that belong to a graph type
     let componentsOfGraph = (diagramComponentModel as any)[(userGraph as any)["graphType"]]
     if(!componentsOfGraph) componentsOfGraph = []
-
+    console.log("Rerender");
     // Retrieve any possible selected components, and copy them to a state 
     // for the user to modify later if desired
     const currentGraphComp = graphstate.currentGraphComponent
+    console.log(currentGraphComp);
     const [graphValues, setGraphValues] = useState(currentGraphComp)
-
+    console.log(graphValues);
     // Generate the inputs the user can modify to a component, and any pre-existing
     // values that belong to any selected component
     useEffect( ()=>{ 
-        if(graphstate?.currentGraphComponent?.graphType) {
-            const graphType = graphstate.currentGraphComponent.graphType
+        console.log("editgraph mounted");
+        console.log(graphstate.currentGraph);
+        // TODO update to currentGraph.Type
+        const graphType = graphstate?.currentGraph?.Type
+        if(graphType) {
+            console.log("type exists");
             const inputsToGraph = (diagramInputModel as any)[graphType]
             setGraphInputs(inputsToGraph !== undefined ? inputsToGraph : [])
-            setGraphValues(currentGraphComp)
+            setGraphValues(currentGraphComp);
+            console.log(graphValues);
         }
-    }, [currentGraphComp])
-
+    }, [currentGraphComp]);
     // Generate and display new inputs needed for a component, to the UI
     const selectedComponent = (selectedOption : string) => {
         const inputsToGraph = (diagramInputModel as any)[selectedOption]
@@ -89,7 +94,7 @@ export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, 
             {/* If the user selected a graphs component, displays its information,
                 otherwise display inputs needed for creating a new component */}
             
-            {currentGraphComp ?
+            {currentGraphComp && graphValues?
             Object.keys(graphValues).map((inputFields: string, i : number) => (
                 <>
                     <input placeholder = {inputFields}
