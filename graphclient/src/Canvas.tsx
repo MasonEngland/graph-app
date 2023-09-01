@@ -23,7 +23,7 @@ export default function Canvas() {
     try {
       if (graphstate.currentGraph) {
         setCurrentGraph(graphstate.currentGraph);
-        console.log("All things work as planned");
+        //console.log("All things work as planned");
       }
     } catch (err) {
       console.log(err);
@@ -37,7 +37,7 @@ export default function Canvas() {
         //console.log(state.userGraphs);
         return userstate.userGraphs.barGraphs[0];
       });
-      console.log(currentGraph);
+      //console.log(currentGraph);
     }
   }, [userstate]);
 

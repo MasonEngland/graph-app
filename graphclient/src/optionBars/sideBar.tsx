@@ -44,7 +44,6 @@ export default function SideBar() {
     // If a graph is selected, update state
     useEffect(() => {
         setCurrentGraph(graphstate.currentGraph);
-        console.log(currentGraph);
     }, [graphstate.currentGraph])
 
     // If the graphs component is selected, update state
@@ -68,9 +67,11 @@ export default function SideBar() {
 
     // @ breif This adds a new graph to the users profile which they can edit
     const addGraph = (e: any) => {
-        const newGraph = {...userGraph, title: nameInput}
-        navigateToGraph(newGraph)
-        addGraphToStore(newGraph)
+        initialBarGraph.Name = nameInput;
+        initialBarGraph.accountID = state.currentUser.id;
+        const newGraph = {...userGraph, ...initialBarGraph};
+        navigateToGraph(newGraph);
+        addGraphToStore(newGraph);
     }
 
     // @ brief This select a new graph for the user to edit

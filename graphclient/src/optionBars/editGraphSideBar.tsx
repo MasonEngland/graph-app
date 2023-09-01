@@ -25,11 +25,11 @@ interface EditGraphComponentParams {
 //    2. Create new componenets to show on a diagram / chart
 /* 
 @params selectOptionDMenu : This method tracks information about the graph options the
-//                          user has selected
+/                          user has selected
 @params currentDisplay : Used for styling the side bar navigation 
 @params userGraph : The graph that a user wants to edit
 @params changeDisplay : A method which will allow the user to navigate away from this
-//                      Component
+/                      Component
 @references : sideBar.tsx
 */
 export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, userGraph, changeDisplay} : EditGraphComponentParams) {
@@ -40,26 +40,22 @@ export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, 
     // Generate an array with the given components that belong to a graph type
     let componentsOfGraph = (diagramComponentModel as any)[(userGraph as any)["graphType"]]
     if(!componentsOfGraph) componentsOfGraph = []
-    console.log("Rerender");
+    //console.log("Rerender");
     // Retrieve any possible selected components, and copy them to a state 
     // for the user to modify later if desired
     const currentGraphComp = graphstate.currentGraphComponent
-    console.log(currentGraphComp);
+    //console.log(currentGraphComp);
     const [graphValues, setGraphValues] = useState(currentGraphComp)
-    console.log(graphValues);
+    //console.log(graphValues);
     // Generate the inputs the user can modify to a component, and any pre-existing
     // values that belong to any selected component
     useEffect( ()=>{ 
-        console.log("editgraph mounted");
-        console.log(graphstate.currentGraph);
-        // TODO update to currentGraph.Type
         const graphType = graphstate?.currentGraph?.Type
         if(graphType) {
             console.log("type exists");
             const inputsToGraph = (diagramInputModel as any)[graphType]
             setGraphInputs(inputsToGraph !== undefined ? inputsToGraph : [])
             setGraphValues(currentGraphComp);
-            console.log(graphValues);
         }
     }, [currentGraphComp]);
     // Generate and display new inputs needed for a component, to the UI
