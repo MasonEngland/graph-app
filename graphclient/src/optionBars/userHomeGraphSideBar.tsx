@@ -81,8 +81,8 @@ export default function UserHomeSideBar ({selectedOptionDMenu, changeDisplay, cu
             selectOption = {selectedOptionDMenu}
             onEmptyMsg = {"Filter by Graph"}/>
          { /** Display User Graphs*/ }
-        {userGraphs.map((graph: {}) => (
-            <div className="graph" onClick = { () => updateUserGraph(graph) }>
+        {userGraphs.map((graph: {}, i :number) => (
+            <div className="graph" onClick = { () => updateUserGraph(graph) } key={i}>
                 <p>{(graph as any)["graphType"]}</p>
             </div>
         ))}

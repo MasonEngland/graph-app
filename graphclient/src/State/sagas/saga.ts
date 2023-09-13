@@ -118,7 +118,7 @@ export function* SaveEditsSaga({payload, type, graphID} : any) {
     try {
         const res: {data: any} = yield axios.patch(`${APIUrl}graphs/${graphID}`, payload, config);
         yield put({type: ActionType.SAVE_EDITS, payload: res.data});
-        //console.log(res.data);
+        console.log(res.data);
     } catch (e) {
         console.log(e);
     }

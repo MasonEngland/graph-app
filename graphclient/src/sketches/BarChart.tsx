@@ -1,7 +1,7 @@
 import { Component, ReactNode, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { BarGraph } from '../Types/graphs-structure';
-import { updateGraphComponent } from '../State/action-creators/profile-action-creators';
+import { updateGraphComponent, updateUserGraph } from '../State/action-creators/profile-action-creators';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from '../State/reducers/rooter-reducer';
@@ -39,7 +39,8 @@ export default function BarChart({graph}: Props) {
             else
                 graphdata.push(graph)
         }
-
+        //console.log(graphState.currentGraph);
+        updateUserGraph({...graph, Pairs: graphdata});
         return graphdata;
     }
 

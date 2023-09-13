@@ -1,7 +1,7 @@
 // ** State ** //
 import { diagramComponentModel, diagramInputModel } from "../Types/graphs-structure";
 import { State } from "../State/reducers/rooter-reducer";
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, ReactNode } from 'react';
 import { useSelector } from "react-redux";
 import { sideBars } from "./sideBar";
 
@@ -10,7 +10,7 @@ import DropDownMenu from "./dropDownMenu";
 import { sideBarNavigation } from "./sideBarNavigations";
 
 // ** User Actions ** //
-import { setEditingComponent } from "../State/action-creators/profile-action-creators";
+import { SaveEdits, setEditingComponent } from "../State/action-creators/profile-action-creators";
 
 
 interface EditGraphComponentParams {
@@ -52,7 +52,6 @@ export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, 
     useEffect( ()=>{ 
         const graphType = graphstate?.currentGraph?.Type
         if(graphType) {
-            console.log("type exists");
             const inputsToGraph = (diagramInputModel as any)[graphType]
             setGraphInputs(inputsToGraph !== undefined ? inputsToGraph : [])
             setGraphValues(currentGraphComp);
@@ -72,6 +71,11 @@ export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, 
         const updatedGraph = {...graphValues, [key]: value} 
         setGraphValues (updatedGraph)
         setEditingComponent(updatedGraph)
+    }
+
+    function saveChanges(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        SaveEdits(graphstate.currentGraph, graphstate.currentGraph._id);
+        alert("Changes Saved");
     }
     
     return (<div className="graphs">
@@ -98,7 +102,8 @@ export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, 
                      onChange={(e) => updateLoginInfo(e)}
                      value={graphValues[inputFields.toLowerCase()]
                      ? graphValues[inputFields.toLowerCase()] : "" 
-                     }></input>
+                     }
+                     key={i}></input>
                 </>
             )) :
             graphInputs.map((inputFields : string, i : number ) => (
@@ -112,7 +117,7 @@ export default function EditGraphSideBar ({selectedOptionDMenu, currentDisplay, 
             component has been selected or not */}
 
         {currentGraphComp ?
-            <button>Save Changes </button> :
+            <button onClick={saveChanges}>Save Changes </button> :
             <button>Add Component </button>
         }
         <div className="graphs">
